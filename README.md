@@ -16,7 +16,7 @@ $ php artisan db:seed
 ### testing
 
 ```
-#php artisan serve
+$ php artisan serve
 ```
 
 ### Default Login
