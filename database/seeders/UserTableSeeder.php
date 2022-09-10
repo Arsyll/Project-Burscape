@@ -17,41 +17,29 @@ class UserTableSeeder extends Seeder
     {
         $users = [
             [
-                'first_name' => 'System',
-                'last_name' => 'Admin',
-                'username' => 'systemadmin',
-                'email' => 'admin@example.com',
-                'password' => bcrypt('password'),
-                'phone_number' => '+12398190255',
+                'username' => 'admin',
+                'email' => 'admin@email.com',
+                'password' => bcrypt('admin'),
                 'email_verified_at' => now(),
-                'user_type' => 'admin',
-                'status' => 'active',
+                'role' => 'Admin',
             ],
             [
-                'first_name' => 'Demo',
-                'last_name' => 'Admin',
-                'username' => 'demoadmin',
-                'email' => 'demo@example.com',
-                'password' => bcrypt('password'),
-                'phone_number' => '+12398190255',
+                'username' => 'alumni',
+                'email' => 'alumni@email.com',
+                'password' => bcrypt('alumni'),
                 'email_verified_at' => now(),
-                'user_type' => 'demo_admin',
+                'role' => 'Alumni',
             ],
             [
-                'first_name' => 'John',
-                'last_name' => 'User',
-                'username' => 'user',
-                'email' => 'user@example.com',
-                'password' => bcrypt('password'),
-                'phone_number' => '+12398190255',
+                'username' => 'perusahaan',
+                'email' => 'perusahaan@email.com',
+                'password' => bcrypt('perusahaan'),
                 'email_verified_at' => now(),
-                'user_type' => 'user',
-                'status' => 'inactive'
+                'role' => 'Perusahaan',
             ]
         ];
-        foreach ($users as $key => $value) {
-            $user = User::create($value);
-            $user->assignRole($value['user_type']);
+        foreach ($users as $value) {
+            User::create($value);;
         }
     }
 }

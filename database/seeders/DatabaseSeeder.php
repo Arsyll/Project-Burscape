@@ -15,13 +15,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            PermissionTableSeeder::class,
-            RoleTableSeeder::class,
             UserTableSeeder::class,
+            AdminTableSeeder::class,
+            PerusahaanTableSeeder::class,
+            AlumniTableSeeder::class,
+            RoleTableSeeder::class,
         ]);
-        \App\Models\User::factory(40)->create()->each(function($user) {
+        
+        /*\App\Models\User::factory(40)->create()->each(function($user) {
             $user->assignRole('user');
         });
-        \App\Models\UserProfile::factory(43)->create();
+        \App\Models\UserProfile::factory(43)->create(); */
     }
 }

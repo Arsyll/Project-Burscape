@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role as ModelsRole;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
@@ -16,31 +18,29 @@ class RoleTableSeeder extends Seeder
     public function run()
     {
         $roles = [
+            
             [
-                'name' => 'admin',
-                'title' => 'Admin',
-                'status' => 1,
-                'permissions' => ['role','role-add', 'role-list', 'permission', 'permission-add', 'permission-list']
+                'id_user' => 1,
+                'id_admin' => 1,
+                'id_perusahaan' => null,
+                'id_alumni' => null
             ],
             [
-                'name' => 'demo_admin',
-                'title' => 'Demo Admin',
-                'status' => 1,
-                'permissions' => []
+                'id_user' => 2,
+                'id_admin' => null,
+                'id_perusahaan' => null,
+                'id_alumni' => 1
             ],
             [
-                'name' => 'user',
-                'title' => 'User',
-                'status' => 1,
-                'permissions' => []
+                'id_user' => 3,
+                'id_admin' => null,
+                'id_perusahaan' => 1,
+                'id_alumni' => null
             ]
         ];
 
-        foreach ($roles as $key => $value) {
-            $permission = $value['permissions'];
-            unset($value['permissions']);
-            $role = Role::create($value);
-            $role->givePermissionTo($permission);
+        foreach ($roles as $value) {
+            ModelsRole::create($value);
         }
     }
 }
