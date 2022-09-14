@@ -49,4 +49,20 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     public function user_role() {
         return $this->hasOne(Role::class, 'id_user', 'id');
     }
+
+    public function full_name(){
+        if ($this->role == "Admin"){
+            return $this->user_role->admin->nama_lengkap;
+        }else if ($this->role == "Perusahaan"){
+            return $this->user_role->perusahaan->nama;
+        }else if ($this->role == "Alumni"){
+            return $this->user_role->alumni->nama;
+        }else{
+            return 0;
+        }
+    }
+
+    public function role(){
+        return;
+    }
 }

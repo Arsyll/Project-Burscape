@@ -36,7 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('permission',PermissionController::class);
     Route::resource('role', RoleController::class);
 
-    // Dashboard Routes
+    // Dashboard Admin
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
     // Users Module
