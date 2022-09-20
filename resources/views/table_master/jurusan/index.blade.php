@@ -120,7 +120,7 @@
                     url: "{{ url('jurusan') }}/"+id,
                     dataType: "JSON",
                     success: function (response) {
-                        $('#kat').val(response.data.jurusan);
+                        $('#kat').val(response.data.nama_jurusan);
                         $(thisIs).parents(document).find('#btn-close-edit').on('click', function(){
                             id = null;
                         });
@@ -129,13 +129,13 @@
                                 type: "POST",
                                 url: "{{ url('jurusan') }}/"+id,
                                 data: {
-                                    'jurusan': $('#kat').val(),
+                                    'nama_jurusan': $('#kat').val(),
                                     '_method': 'PUT',
                                     '_token': '{{ csrf_token() }}'
                                 },
                                 success: function (response) {
                                     $(thisIs).parents(document).find('#form-modal-edit').find('#btn-close-edit').click();
-                                    getType();
+                                    getJurusan();
                                     if(response.code === 200){
                                         id = null;
                                         return toastr.success(response.message, 'Success!', {
@@ -179,13 +179,13 @@
                             },
                             success: function (response) {
                                 if (response.message) {
-                                    getType();
+                                    getJurusan();
                                     return toastr.success(response.message, 'Success!', {
                                         closeButton: true,
                                         tapToDismiss: true
                                     });
                                 }
-                                    getType();
+                                    getJurusan();
                                     return toastr.error('Failed!', 'Failed!', {
                                         closeButton: true,
                                         tapToDismiss: true

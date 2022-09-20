@@ -48,7 +48,7 @@ class JurusanController extends Controller
 
     public function update(Request $request, $id){
         $rule = [
-            'jurusan' => 'required'
+            'nama_jurusan' => 'required'
         ];
         $this->validate($request, $rule);
 
