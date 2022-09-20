@@ -12,7 +12,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $assets = ['chart', 'animation'];
-        return view('dashboards.dashboard', compact('assets'));
+        return view('dashboards.admin-dashboard', compact('assets'));
     }
 
     /*
