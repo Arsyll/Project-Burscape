@@ -16,6 +16,7 @@
         "bootstrap": "^5.1.0",
         "counterup2": "^1.0.4",
         "datatables.net-bs4": "^1.10.24",
+        "feather-icons": "^4.29.0",
         "fslightbox": "^3.3.0-2",
         "jquery": "^3.6.0",
         "nouislider": "^14.7.0",

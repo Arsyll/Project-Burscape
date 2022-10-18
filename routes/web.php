@@ -39,6 +39,10 @@ Route::group(['middleware' => 'auth'], function () {
     // Dashboard Admin
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
+    // Table Master
+    Route::resource('jurusan', 'App\Http\Controllers\JurusanController');
+    Route::get('isijurusan', [App\Http\Controllers\JurusanController::class, 'isi']);
+
     // Users Module
     Route::resource('users', UserController::class);
 });

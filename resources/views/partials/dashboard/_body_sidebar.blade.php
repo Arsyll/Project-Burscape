@@ -20,7 +20,9 @@
     </div>
     <div class="sidebar-body pt-0 data-scrollbar">
         <div class="sidebar-list" id="sidebar">
-        @include('partials.dashboard.vertical-nav') 
+        @can('is_admin')
+            @include('partials.dashboard.sidebar_admin')
+        @endcan
         </div>
     </div>
     <div class="sidebar-footer"></div>
