@@ -19,6 +19,12 @@ $ php artisan db:seed
 $ php artisan serve
 ```
 
+### Update Branch Main Terbaru
+```
+$ git fetch origin
+$ git checkout main
+$ git merge origin/main
+```
 ### Default Login
 
 ```
