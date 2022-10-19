@@ -42,6 +42,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Table Master
     Route::resource('jurusan', 'App\Http\Controllers\JurusanController');
     Route::get('isijurusan', [App\Http\Controllers\JurusanController::class, 'isi']);
+    Route::resource('kategoripekerjaan', 'App\Http\Controllers\KategoriPekerjaanController');
+    Route::get('isikategoripekerjaan', [App\Http\Controllers\KategoriPekerjaanController::class, 'isi']);
 
     // Users Module
     Route::resource('users', UserController::class);
