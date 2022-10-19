@@ -10,8 +10,8 @@ class Jurusan extends Model
     public $table = 'jurusan';
     protected $fillable = ['nama_jurusan'];
 
-        // public function produk(){
-        //     return $this->hasOne(Produk::class);
-        // }
+    public function alumni(){
+        return $this->hasOne(Alumni::class);
+    }
 
 }
