@@ -119,6 +119,10 @@ class HomeController extends Controller
     {
         return view('auth.register');
     }
+    public function signup2(Request $request)
+    {
+        return view('auth.register2');
+    }
     public function confirmmail(Request $request)
     {
         return view('auth.confirm-mail');

@@ -1,13 +1,17 @@
-
-
-<div class="iq-navbar-header" style="height: 215px;">
+ @if (activeRoute(route('dashboard')) != "active")
+ <div class="py-5"></div>
+@endif
+<div class="iq-navbar-header" style="height: 215px;
+                    @if (activeRoute(route('dashboard')) != "active")
+                        display:none;
+                    @endif">
     <div class="container-fluid iq-container">
         <div class="row">
             <div class="col-md-12">
                 <div class="d-flex justify-content-between align-items-center flex-wrap">
                     <div>
                         <h1>Hello {{auth()->user()->username}}</h1>
-                        <p>Welcome to Burscape! We'll link you to opportunities.</p>
+                        <p>Welcome to Burscape! We'll link you to opportunities</p>
                     </div>
                     
                 </div>

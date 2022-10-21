@@ -18,6 +18,9 @@ class Alumni extends Model
         'status',
         'tanggal_lahir',
         'foto_profile',
-        'jurusan',
+        'id_jurusan',
     ];
+    public function jurusan(){
+        return $this->belongsTo(Jurusan::class, 'id_jurusan');
+    }
 }

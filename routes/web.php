@@ -6,6 +6,7 @@ use App\Http\Controllers\Security\RolePermission;
 use App\Http\Controllers\Security\RoleController;
 use App\Http\Controllers\Security\PermissionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AlumniController;
 use Illuminate\Support\Facades\Artisan;
 // Packages
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Dashboard Admin
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+
+    // Page Alumni
+    Route::resource('alumni', AlumniController::class);
+    Route::get('listAlumni', [AlumniController::class, 'listAlumni']);
 
     // Table Master
     Route::resource('jurusan', 'App\Http\Controllers\JurusanController');
@@ -87,6 +92,7 @@ Route::group(['prefix' => 'maps'], function() {
 Route::group(['prefix' => 'auth'], function() {
     Route::get('signin', [HomeController::class, 'signin'])->name('auth.signin');
     Route::get('signup', [HomeController::class, 'signup'])->name('auth.signup');
+    Route::post('set-profile', [HomeController::class, 'signup2'])->name('auth.signup2');
     Route::get('confirmmail', [HomeController::class, 'confirmmail'])->name('auth.confirmmail');
     Route::get('lockscreen', [HomeController::class, 'lockscreen'])->name('auth.lockscreen');
     Route::get('recoverpw', [HomeController::class, 'recoverpw'])->name('auth.recoverpw');
