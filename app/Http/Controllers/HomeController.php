@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     /*
+     * Landing Page
+     */
+    public function landingPage(){
+        return view('landing-page');
+    }
+
+
+    /*
      * Dashboard Pages Routs
      */
     public function index(Request $request)

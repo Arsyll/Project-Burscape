@@ -28,8 +28,10 @@ Route::get('/storage', function () {
     Artisan::call('storage:link');
 });
 
+Route::get('/',[HomeController::class, 'landingPage'])->name('landingPage');
+
 //UI Pages Routs
-Route::get('/', [HomeController::class, 'uisheet'])->name('uisheet');
+Route::get('/uisheet', [HomeController::class, 'uisheet'])->name('uisheet');
 
 Route::group(['middleware' => 'auth'], function () {
     // Permission Module
