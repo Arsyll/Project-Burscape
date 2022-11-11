@@ -23,7 +23,7 @@ class AlumniTableSeeder extends Seeder
                 'status' => 'Kuliah',
                 'tanggal_lahir' => Carbon::parse('2000-01-01'),
                 'foto_profile' => '',
-                'jurusan' => 'Rekayasa Perangkat Lunak',
+                'id_jurusan' => NULL,
             ],
         ];
 
