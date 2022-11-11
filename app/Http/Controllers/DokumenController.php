@@ -6,6 +6,7 @@ use App\Models\Dokumen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\Facades\DataTables;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -44,7 +45,14 @@ class DokumenController extends Controller
             'name_doc' => 'required',
             'no_doc' => 'required',
             'type_doc' => 'required',
-            'file_doc' => 'required|file'
+            'file_doc' => 'required|file|mimes:png,jpg,pdf,doc,docx,xlx,xlxs'
+        ],[
+            'name_doc.required' => 'Nama Dokumen Harus Diisi.',
+            'no_doc.required' => 'No Dokumen Harus Diisi.',
+            'type_doc.required' => 'Tipe Dokumen Harus Diisi.',
+            'file_doc.required' => 'File Dokumen Harus Diisi.',
+            'file_doc.required' => 'File Dokumen Harus Diisi.',
+            'file_doc.file' => 'File Dokumen Harus Diisi.',
         ]);
 
         $loker_id = ['id_loker' => $request->id_loker ? $request->id_loker : ''];
@@ -102,26 +110,29 @@ class DokumenController extends Controller
             'name_doc' => 'required',
             'no_doc' => 'required',
             'type_doc' => 'required',
-            'file_doc' => 'required|file'
         ]);
-
+        
         $dokumen = Dokumen::findOrFail($id);
+        $loker_id = ['id_loker' => $request->id_loker ? $request->id_loker : ''];
+        $perusahaan_id = ['id_perusahaan' => $request->id_perusahaan ? $request->id_perusahaan : ''];
         $oldFile = $dokumen->file_doc;
-        $path = 'storage/public/'.$oldFile;
+        $path = storage_path('app/doc_folder/'.$oldFile);
+        if($request->hasFile('file_doc')){
             if (File::exists($path)) 
             {
                 File::delete($path);
             }
-
-        $loker_id = ['id_loker' => $request->id_loker ? $request->id_loker : ''];
-        $perusahaan_id = ['id_perusahaan' => $request->id_perusahaan ? $request->id_perusahaan : ''];
-        if($request->hasFile('file_doc')){
             $newname = $request->name_doc.' '.date("ymdhis").'.'.$request->file('file_doc')->getClientOriginalExtension();
-            $request->file('file_doc')->move('storage/doc_folder/', $newname);
+            $request->file('file_doc')->storeAs('doc_folder', $newname);
+        }else{
+            $pathinfo = pathinfo($path);
+            $extension = $pathinfo['extension'];
+            $newname = $request->name_doc.' '.date("ymdhis").'.'.$extension;
+            rename($path,storage_path('app/doc_folder/'.$newname));
         }
         $file_doc = ['file_doc' => $newname];
         $status = $dokumen->update(array_merge($input,$loker_id,$file_doc,$perusahaan_id));
-
+        
         return response()->json([
             'code' => 200,
             'message' => 'Dokumen berhasil diedit!',
@@ -150,16 +161,13 @@ class DokumenController extends Controller
     }
 
     public function listDokumen(Request $request){
+        $dokumen = Dokumen::with('perusahaan');
         return response()->json([
             'massage' => 'List Jurusan',
-            'data' => Dokumen::where("name_doc","like","%".$request->search."%")->get()
+            'data' => DataTables::eloquent($dokumen)->addColumn('perusahaan', function (Dokumen $dokumen){return $dokumen->perusahaan->nama ?? '-';})->toJson()
         ]);    
         
         
-    }
-
-    public function search(){
-
     }
 
     public function download($id){

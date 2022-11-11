@@ -19,4 +19,8 @@ class Dokumen extends Model
         'id_loker',
         'id_perusahaan'
     ];
+
+    public function perusahaan(){
+        return $this->belongsTo(Perusahaan::class,'id_perusahaan') ?? '';
+    }
 }

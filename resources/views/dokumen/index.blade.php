@@ -8,36 +8,24 @@
                 <div class="header-title">
                    <h4 class="card-title">Dokumen</h4>
                 </div>
-                <form>
-                    <div class="d-flex h-100">
-                        <div class="input-group mb-3 mx-2 h-25">
-                            <input type="text" class="form-control" id="search"placeholder="Search..." aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            <button type="button" class="btn btn-primary" id="searchbtn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                                </svg>
-                            </button>
-                        </div>
-                        <button type="button" class="btn btn-primary py-0 my-0 h-75" data-bs-toggle="modal" data-bs-target="#form-modal-add">
-                            {{-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-                              </svg> --}}
-                              Tambah
-                        </button>
-                    </div>
-                </form>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#form-modal-add">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                        </svg>
+                        Tambah Dokumen
+                </button>
 
              </div>
              <div class="card-body">
                 <div class="table-responsive">
-                    <table id="datatable" class="table table-striped text-center" >
-                      <thead class="">
+                    <table id="datatable2" class="table table-striped text-center">
+                      <thead class="w-100">
                          <tr>
-                            <th>No Dokumen</th>
-                            <th>Nama</th>
-                            <th>Jenis</th>
-                            <th>Perusahaan</th>
-                            <th>Aksi</th>
+                            <th class="text-center">No Dokumen</th>
+                            <th class="text-center">Nama</th>
+                            <th class="text-center">Tipe</th>
+                            <th class="text-center">Perusahaan</th>
+                            <th class="w-25 text-center">Aksi</th>
                          </tr>
                       </thead>
                         <tbody id='list'>
@@ -60,17 +48,20 @@
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="form-group">
+                          <div><span class="text-danger" id="no_doc_error"></span></div>
                           <label for="jurusan">No Dokumen<span class="text-danger">*</span></label>
                           <input type="text" class="form-control" id="no_doc" placeholder="">
                           <small class="form-text text-danger"></small>
                         </div>
                         <div class="form-group">
+                            <div><span class="text-danger" id="name_doc_error"></span></div>
                             <label for="jurusan">Nama Dokumen<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="name_doc" placeholder="">
                             <small class="form-text text-danger"></small>
                         </div>
                         <div class="form-group">
-                            <label for="jurusan">Jenis<span class="text-danger">*</span></label>
+                            <div><span class="text-danger" id="type_doc_error"></span></div>
+                            <label for="jurusan">Tipe<span class="text-danger">*</span></label>
                             <select class="form form-control" name="type_doc" id="type_doc">
                                 <option value="">- Pilih -</option>
                                 <option value="MOU">MOU</option>
@@ -79,6 +70,7 @@
                             <small class="form-text text-danger"></small>
                         </div>
                         <div class="form-group">
+                            <div><span class="text-danger" id="id_perusahaan_error"></span></div>
                             <label for="jurusan">Perusahaan</label>
                             <select class="form form-control" name="id_perusahaan" id="id_perusahaan">
                                 <option value="">- Pilih -</option>
@@ -88,6 +80,7 @@
                             <small class="form-text text-danger"></small>
                         </div>
                         <div class="form-group">
+                            <div><span class="text-danger" id="id_loker_error"></span></div>
                             <label for="jurusan">Lowongan Kerja</label>
                             <select class="form form-control" name="id_loker" id="id_loker">
                                 <option value="">- Pilih -</option>
@@ -97,6 +90,7 @@
                             <small class="form-text text-danger"></small>
                         </div>
                         <div class="form-group">
+                            <div><span class="text-danger" id="file_doc_error"></span></div>
                             <label for="jurusan">File Dokumen<span class="text-danger">*</span></label>
                             <input type="file" class="form-control" id="file_doc" placeholder="">
                             <small class="form-text text-danger"></small>
@@ -121,17 +115,20 @@
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="form-group">
+                            <div><span class="text-danger" id="update_no_doc_error"></span></div>
                           <label for="jurusan">No Dokumen<span class="text-danger">*</span></label>
                           <input type="text" class="form-control" id="uno_doc" placeholder="">
                           <small class="form-text text-danger"></small>
                         </div>
                         <div class="form-group">
+                            <div><span class="text-danger" id="update_name_doc_error"></span></div>
                             <label for="jurusan">Nama Dokumen<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="uname_doc" placeholder="">
                             <small class="form-text text-danger"></small>
                         </div>
                         <div class="form-group">
-                            <label for="jurusan">Jenis<span class="text-danger">*</span></label>
+                            <div><span class="text-danger" id="update_type_doc_error"></span></div>
+                            <label for="jurusan">Tipe<span class="text-danger">*</span></label>
                             <select class="form form-control" name="utype_doc" id="utype_doc">
                                 <option value="">- Pilih -</option>
                                 <option value="MOU">MOU</option>
@@ -158,7 +155,8 @@
                             <small class="form-text text-danger"></small>
                         </div>
                         <div class="form-group">
-                            <label for="jurusan">File Dokumen<span class="text-danger">*</span></label>
+                            <div><span class="text-danger" id="update_file_doc_error"></span></div>
+                            <label for="jurusan">File Dokumen</label>
                             <input type="file" class="form-control" id="ufile_doc" placeholder="">
                             <small class="form-text text-danger"></small>
                         </div>
@@ -220,6 +218,21 @@
                                 tapToDismiss: true
                             });
                         });
+                    },
+                    error:function (reject) {
+                        if( reject.status === 422 ) {
+                            clearErrorMessages();
+                            var message = $.parseJSON(reject.responseText);
+                            var errors = message['errors'];
+                            $.each(errors, function (key, val) {
+                                console.log(key)
+                                $("#" + key + "_error").text(val[0]);
+                            });
+                            $('#btn-close-add').on('click', function(){
+                                clearErrorMessages();
+
+                            });
+                        }
                     }
                 });
             });
@@ -267,9 +280,11 @@
                                 contentType: false,
                                 success: function (response) {
                                     $(thisIs).parents(document).find('#form-modal-edit').find('#btn-close-edit').click();
+                                    clearErrorMessages();
                                     getDokumen();
                                     if(response.code === 200){
                                         id = null;
+                                        $('#ufile_doc').val('');
                                         return toastr.success(response.message, 'Success!', {
                                             closeButton: true,
                                             tapToDismiss: true
@@ -281,6 +296,21 @@
                                             tapToDismiss: true
                                         });
                                     });
+                                },
+                                error:function (reject) {
+                                    if( reject.status === 422 ) {
+                                        clearErrorMessages();
+                                        var message = $.parseJSON(reject.responseText);
+                                        var errors = message['errors'];
+                                        $.each(errors, function (key, val) {
+                                            console.log(key)
+                                            $("#update_" + key + "_error").text(val[0]);
+                                        });
+                                        $('#btn-close-edit').on('click', function(){
+                                            clearErrorMessages();
+
+                                        });
+                                    }
                                 }
                             });
                         });
@@ -330,59 +360,15 @@
                 });
             });
 
-            $(document).on('click', '#searchbtn', function () {
-                searchDokumen();     
-            });
-
-            function searchDokumen() {
-                $.ajax({
-                    type: "GET",
-                    url: "{{ url('listDokumen') }}",
-                    data:{
-                        search: $('#search').val()
-                    },
-                    dataType: "JSON",
-                    success: function (response) {
-                        let rows = '';
-                        $.each(response.data, function (idx, data) {
-                            idx++
-                            rows += '<tr>'+
-                                // dokumen/download
-                                        '<td>'+data.no_doc+'</td>'+
-                                        '<td>'+data.name_doc+'</td>'+
-                                        '<td>'+data.type_doc+'</td>'+
-                                        '<td>'+data.id_perusahaan+'</td>'+
-                                        '<td>'+
-                                            '<div class="row justify-content-center">'+
-                                                '<div class="col-2">'+
-                                                    '<a class="btn btn-primary btn-sm" id="download-btn" href="{{url('dokumen/download')}}/'+data.id+'">'+
-                                                        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>'+
-                                                    '</a>'+
-                                                '</div>'+
-                                                '<div class="col-2">'+
-                                                    '<button class="btn btn-warning btn-sm mx-1" id="update-btn" href="#" data-id="'+data.id+'" data-bs-toggle="modal" data-bs-target="#form-modal-edit">'+
-                                                        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"> <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/> <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>'+
-                                                    '</button>'+
-                                                '</div>'+
-                                                '<div class="col-2">'+
-                                                    '<button class="btn btn-danger btn-sm mx-2" id="del-btn" href="#" data-id="'+data.id+'">'+
-                                                        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"> <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/> <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/> </svg>'+
-                                                    '</button>'+
-                                                '</div>'+
-                                            '</div>'+
-                                        '</td>' 
-                                    '</tr>';
-                        });
-                        $('#list').html('');
-                        $('#list').append(rows);
-                        if (feather) {
-                            feather.replace({
-                                width: 14,
-                                height: 14
-                            });
-                        }
-                    }
-                });
+            function clearErrorMessages(){
+                $(document).find('#form-modal-add').find('#type_doc_error').text("");
+                $(document).find('#form-modal-add').find('#name_doc_error').text("");
+                $(document).find('#form-modal-add').find('#no_doc_error').text("");
+                $(document).find('#form-modal-add').find('#file_doc_error').text("");
+                $(document).find('#form-modal-edit').find('#update_file_doc_error').text("");
+                $(document).find('#form-modal-edit').find('#update_name_doc_error').text("");
+                $(document).find('#form-modal-edit').find('#update_type_doc_error').text("");
+                $(document).find('#form-modal-edit').find('#update_no_doc_error').text("");
             }
 
             function getDokumen() {
@@ -391,44 +377,93 @@
                     url: "{{ url('listDokumen') }}",
                     dataType: "JSON",
                     success: function (response) {
-                        let rows = '';
-                        $.each(response.data, function (idx, data) {
-                            idx++
-                            rows += '<tr>'+
-                                // dokumen/download
-                                        '<td>'+data.no_doc+'</td>'+
-                                        '<td>'+data.name_doc+'</td>'+
-                                        '<td>'+data.type_doc+'</td>'+
-                                        '<td>'+data.id_perusahaan+'</td>'+
-                                        '<td>'+
-                                            '<div class="row justify-content-center">'+
-                                                '<div class="col-2">'+
-                                                    '<a class="btn btn-primary btn-sm" id="download-btn" href="{{url('dokumen/download')}}/'+data.id+'">'+
-                                                        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>'+
-                                                    '</a>'+
-                                                '</div>'+
-                                                '<div class="col-2">'+
-                                                    '<button class="btn btn-warning btn-sm mx-1" id="update-btn" href="#" data-id="'+data.id+'" data-bs-toggle="modal" data-bs-target="#form-modal-edit">'+
-                                                        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"> <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/> <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>'+
-                                                    '</button>'+
-                                                '</div>'+
-                                                '<div class="col-2">'+
-                                                    '<button class="btn btn-danger btn-sm mx-2" id="del-btn" href="#" data-id="'+data.id+'">'+
-                                                        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"> <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/> <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/> </svg>'+
-                                                    '</button>'+
-                                                '</div>'+
-                                            '</div>'+
-                                        '</td>' 
-                                    '</tr>';
+                        $table = $('#datatable2').DataTable({
+                            retrieve: true,
+                            data: response.data.original.data,  // Get the data object
+                            columns: [
+                                { 'data': 'no_doc' },
+                                { 'data': 'name_doc' },
+                                { 'data': 'type_doc' },
+                                { 'data': 'id_perusahaan' },
+                                { 'data': 'id_perusahaan' },
+                                
+                            ]
                         });
-                        $('#list').html('');
-                        $('#list').append(rows);
-                        if (feather) {
-                            feather.replace({
-                                width: 14,
-                                height: 14
-                            });
-                        }
+                        $table.destroy()
+                        $table = $('#datatable2').DataTable({
+                            retrieve: true,
+                            data: response.data.original.data,  // Get the data object
+                            columns: [
+                                { 'data': 'no_doc' },
+                                { 'data': 'name_doc' },
+                                { 'data': 'type_doc' },
+                                { 'data' : 'perusahaan' },
+                                {'data' : "id" , render : function ( data, type, row, meta ) {
+                                return type === 'display'  ?
+                                '<div class="row justify-content-center">'+
+                                    '<div class="col-3">'+
+                                        '<a class="btn btn-primary btn-sm" id="download-btn" href="{{url('dokumen/download')}}/'+data+'">'+
+                                            '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>'+
+                                        '</a>'+
+                                    '</div>'+
+                                    '<div class="col-3">'+
+                                        '<button class="btn btn-warning btn-sm" id="update-btn" href="#" data-id="'+data+'" data-bs-toggle="modal" data-bs-target="#form-modal-edit">'+
+                                            '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"> <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/> <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>'+
+                                        '</button>'+
+                                    '</div>'+
+                                    '<div class="col-3">'+
+                                        '<button class="btn btn-danger btn-sm" id="del-btn" href="#" data-id="'+data+'">'+
+                                            '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"> <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/> <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/> </svg>'+
+                                        '</button>'+
+                                    '</div>'+
+                                '</div>' :
+                                    data;
+                                }},                             
+                            ],
+                            'columnDefs': [ {
+                                'targets': [4], 
+                                'orderable': false,
+                            }]
+                        });
+                        // console.log(response.data);
+                        // let rows = '';
+                        // $.each(response.data, function (idx, data) {
+                        //     idx++
+                        //     rows += '<tr>'+
+                        //         // dokumen/download
+                        //                 '<td>'+data.no_doc+'</td>'+
+                        //                 '<td>'+data.name_doc+'</td>'+
+                        //                 '<td>'+data.type_doc+'</td>'+
+                        //                 '<td>'+data.id_perusahaan+'</td>'+
+                        //                 '<td>'+
+                        //                     '<div class="row justify-content-center">'+
+                        //                         '<div class="col-2">'+
+                        //                             '<a class="btn btn-primary btn-sm" id="download-btn" href="{{url('dokumen/download')}}/'+data.id+'">'+
+                        //                                 '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>'+
+                        //                             '</a>'+
+                        //                         '</div>'+
+                        //                         '<div class="col-2">'+
+                        //                             '<button class="btn btn-warning btn-sm mx-1" id="update-btn" href="#" data-id="'+data.id+'" data-bs-toggle="modal" data-bs-target="#form-modal-edit">'+
+                        //                                 '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"> <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/> <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>'+
+                        //                             '</button>'+
+                        //                         '</div>'+
+                        //                         '<div class="col-2">'+
+                        //                             '<button class="btn btn-danger btn-sm mx-2" id="del-btn" href="#" data-id="'+data.id+'">'+
+                        //                                 '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"> <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/> <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/> </svg>'+
+                        //                             '</button>'+
+                        //                         '</div>'+
+                        //                     '</div>'+
+                        //                 '</td>' 
+                        //             '</tr>';
+                        // });
+                        // $('#list').html('');
+                        // $('#list').append(rows);
+                        // if (feather) {
+                        //     feather.replace({
+                        //         width: 14,
+                        //         height: 14
+                        //     });
+                        // }
                     }
                 });
             }
