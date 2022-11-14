@@ -1,6 +1,8 @@
 <?php
 
 // Controllers
+
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Security\RolePermission;
 use App\Http\Controllers\Security\RoleController;
@@ -47,11 +49,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('alumni', AlumniController::class);
     Route::get('listAlumni', [AlumniController::class, 'listAlumni']);
 
+    // Page Admin
+    Route::resource('admin', AdminController::class);
+    Route::get('listAdmin',[AdminController::class,'listAdmin']);
+
     // Page Dokumen
     Route::resource('dokumen', DokumenController::class);
     Route::get('listDokumen', [DokumenController::class,'listDokumen']);
     Route::get('dokumen/download/{id}',[DokumenController::class,'download']);
-    Route::post('dokumen/search',[DokumenController::class,'search'])->name('dokumen.search');
 
     // Table Master
     Route::resource('jurusan', 'App\Http\Controllers\JurusanController');
