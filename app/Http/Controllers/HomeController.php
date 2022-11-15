@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alumni;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -129,7 +132,30 @@ class HomeController extends Controller
     }
     public function signup2(Request $request)
     {
-        return view('auth.register2');
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|unique:users,email',
+            'phone_number' => 'required',
+            'password' =>  'required|confirmed|min:8',
+        ]);
+        $userData = array(
+            'username' => $request->first_name,
+            'role' => 'Alumni',
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+        );
+        $user = new User();
+        $user->fill($userData);
+        $alumni = new Alumni();
+        $dataAlumni = array('nama' => $request->first_name . " " . $request->last_name, 'no_telp' => $request->phone_number);
+
+        $alumni->fill($dataAlumni);
+
+        $request->session()->put('user', $user);
+        $request->session()->put('alumni', $alumni);
+
+        return view('auth.register2', compact('user'));
     }
     public function confirmmail(Request $request)
     {

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Alumni;
+use App\Models\Role;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -32,18 +34,34 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'first_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|confirmed|min:8',
+        $dataAlumni = $request->validate([
+            'angkatan' => 'required|integer|min:1990|max:2022',
+            'status' => 'required|string',
+            'alamat' => 'required|string',
+            'tanggal_lahir' => 'required|date',
         ]);
+        $user = $request->session()->get('user');
+        $alumni = $request->session()->get('alumni');
+        
+        $alumni->fill($dataAlumni)->save();
+        
+        $user->save();
 
-        Auth::login($user = User::create([
-            'username' => $request->first_name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'Alumni'
-        ]));
+        $role = new Role();
+
+        $dataRole = array(
+            'id_user' => $user->id,
+            'id_alumni' => $alumni->id,
+        );
+
+        $role->create(array_merge($dataRole));
+
+        $login = $user->refresh();
+
+        $request->session()->forget('user');
+        $request->session()->forget('alumni');
+        
+        Auth::login($login);
 
         return redirect(RouteServiceProvider::HOME);
     }

@@ -21,15 +21,16 @@
                                 <!-- Validation Errors -->
                                 <x-auth-validation-errors class="mb-4" :errors="$errors" />
                                 <form method="POST" action="{{ route('register') }}" data-toggle="validator">
+                                    @method('POST')
                                     {{ csrf_field() }}
                                     <div class="row">
                                         <div class="col"></div>
                                         <div class="col-lg-8">
                                             <div class="form-group">
-                                                <label for="tahun_lulusan" class="form-label">Tahun Lulusan</label>
-                                                <input id="tahun_lulusan" name="tahun_lulusan"
-                                                    value="{{ old('tahun_lulusan') }}" class="form-control"
-                                                    type="text" placeholder=" " required autofocus>
+                                                <label for="angkatan" class="form-label">Tahun Lulusan</label>
+                                                <input id="angkatan" name="angkatan"
+                                                    value="{{ old('angkatan') }}" class="form-control"
+                                                    type="number" min="1990" max="2022" placeholder=" "  autofocus>
                                             </div>
                                         </div>
                                         <div class="col"></div>
@@ -40,18 +41,32 @@
                                             <div class="form-group">
                                                 <label for="status" class="form-label">Status</label>
                                                 <input class="form-control" type="text" name="status"
-                                                    placeholder=" " value="{{ old('status') }}" required autofocus>
+                                                    placeholder=" " value="{{ old('status') }}"  autofocus>
                                             </div>
                                         </div>
                                         <div class="col"></div>
                                     </div>
-                                    <div class="d-flex justify-content-center">
-                                        <div class="form-check mb-3">
-                                            <label class="form-check-label" for="customCheck1">I agree with the terms of
-                                                use</label>
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1"
-                                                required>
+                                    <div class="row">
+                                        <div class="col"></div>
+                                        <div class="col-lg-8">
+                                            <div class="form-group">
+                                                <label for="alamat" class="form-label">Alamat</label>
+                                                <textarea class="form-control" type="text" name="alamat"
+                                                    placeholder=" " value="{{ old('alamat') }}"  autofocus style="resize: none"></textarea>
+                                            </div>
                                         </div>
+                                        <div class="col"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col"></div>
+                                        <div class="col-lg-8">
+                                            <div class="form-group">
+                                                <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
+                                                <input class="form-control" type="date" name="tanggal_lahir"
+                                                    placeholder=" " value="{{ old('tanggal_lahir') }}"  autofocus style="resize: none">
+                                            </div>
+                                        </div>
+                                        <div class="col"></div>
                                     </div>
 
                                     <div class="d-flex justify-content-center">
