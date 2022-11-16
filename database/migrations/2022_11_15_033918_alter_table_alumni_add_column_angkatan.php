@@ -14,7 +14,7 @@ class AlterTableAlumniAddColumnAngkatan extends Migration
     public function up()
     {
         Schema::table('alumni', function (Blueprint $table) {
-            $table->string("angkatan");
+            $table->string("angkatan")->nullable();
             $table->string("alamat")->nullable()->change();
             $table->date("tanggal_lahir")->nullable()->change();
             $table->string("foto_profile")->nullable()->change();
