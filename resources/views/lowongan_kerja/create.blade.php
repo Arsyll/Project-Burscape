@@ -6,17 +6,11 @@
       selector: 'textarea#deskripsi',
       promotion: false,
       menubar: '',
-      init_instance_callback : function(editor) {
-                editor.setContent("{!!old('deskripsi')!!}");
-            }
     });
     tinymce.init({
       selector: 'textarea#syarat',
       promotion: false,
       menubar: '',
-      init_instance_callback : function(editor) {
-                editor.setContent("{!!old('syarat')!!}");
-            }
     });
 </script>
 <x-app-layout :assets="$assets ?? []">
@@ -114,14 +108,18 @@
                        <div class="form-group">
                            <div><span class="text-danger" id="deksripsi_error"></span></div>
                            <label for="jurusan">Deksripsi<span class="text-danger">*</span></label>
-                           <textarea name="deskripsi" id="deskripsi"></textarea>
+                           <textarea name="deskripsi" id="deskripsi">
+                            {!! !empty(old('deskripsi')) ? old('deskripsi') : '' !!}
+                           </textarea>
                        </div>
                    </div>
                    <div class="col-sm-12">
                        <div class="form-group">
                            <div><span class="text-danger" id="deksripsi_error"></span></div>
                            <label for="jurusan">Syarat<span class="text-danger">*</span></label>
-                           <textarea name="syarat" id="syarat"></textarea>
+                           <textarea name="syarat" id="syarat">
+                            {!! !empty(old('syarat')) ? old('syarat') : '' !!}
+                           </textarea>
                        </div>
                    </div>
                    <div class="col-sm-8 d-flex">
