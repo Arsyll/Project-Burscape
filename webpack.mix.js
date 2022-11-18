@@ -26,3 +26,4 @@ mix.js('resources/js/libs.js', 'public/js/libs.min.js')
     .options({
         processCssUrls: false
     });
+mix.copyDirectory('vendor/tinymce/tinymce', 'public/js/tinymce');
