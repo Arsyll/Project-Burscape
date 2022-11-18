@@ -10,6 +10,7 @@ use App\Http\Controllers\Security\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\DokumenController;
+use App\Http\Controllers\LowonganKerjaController;
 use Illuminate\Support\Facades\Artisan;
 // Packages
 use Illuminate\Support\Facades\Route;
@@ -66,6 +67,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Users Module
     Route::resource('users', UserController::class);
+
+    // Page Lowongan Kerja
+    Route::resource('lowongan-kerja', LowonganKerjaController::class)->except('edit');
+    Route::get('listLoker',[LowonganKerjaController::class,'listLoker']);
+    Route::get('lowongan-kerja/update/{id?}',[LowonganKerjaController::class,'edit'])->name('lowongan-kerja.edits');
 });
 
 //App Details Page => 'Dashboard'], function() {
