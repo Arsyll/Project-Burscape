@@ -7,13 +7,17 @@
          </div>
          <button class="btn-close float-end"></button>
       </div>
-      <ul class="navbar-nav">
-         <li class="nav-item"><a class="nav-link active" href="{{route('menu-style.horizontal')}}"> Lowongan Kerja </a></li>
-         <li class="nav-item"><a class="nav-link" href="{{route('menu-style.dualhorizontal')}}"> Perusahaan </a></li>
-         <li class="nav-item"><a class="nav-link" href="{{route('menu-style.dualcompact')}}"><span class="item-name">Tentang</span></a></li>
-         {{-- <li class="nav-item"><a class="nav-link" href="{{route('menu-style.boxed')}}"> Boxed Horizontal </a></li>
-         <li class="nav-item"><a class="nav-link" href="{{route('menu-style.boxedfancy')}}"> Boxed Fancy</a></li> --}}
-
-      </ul>
+      <div class="collapse navbar-collapse" id="navbarContent">
+         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+               <li class="nav-item"><a class="nav-link" href="{{route('menu-style.horizontal')}}"> Lowongan Kerja </a></li>
+               <li class="nav-item"><a class="nav-link" href="{{route('menu-style.dualhorizontal')}}"> Perusahaan </a></li>
+               <li class="nav-item"><a class="nav-link" href="{{route('menu-style.dualcompact')}}"><span class="item-name">Tentang</span></a></li>
+               {{-- <li class="nav-item"><a class="nav-link" href="{{route('menu-style.boxed')}}"> Boxed Horizontal </a></li>
+               <li class="nav-item"><a class="nav-link" href="{{route('menu-style.boxedfancy')}}"> Boxed Fancy</a></li> --}}
+         </ul>
+         <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="{{route('menu-style.horizontal')}}"> Lowongan Kerja </a></li>
+         </ul>
+      </div>
    </div> <!-- container-fluid.// -->
 </nav>

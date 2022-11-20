@@ -687,14 +687,14 @@ Burscape - Link To Opportunities
     <div class="footer-top">
       <div class="container">
         <div class="row">
-
+          
           <div class="col-lg-4 col-md-6">
-
-            <img src="{{asset('images/icons/Burscapelogo(no-caption).png')}}" width="300px" heigth="300px" class="pe-3">
-
-
+           
+              <img src="{{asset('images/icons/Burscapelogo(no-caption).png')}}" width="300px" heigth="300px" class="pe-3" >
+            
+           
           </div>
-          <!-- 
+<!-- 
           <div class="col-lg-4 col-md-6">
             <div class="footer-info">
               <h3>Bootsrap</h3>
@@ -716,44 +716,36 @@ Burscape - Link To Opportunities
           </div> -->
 
           <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Useful Links</h4>
+            <h4>Links</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
             </ul>
           </div>
 
           <div class="col-lg-2 col-md-6 footer-links">
             <h4>Our Services</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Lowongan Kerja</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Perusahaan</a></li>
             </ul>
           </div>
 
           <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 footer-links">
             <!-- Links -->
             <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-            <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
+            <p><i class="fas fa-home me-3"></i> Bandung, Jawa Barat</p>
             <p>
               <i class="fas fa-envelope me-3"></i>
-              info@example.com
+              burscape.company@gmail.com
             </p>
-            <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
-            <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
           </div>
 
-          <div class="container">
-            <div class="copyright">
-              &copy; Copyright <strong><span>Bootsrap</span></strong>. All Rights Reserved
-            </div>
-          </div>
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Burscape</span></strong>. All Rights Reserved
+      </div>
+    </div>
   </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
