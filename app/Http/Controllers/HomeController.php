@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alumni;
+use App\Models\LowonganKerja;
+use App\Models\Perusahaan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -23,7 +25,11 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $assets = ['chart', 'animation'];
-        return view('dashboards.admin-dashboard', compact('assets'));
+        $totPerusahaan = Perusahaan::count();
+        $totLowongan = LowonganKerja::count();
+        $totAlumni = Alumni::count();
+        $loker = LowonganKerja::with('perusahaan')->latest()->take(5)->get();
+        return view('dashboards.admin-dashboard', compact('totPerusahaan','totLowongan','totAlumni','assets','loker'));
     }
 
     /*
