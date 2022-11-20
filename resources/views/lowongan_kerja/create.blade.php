@@ -1,4 +1,7 @@
 <!DOCTYPE HTML>
+<head>
+    <title>Tambah Lowongan Kerja</title>
+</head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <script src="{{asset('js/tinymce/tinymce.min.js')}}"></script>
 <script>
@@ -107,7 +110,7 @@
                    <div class="col-sm-12">
                        <div class="form-group">
                            <div><span class="text-danger" id="deksripsi_error"></span></div>
-                           <label for="jurusan">Deksripsi<span class="text-danger">*</span></label>
+                           <label for="jurusan">Deskripsi<span class="text-danger">*</span></label>
                            <textarea name="deskripsi" id="deskripsi">
                             {!! !empty(old('deskripsi')) ? old('deskripsi') : '' !!}
                            </textarea>

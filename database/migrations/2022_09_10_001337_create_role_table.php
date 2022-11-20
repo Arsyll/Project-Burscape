@@ -19,10 +19,10 @@ class CreateRoleTable extends Migration
             $table->unsignedBigInteger('id_admin')->nullable();
             $table->unsignedBigInteger('id_perusahaan')->nullable();
             $table->unsignedBigInteger('id_alumni')->nullable();
-            $table->foreign('id_user')->references('id')->on('users');
-            $table->foreign('id_admin')->references('id')->on('admin');
-            $table->foreign('id_perusahaan')->references('id')->on('perusahaan');
-            $table->foreign('id_alumni')->references('id')->on('alumni');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_admin')->references('id')->on('admin')->onDelete('cascade');
+            $table->foreign('id_perusahaan')->references('id')->on('perusahaan')->onDelete('cascade');
+            $table->foreign('id_alumni')->references('id')->on('alumni')->onDelete('cascade');
             $table->timestamps();
         });
     }

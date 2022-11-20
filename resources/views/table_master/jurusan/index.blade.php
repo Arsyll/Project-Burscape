@@ -1,3 +1,6 @@
+<head>
+    <title>List Jurusan</title>
+</head>
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <x-app-layout :assets="$assets ?? []">
@@ -212,14 +215,14 @@
                                         '<td>'+idx+'</td>'+
                                         '<td>'+data.nama_jurusan+'</td>'+
                                         '<td>'+
-                                            '<div class="row justify-content-around">'+
-                                                '<div class="col-4">'+
-                                                    '<button class="btn btn-warning" id="update-btn" href="#" data-id="'+data.id+'" data-bs-toggle="modal" data-bs-target="#form-modal-edit">'+
+                                            '<div class="row justify-content-center">'+
+                                                '<div class="col-2">'+
+                                                    '<button class="btn btn-warning btn-sm" id="update-btn" href="#" data-id="'+data.id+'" data-bs-toggle="modal" data-bs-target="#form-modal-edit">'+
                                                             '<span>Edit</span>'+
                                                     '</button>'+
                                                 '</div>'+
-                                                '<div class="col-4">'+
-                                                    '<button class="btn btn-danger" id="del-btn" href="#" data-id="'+data.id+'">'+
+                                                '<div class="col-2">'+
+                                                    '<button class="btn btn-danger btn-sm" id="del-btn" href="#" data-id="'+data.id+'">'+
                                                         '<span>Hapus</span>'+
                                                     '</button>'+
                                                 '</div>'+

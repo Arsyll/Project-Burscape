@@ -155,7 +155,7 @@ class LowonganKerjaController extends Controller
 
     public function destroy($id){
         $loker = LowonganKerja::findOrFail($id);
-        $loker->findOrFail($loker->id)->delete($loker);
+        $loker->delete($loker);
         return response()->json([
             'message' => 'Lowongan Kerja berhasil dihapus!'
         ]);

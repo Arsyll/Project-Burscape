@@ -16,7 +16,18 @@ class Perusahaan extends Model
         'no_telp',
         'bidang',
         'alamat',
+        'tentang',
         'email_perusahaan',
         'foto_perusahaan',
+        'url'
     ];
+
+    public function role_perusahaan() {
+        return $this->hasOne(Role::class, 'id_perusahaan', 'id');
+    }
+
+    public function profile_image(){
+        return asset('storage/perusahaan_images/'.$this->foto_perusahaan);
+    }
+
 }

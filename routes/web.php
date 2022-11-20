@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\LowonganKerjaController;
+use App\Http\Controllers\PerusahaanController;
 use Illuminate\Support\Facades\Artisan;
 // Packages
 use Illuminate\Support\Facades\Route;
@@ -72,6 +73,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('lowongan-kerja', LowonganKerjaController::class)->except('edit');
     Route::get('listLoker',[LowonganKerjaController::class,'listLoker']);
     Route::get('lowongan-kerja/update/{id?}',[LowonganKerjaController::class,'edit'])->name('lowongan-kerja.edits');
+
+    // Page Perusahaan
+    Route::resource('perusahaan', PerusahaanController::class)->except('edit');
+    Route::get('listPerusahaan',[PerusahaanController::class,'listPerusahaan']);
+    Route::get('perusahaan/update/{id?}',[PerusahaanController::class,'edit'])->name('perusahaan.edit');
 });
 
 //App Details Page => 'Dashboard'], function() {

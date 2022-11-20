@@ -1,4 +1,7 @@
 <!-- CSS only -->
+<head>
+    <title>List Lowongan Kerja</title>
+</head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <x-app-layout :assets="$assets ?? []">
     <div class="row">
@@ -84,16 +87,6 @@
                 });
             });
 
-            function clearErrorMessages(){
-                $(document).find('#form-modal-add').find('#type_doc_error').text("");
-                $(document).find('#form-modal-add').find('#name_doc_error').text("");
-                $(document).find('#form-modal-add').find('#no_doc_error').text("");
-                $(document).find('#form-modal-add').find('#file_doc_error').text("");
-                $(document).find('#form-modal-edit').find('#update_file_doc_error').text("");
-                $(document).find('#form-modal-edit').find('#update_name_doc_error').text("");
-                $(document).find('#form-modal-edit').find('#update_type_doc_error').text("");
-                $(document).find('#form-modal-edit').find('#update_no_doc_error').text("");
-            }
 
             function getLoker() {
                 $.ajax({
