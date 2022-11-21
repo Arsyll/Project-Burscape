@@ -19,10 +19,20 @@ class Alumni extends Model
         'tanggal_lahir',
         'foto_profile',
         'id_jurusan',
+        'tentang',
         'angkatan',
+        'resume',
     ];
 
     public function jurusan(){
         return $this->belongsTo(Jurusan::class, 'id_jurusan');
+    }
+
+    public function pengalaman(){
+        return $this->hasMany(PengalamanKerja::class,'id_alumni','id');
+    }
+
+    public function edukasi(){
+        return $this->hasMany(Edukasi::class,'id_alumni','id');
     }
 }

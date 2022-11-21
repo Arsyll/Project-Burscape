@@ -68,6 +68,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Users Module
     Route::resource('users', UserController::class);
+    Route::post('download/resume/{id}', [UserController::class , 'download'])->name('download.resume');
 
     // Page Lowongan Kerja
     Route::resource('lowongan-kerja', LowonganKerjaController::class)->except('edit');
