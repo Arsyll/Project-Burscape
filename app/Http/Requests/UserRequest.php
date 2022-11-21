@@ -50,7 +50,7 @@ class UserRequest extends FormRequest
                     $rules = [
                         'username' => 'required|max:30',
                         'email' => 'required|max:191|email|unique:users,email,'.$user_id,
-                        'nama_lengkap'=>'max:13',
+                        'nama_lengkap'=>'required|max:100',
                         'password' => 'confirmed|min:8|nullable',
                         'jabatan' => 'required',
                         'foto_profile' => 'file|mimes:png,jpg|nullable|max:2048',

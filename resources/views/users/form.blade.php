@@ -1,3 +1,6 @@
+<head>
+   <title>Edit Profile</title>
+</head>
 <x-app-layout :assets="$assets ?? []">
    <div>
       <?php
