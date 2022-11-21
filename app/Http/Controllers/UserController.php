@@ -9,7 +9,13 @@ use App\Helpers\AuthHelper;
 use Spatie\Permission\Models\Role;
 use App\Http\Requests\UserRequest;
 use App\Models\Admin;
+use App\Models\Alumni;
+use App\Models\Edukasi;
+use App\Models\Jurusan;
+use App\Models\PengalamanKerja;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
@@ -77,12 +83,11 @@ class UserController extends Controller
             if($data->role == "Admin"){
                 return view('users.profile-admin', compact('data'));
             }else if($data->role == "Perusahaan"){
-                return view('users.profile-admin', compact('data'));
+                return view('users.profile-perusahaan', compact('data'));
             }else if($data->role == "Alumni"){
-                return view('users.profile-admin', compact('data'));
-            }
-            else{
-                return abort(404);
+                $pengalaman = PengalamanKerja::with('alumni')->where('id_alumni','=',$data->user_role->alumni->id)->get();
+                $edukasi = Edukasi::with('alumni')->where('id_alumni','=',$data->user_role->alumni->id)->get();
+                return view('users.profile', compact('data','pengalaman','edukasi'));
             }
         }else{
             return abort(404);
@@ -98,15 +103,19 @@ class UserController extends Controller
     public function edit($id)
     {
         if(Auth::user()->id == $id){
-            $data = User::with('user_role.admin')->findOrFail($id);
-        
-            $data['user_type'] = $data->roles->pluck('id')[0] ?? null;
-        
-            $roles = Role::where('status',1)->get()->pluck('title', 'id');
-        
-            $profileImage = getSingleMedia($data, 'profile_image');
-        
-            return view('users.form', compact('data','id', 'roles', 'profileImage'));
+            $data = User::with('user_role')->findOrFail($id);
+            if($data->role == "Admin"){
+                $layout = '';
+                return view('users.form', compact('data','id','layout'));
+            }else if($data->role == "Alumni"){
+                $layout = 'horizontal';
+                $jurusan = Jurusan::all();
+                $pengalaman = PengalamanKerja::with('alumni')->where('id_alumni','=',$data->user_role->alumni->id)->get();
+                $edukasi = Edukasi::with('alumni')->where('id_alumni','=',$data->user_role->alumni->id)->get();
+                return view('users.form', compact('data','id','layout','jurusan','pengalaman','edukasi'));
+            }else{
+
+            }
         }else{
             return abort(404);
         }
@@ -123,7 +132,8 @@ class UserController extends Controller
     {
         $user = User::with('user_role.admin')->findOrFail($id);
 
-        $admin = Admin::find($user->user_role->admin->id);
+        if($user->role == "Admin")
+       { $admin = Admin::find($user->user_role->admin->id);
 
         $request['password'] = $request->password != '' ? bcrypt($request->password) : $user->password;
 
@@ -157,8 +167,156 @@ class UserController extends Controller
         // if(auth()->check()){
         //     return redirect()->route('users.index')->withSuccess(__('message.msg_updated',['name' => __('message.user')]));
         // }
-        return redirect()->back()->withSuccess(__('Profile Telah Diubah',['name' => 'My Profile']));
+        return redirect()->back()->withSuccess(__('Profile Telah Diubah',['name' => 'My Profile']));}
 
+        else if($user->role == "Alumni"){
+            $alumni = Alumni::with('pengalaman')->findOrFail($user->user_role->alumni->id);
+
+            $image = storage_path('app/profile_alumni/'.$alumni->foto_profile);
+            $resume = storage_path('app/resume_alumni/'.$alumni->foto_profile);
+            if (isset($request->foto_profile) && $request->foto_profile != null) {
+                if (File::exists($image)) 
+                {
+                    File::delete($image);
+                }
+                $newname = $request->nama.' '.date("ymdhis").'.'.$request->file('foto_profile')->getClientOriginalExtension();
+                $request->file('foto_profile')->storeAs('profile_alumni', $newname);
+            }
+
+            if (isset($request->resume) && $request->resume != null) {
+                if (File::exists($resume)) 
+                {
+                    File::delete($resume);
+                }
+                $resume = $request->nama.' '.date("ymdhis").'.'.$request->file('resume')->getClientOriginalExtension();
+                $request->file('resume')->storeAs('resume_alumni', $resume);
+            }
+
+            $dataAlumni = [
+                'nama' => $request->nama,
+                'no_telp' => $request->no_telp,
+                'alamat' => $request->alamat,
+                'status' => $request->status,
+                'tanggal_lahir' => Carbon::parse($request->tanggal_lahir),
+                'id_jurusan' => $request->id_jurusan,
+                'angkatan' => $request->angkatan,
+                'foto_profile' => $newname ?? $alumni->foto_profile,
+                'resume' => $resume ?? $alumni->resume,
+                'tentang' => $request->tentang,
+            ];
+
+            $alumni->update(array_merge($dataAlumni));
+            $alumni->refresh();
+
+            // Pengalaman
+            for($i=0; $i < count($request->pengalaman_id); $i++)
+            {
+                $id_item = $request->pengalaman_id[$i];
+                $pengalaman = PengalamanKerja::find($id_item);
+                if(!empty($pengalaman))
+                {
+                    $updatedPengalaman = [
+                        'id_alumni' => $alumni->id,
+                        'judul' => $request->judul[$i],
+                        'perusahaan' => $request->perusahaan[$i],
+                        'tahun' => $request->dari_tahun[$i].'-'.$request->ke_tahun[$i],
+                    ];
+                    $pengalaman->update(array_merge($updatedPengalaman));
+                }
+            }
+
+            // Delete The Deleted Pengalaman Kerja
+            $deleted_pengalaman_id = DB::table('pengalaman_kerja')
+                                    ->select('id')
+                                    ->where('id_alumni' , '=' , $alumni->id)
+                                    ->whereNotIn('id' , $request->pengalaman_id)
+                                    ->get('id');
+            if($deleted_pengalaman_id->count() != 0)
+            {
+                foreach($deleted_pengalaman_id as $d){
+                    $deletedPengalaman = PengalamanKerja::find($d->id);
+                    $deletedPengalaman->delete();
+                }
+            }
+
+            // Create New Pengalaman
+            if($request->new_judul > 0)
+            {
+                for($i=0; $i < count($request->new_judul); $i++)
+                {
+                    if($request->new_judul[$i] != "" && $request->new_perusahaan[$i] != "" && $request->new_dari_tahun[$i] && $request->new_ke_tahun[$i]){
+                        $pengalamanbaru = new PengalamanKerja();
+                        $new_pengalaman[] = [
+                            'id_alumni' => $alumni->id,
+                            'judul' => $request->new_judul[$i],
+                            'perusahaan' => $request->new_perusahaan[$i],
+                            'tahun' => $request->new_dari_tahun[$i] .'-'.$request->new_ke_tahun[$i],
+                        ];
+                        $pengalamanbaru->create(array_merge($new_pengalaman[$i]));
+                    }
+                }
+            }
+
+            // Edukasi
+            for($i=0; $i < count($request->edukasi_id); $i++)
+            {
+                $id_item = $request->edukasi_id[$i];
+                $edukasi = Edukasi::find($id_item);
+                if(!empty($edukasi))
+                {
+                    $updatedEdukasi = [
+                        'id_alumni' => $alumni->id,
+                        'nama_lembaga' => $request->nama_lembaga[$i],
+                        'bidang' => $request->bidang[$i],
+                        'tahun' => $request->tahun[$i],
+                    ];
+                    $edukasi->update(array_merge($updatedEdukasi));
+                }
+            }
+
+            // Delete The Deleted Pengalaman Kerja
+            $deleted_edukasi_id = DB::table('edukasi')
+                                    ->select('id')
+                                    ->where('id_alumni' , '=' , $alumni->id)
+                                    ->whereNotIn('id' , $request->edukasi_id)
+                                    ->get('id');
+            if($deleted_edukasi_id->count() != 0)
+            {
+                foreach($deleted_edukasi_id as $d){
+                    $deletedEdukasi = Edukasi::find($d->id);
+                    $deletedEdukasi->delete();
+                }
+            }
+
+            // Create New Pengalaman
+            if($request->new_nama_lembaga > 0)
+            {
+                for($i=0; $i < count($request->new_nama_lembaga); $i++)
+                {
+                    if($request->new_nama_lembaga[$i] != "" && $request->new_bidang[$i] && $request->new_tahun[$i]){
+                        $edukasi = new Edukasi();
+                        $new_edukasi[] = [
+                            'id_alumni' => $alumni->id,
+                            'nama_lembaga' => $request->new_nama_lembaga[$i],
+                            'bidang' => $request->new_bidang[$i],
+                            'tahun' => $request->new_tahun[$i],
+                        ];
+                        $edukasi->create(array_merge($new_edukasi[$i]));
+                    }
+                }
+            }
+
+            return redirect()->back()->withSuccess(__('Profile Telah Diubah',['name' => 'My Profile']));
+        }
+
+    }
+
+    public function download($id){
+        $data = User::findOrFail($id);
+        $id_alumni = $data->user_role->alumni->id;
+        $alumni = Alumni::findOrFail($id_alumni);
+        $file = storage_path('app/resume_alumni/'.$alumni->resume);
+        return response()->download($file);
     }
 
     /**

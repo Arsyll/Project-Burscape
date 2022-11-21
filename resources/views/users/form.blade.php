@@ -1,7 +1,17 @@
+<!DOCTYPE HTML>
 <head>
    <title>Edit Profile</title>
 </head>
-<x-app-layout :assets="$assets ?? []">
+<script src="{{asset('js/tinymce/tinymce.min.js')}}"></script>
+<script>
+    tinymce.init({
+      selector: 'textarea#tentang',
+      promotion: false,
+      menubar: '',
+    });
+</script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+<x-app-layout layout="{{$layout}}" :assets="$assets ?? []">
    <div>
       <?php
          $id = $id ?? null;
@@ -12,86 +22,6 @@
       {!! Form::open(['route' => ['users.store'], 'method' => 'post', 'enctype' => 'multipart/form-data']) !!}
       @endif
       <div class="row">
-         {{-- <div class="col-xl-3 col-lg-4">
-            <div class="card">
-               <div class="card-header d-flex justify-content-between">
-                  <div class="header-title">
-                     <h4 class="card-title">{{$id !== null ? 'Edit' : 'Add' }} User</h4>
-                  </div>
-               </div>
-               <div class="card-body">
-                     <div class="form-group">
-                        <div class="profile-img-edit position-relative">
-                        <img src="{{ $profileImage ?? asset('images/avatars/01.png')}}" alt="User-Profile" class="profile-pic rounded avatar-100">
-                           <div class="upload-icone bg-primary">
-                              <svg class="upload-button" width="14" height="14" viewBox="0 0 24 24">
-                                 <path fill="#ffffff" d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
-                              </svg>
-                              <input class="file-upload" type="file" accept="image/*" name="profile_image">
-                           </div>
-                        </div>
-                        <div class="img-extension mt-3">
-                           <div class="d-inline-block align-items-center">
-                              <span>Only</span>
-                              <a href="javascript:void();">.jpg</a>
-                              <a href="javascript:void();">.png</a>
-                              <a href="javascript:void();">.jpeg</a>
-                              <span>allowed</span>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label class="form-label">Status:</label>
-                        <div class="grid" style="--bs-gap: 1rem">
-                            <div class="form-check g-col-6">
-                                {{ Form::radio('status', 'active',old('status') || true, ['class' => 'form-check-input', 'id' => 'status-active']); }}
-                                <label class="form-check-label" for="status-active">
-                                    Active
-                                </label>
-                            </div>
-                            <div class="form-check g-col-6">
-                                {{ Form::radio('status', 'pending',old('status'), ['class' => 'form-check-input', 'id' => 'status-pending']); }}
-                                <label class="form-check-label" for="status-pending">
-                                    Pending
-                                </label>
-                            </div>
-                            <div class="form-check g-col-6">
-                                {{ Form::radio('status', 'banned',old('status'), ['class' => 'form-check-input', 'id' => 'status-banned']); }}
-                                <label class="form-check-label" for="status-banned">
-                                    Banned
-                                </label>
-                            </div>
-                            <div class="form-check g-col-6">
-                                {{ Form::radio('status', 'inactive',old('status'), ['class' => 'form-check-input', 'id' => 'status-inactive']); }}
-                                <label class="form-check-label" for="status-inactive">
-                                    Inactive
-                                </label>
-                            </div>
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label class="form-label">User Role: <span class="text-danger">*</span></label>
-                        {{Form::select('user_role', $roles , old('user_role') ? old('user_role') : $data->user_type ?? 'user', ['class' => 'form-control', 'placeholder' => 'Select User Role'])}}
-                     </div>
-                     <div class="form-group">
-                        <label class="form-label" for="furl">Facebook Url:</label>
-                        {{ Form::text('userProfile[facebook_url]', old('userProfile[facebook_url]'), ['class' => 'form-control', 'id' => 'furl', 'placeholder' => 'Facebook Url']) }}
-                     </div>
-                     <div class="form-group">
-                        <label class="form-label" for="turl">Twitter Url:</label>
-                        {{ Form::text('userProfile[twitter_url]', old('userProfile[twitter_url]'), ['class' => 'form-control', 'id' => 'turl', 'placeholder' => 'Twitter Url']) }}
-                     </div>
-                     <div class="form-group">
-                        <label class="form-label" for="instaurl">Instagram Url:</label>
-                        {{ Form::text('userProfile[instagram_url]', old('userProfile[instagram_url]'), ['class' => 'form-control', 'id' => 'instaurl', 'placeholder' => 'Instagram Url']) }}
-                     </div>
-                     <div class="form-group mb-0">
-                        <label class="form-label" for="lurl">Linkedin Url:</label>
-                        {{ Form::text('userProfile[linkdin_url]', old('userProfile[linkdin_url]'), ['class' => 'form-control', 'id' => 'lurl', 'placeholder' => 'Linkedin Url']) }}
-                     </div>
-               </div>
-            </div>
-         </div> --}}
          @if($data->role == "Admin")
          <div class="col-xl-12 col-lg-8">
             <div class="card">
@@ -99,9 +29,6 @@
                   <div class="header-title">
                      <h4 class="card-title">{{$id !== null ? 'Edit' : 'New' }} Admin Information</h4>
                   </div>
-                  {{-- <div class="card-action">
-                        <a href="{{route('users.index')}}" class="btn btn-sm btn-primary" role="button">Back</a>
-                  </div> --}}
                </div>
                <div class="card-body">
                   <div class="new-user-info">
@@ -118,35 +45,6 @@
                               <label class="form-label" for="add2">Foto Profile : </label><br>
                               {{ Form::file('foto_profile', ['class' => 'form-control']) }}
                            </div>
-                           {{-- <div class="form-group col-md-12">
-                              <label class="form-label" for="cname">Company Name: <span class="text-danger">*</span></label>
-                              {{ Form::text('userProfile[company_name]', old('userProfile[company_name]'), ['class' => 'form-control', 'required', 'placeholder' => 'Company Name']) }}
-                           </div>
-                           <div class="form-group col-sm-12">
-                              <label class="form-label" id="country">Country:</label>
-                              {{ Form::text('userProfile[country]', old('userProfile[country]'), ['class' => 'form-control', 'id' => 'country']) }}
-
-                           </div>
-                           <div class="form-group col-md-6">
-                              <label class="form-label" for="mobno">Mobile Number:</label>
-                              {{ Form::text('userProfile[phone_number]', old('userProfile[phone_number]'), ['class' => 'form-control', 'id' => 'mobno', 'placeholder' => 'Mobile Number']) }}
-                           </div>
-                           <div class="form-group col-md-6">
-                              <label class="form-label" for="altconno">Alternate Contact:</label>
-                              {{ Form::text('userProfile[alt_phone_number]', old('userProfile[alt_phone_number]'), ['class' => 'form-control', 'id' => 'altconno', 'placeholder' => 'Alternate Contact']) }}
-                           </div>
-                           <div class="form-group col-md-6">
-                              <label class="form-label" for="email">Email: <span class="text-danger">*</span></label>
-                              {{ Form::email('email', old('email'), ['class' => 'form-control', 'placeholder' => 'Enter e-mail', 'required']) }}
-                           </div>
-                           <div class="form-group col-md-6">
-                              <label class="form-label" for="pno">Pin Code:</label>
-                              {{ Form::number('userProfile[pin_code]', old('userProfile[pin_code]'), ['class' => 'form-control', 'id' => 'pin_code','step' => 'any']) }}
-                           </div>
-                           <div class="form-group col-md-12">
-                              <label class="form-label" for="city">Town/City:</label>
-                              {{ Form::text('userProfile[city]', old('city'), ['class' => 'form-control', 'id' => 'city', 'placeholder' => 'Enter City Name' ]) }}
-                           </div> --}}
                         </div>
                         <hr>
                         <h5 class="mb-3">User</h5>
@@ -174,9 +72,374 @@
             </div>
          </div>
          @elseif($data->role == "Perusahaan")
-         @elseif($data->role == " Admin")
+         Something2
+         @elseif($data->role == "Alumni")
+         <div class="col-xl-12 col-lg-8">
+            <div class="card">
+               <div class="card-header d-flex justify-content-between">
+                  <div class="header-title">
+                     <h4 class="card-title">{{$id !== null ? 'Edit' : 'New' }} User Information</h4>
+                  </div>
+               </div>
+               <div class="card-body">
+                  <div class="new-user-info">
+                        <div class="row">
+                           <div class="form-group col-md-6">
+                              <label class="form-label" for="fname">Nama Lengkap: <span class="text-danger">*</span></label>
+                              {{ Form::text('nama', empty(old('nama')) ? $data->user_role->alumni->nama : old('nama'), ['class' => 'form-control', 'placeholder' => 'Nama Lengkap']) }}
+                           </div>
+                           <div class="form-group col-md-3">
+                              <label class="form-label" for="add1">Status : <span class="text-danger">*</span></label>
+                              {{ Form::text('status',empty( old('status')) ? $data->user_role->alumni->status : old('status'), ['class' => 'form-control', 'placeholder' => 'Status']) }}
+                           </div>
+                           <div class="form-group col-md-6">
+                              <label class="form-label" for="fname">No Telp : <span class="text-danger">*</span></label>
+                              {{ Form::number('no_telp', empty(old('no_telp')) ? $data->user_role->alumni->no_telp : old('no_telp'), ['class' => 'form-control','min' => '0', 'placeholder' => 'No Telp']) }}
+                           </div>
+                           <div class="form-group col-md-3">
+                              <label class="form-label" for="add1">Tanggal Lahir : <span class="text-danger">*</span></label>
+                              {{ Form::date('tanggal_lahir',empty( old('tanggal_lahir')) ? $data->user_role->alumni->tanggal_lahir : old('tanggal_lahir'), ['class' => 'form-control', 'placeholder' => 'Status']) }}
+                           </div>
+                           <div class="col-md-2"></div>
+                           <div class="form-group col-md-2">
+                              <label class="form-label" for="fname">Angkatan : <span class="text-danger">*</span></label>
+                              {{ Form::number('angkatan', empty(old('angkatan')) ? $data->user_role->alumni->angkatan : old('angkatan'), ['class' => 'form-control','min' => '0','max' => '2022', 'placeholder' => 'Angkatan']) }}
+                           </div>
+                           <div class="form-group col-md-4">
+                              <label class="form-label" for="add1">Jurusan : <span class="text-danger">*</span></label>
+                              <select name="id_jurusan" class="form-control">
+                                 <option value="">- Pilih -</option>
+                                 @foreach ($jurusan as $j)
+                                    <option value="{{$j->id}}"
+                                       {{$data->user_role->alumni->id_jurusan == $j->id ? 'selected' : ''}}
+                                       >{{$j->nama_jurusan}}</option>
+                                 @endforeach
+                              </select>
+                           </div>
+                           <div class="form-group col-sm-8">
+                              <label class="form-label" id="country">Alamat : <span class="text-danger">*</span></label>
+                              {{ Form::text('alamat', empty(old('alamat')) ? $data->user_role->alumni->alamat : old('alamat'), ['class' => 'form-control']) }}
+
+                           </div>
+                           <div class="form-group col-md-8">
+                              <label class="form-label" for="mobno">Tentang :  <span class="text-danger">*</span></label>
+                              <textarea name="tentang" id="tentang">
+                                 {!! empty(old('tentang')) ? $data->user_role->alumni->tentang : old('tentang')  !!}
+                              </textarea>
+                           </div>
+                           <div class="form-group col-md-6">
+                              <label class="form-label" for="add2">Foto Profile : </label><br>
+                              {{ Form::file('foto_profile', ['class' => 'form-control']) }}
+                           </div>
+                           <div class="form-group col-md-6">
+                              <label class="form-label" for="add2">CV / Resume : </label><br>
+                              {{ Form::file('resume', ['class' => 'form-control']) }}
+                           </div>
+                        </div>
+                        <hr>
+                        <h5 class="mb-3">Pengalaman</h5>
+{{---------------------------------------------- Pengalaman  -----------------------------------------------------------------}}
+                        <div id="pnglmn">
+                           <div id="pengalaman">
+                              @if ($pengalaman->count() == 0)
+                              <div class="form-group col-md-6" id="pengalaman_">
+                                 <div class="d-flex">
+                                       <div class="col-xl-6 col-lg-6 col-sm-6 mx-2">
+                                          <input type="text" name="judul[]" class="form-control" placeholder="Judul" value="{{old('judul.0')}}">
+                                       </div>
+                                       <div class="col-xl-4 col-lg-2 col-sm-4 mx-2">
+                                          <input type="text" name="perusahaan[]" class="form-control" placeholder="Nama Perusahaan" value="{{old('perusahaan.0')}}">
+                                       </div>
+                                       <div class="col-xl-4 col-lg-2 col-sm-4 mx-2">
+                                          <input type="number" name="dari_tahun[]" class="form-control" placeholder="Dari Tahun" min="2010" max="2022" value="{{old('dari_tahun.0')}}">
+                                       </div>
+                                       <div class="col-xl-4 col-lg-2 col-sm-4 mx-2">
+                                          <input type="number" name="ke_tahun[]" class="form-control" placeholder="Ke Tahun" min="2010" max="2022"value="{{old('ke_tahun.0')}}">
+                                       </div>
+                                       <div>
+                                          <a class="btn btn-primary mb-2" id="add_item">
+                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                                   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                   <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                             </svg>
+                                          </a>
+                                       </div>
+                                 </div>
+                              </div>
+                              @else
+                              @foreach ($pengalaman as $key=>$pengalaman)
+                                 @if ($loop->first)
+                                 <div class="form-group col-md-6" id="pengalaman_">
+                                    <input type="hidden" name="pengalaman_id[]" value="{{$pengalaman->id}}">
+                                    <div class="d-flex">
+                                          <div class="col-xl-6 col-lg-6 col-sm-6 mx-2">
+                                             <input type="text" name="judul[]" class="form-control" placeholder="Judul" value="{{$pengalaman->judul}}">
+                                          </div>
+                                          <div class="col-xl-4 col-lg-2 col-sm-4 mx-2">
+                                             <input type="text" name="perusahaan[]" class="form-control" placeholder="Perusahaan" value="{{$pengalaman->perusahaan}}">
+                                          </div>
+                                          <div class="col-xl-4 col-lg-2 col-sm-4 mx-2">
+                                             <input type="number" name="dari_tahun[]" class="form-control" placeholder="Dari Tahun" min="2010" max="2022" value="{{$pengalaman->dariTahun()}}">
+                                          </div>
+                                          <div class="col-xl-4 col-lg-2 col-sm-4 mx-2">
+                                             <input type="number" name="ke_tahun[]" class="form-control" placeholder="Ke Tahun" min="2010" max="2022" value="{{$pengalaman->keTahun()}}">
+                                          </div>
+                                          <div>
+                                             <a class="btn btn-primary mb-2 btn-lg" id="add_item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                                </svg>
+                                             </a>
+                                          </div>
+                                    </div>
+                                 </div>
+                                 @else
+                                 <div class="form-group col-md-6" id="pengalaman_{{++$key}}">
+                                    <input type="hidden" name="pengalaman_id[]" class="form-control" value="{{$pengalaman->id}}">
+                                    <div class="d-flex">
+                                          <div class="col-xl-6 col-lg-6 col-sm-6 mx-2">
+                                             <input type="text" name="judul[]" class="form-control" placeholder="Judul" value="{{$pengalaman->judul}}">
+                                          </div>
+                                          <div class="col-xl-4 col-lg-2 col-sm-4 mx-2">
+                                             <input type="text" name="perusahaan[]" class="form-control" placeholder="Perusahaan" value="{{$pengalaman->perusahaan}}">
+                                          </div>
+                                          <div class="col-xl-4 col-lg-2 col-sm-4 mx-2">
+                                             <input type="number" name="dari_tahun[]" class="form-control" placeholder="Dari Tahun" min="2010" max="2022" value="{{$pengalaman->dariTahun()}}">
+                                          </div>
+                                          <div class="col-xl-4 col-lg-2 col-sm-4 mx-2">
+                                             <input type="number" name="ke_tahun[]" class="form-control" placeholder="Ke Tahun" min="2010" max="2022" value="{{$pengalaman->keTahun()}}">
+                                          </div>
+                                          <div>
+                                             <a class="btn btn-primary mb-2" id="add_item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                                </svg>
+                                             </a>
+                                          </div>
+                                          <div>
+                                             <a class='btn btn-danger mb-2 ml-2 mx-2 delete_item' id='delete_item_{{$key}}'> 
+                                                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-x-circle table-cancel'> <circle cx='12' cy='12' r='10'></circle> <line x1='15' y1='9' x2='9' y2='15'></line> <line x1='9' y1='9' x2='15' y2='15'></line> </svg>
+                                             </a>
+                                          </div>
+                                    </div>
+                                 </div>
+                                 @endif
+                                 @endforeach
+                                 <div class="key_count" id="key_count_{{$key}}"></div>
+                              @endif
+                              {{-- @if (!empty(old('new_judul.0')))
+                                 @for ($i=1;$i < (count(old('new_judul')));$i++)
+                                 <div class="form-group col-md-6" id="pengalaman_{{$i}}">
+                                    <div class="d-flex">
+                                          <div class="col-xl-6 col-lg-6 col-sm-6 mx-2">
+                                             <input type="text" name="new_judul[]" class="form-control" placeholder="Judul" value="{{old('new_judul.' . $i)}}">
+                                          </div>
+                                          <div class="col-xl-4 col-lg-2 col-sm-4 mx-2">
+                                             <input type="text" name="new_perusahaan[]" class="form-control" placeholder="Perusahaan" value="{{old('new_perusahaan.' . $i)}}">
+                                          </div>
+                                          <div class="col-xl-4 col-lg-2 col-sm-4 mx-2">
+                                             <input type="number" name="new_dari_tahun[]" class="form-control" placeholder="Dari Tahun" min="2010" max="2022" value="{{old('new_dari_tahun.' . $i)}}">
+                                          </div>
+                                          <div class="col-xl-4 col-lg-2 col-sm-4 mx-2">
+                                             <input type="number" name="new_ke_tahun[]" class="form-control" placeholder="Ke Tahun" min="2010" max="2022" value="{{old('new_ke_tahun.' . $i)}}">
+                                          </div>
+                                          <div>
+                                             <a class="btn btn-primary mb-2" id="add_item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                                </svg>
+                                             </a>
+                                          </div>
+                                          <div>
+                                             <a class='btn btn-danger mb-2 ml-2 delete_item' id='delete_item_{{$i}}'> 
+                                                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-x-circle table-cancel'> <circle cx='12' cy='12' r='10'></circle> <line x1='15' y1='9' x2='9' y2='15'></line> <line x1='9' y1='9' x2='15' y2='15'></line> </svg>
+                                             </a>
+                                          </div>
+                                    </div>
+                                 </div>
+                                 @endfor
+                              @endif --}}
+                        </div>
+{{---------------------------------------------- End Pengalaman  -----------------------------------------------------------------}}
+                        <hr>
+                        <h5 class="mb-3">Edukasi</h5>
+{{---------------------------------------------- Edukasi  -----------------------------------------------------------------}}
+                        <div id="edksi">
+                           <div id="edukasi">
+                              @if ($edukasi->count() == 0)
+                              <div class="form-group col-md-6" id="edukasi_">
+                                 <div class="d-flex">
+                                       <div class="col-xl-6 col-lg-6 col-sm-6 mx-2">
+                                          <input type="text" name="nama_lembaga[]" class="form-control" placeholder="Nama Lembaga" value="{{old('nama_lembaga.0')}}">
+                                       </div>
+                                       <div class="col-xl-4 col-lg-2 col-sm-4 mx-2">
+                                          <input type="text" name="bidang[]" class="form-control" placeholder="Bidang" value="{{old('bidang.0')}}">
+                                       </div>
+                                       <div class="col-xl-4 col-lg-2 col-sm-4 mx-2">
+                                          <input type="number" name="tahun[]" class="form-control" placeholder="Tahun Lulus" min="2010" max="2022" value="{{old('tahun.0')}}">
+                                       </div>
+                                       <div>
+                                          <a class="btn btn-primary mb-2" id="add_item_edukasi">
+                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                                   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                   <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                             </svg>
+                                          </a>
+                                       </div>
+                                 </div>
+                              </div>
+                              @else
+                              @foreach ($edukasi as $key=>$e)
+                                 @if ($loop->first)
+                                 <div class="form-group col-md-6" id="edukasi_">
+                                    <input type="hidden" name="edukasi_id[]" value="{{$e->id}}">
+                                    <div class="d-flex">
+                                          <div class="col-xl-6 col-lg-6 col-sm-6 mx-2">
+                                             <input type="text" name="nama_lembaga[]" class="form-control" placeholder="Nama Lembaga" value="{{$e->nama_lembaga}}">
+                                          </div>
+                                          <div class="col-xl-4 col-lg-2 col-sm-4 mx-2">
+                                             <input type="text" name="bidang[]" class="form-control" placeholder="Bidang" value="{{$e->bidang}}">
+                                          </div>
+                                          <div class="col-xl-4 col-lg-2 col-sm-4 mx-2">
+                                             <input type="number" name="tahun[]" class="form-control" placeholder="Tahun Lulus" min="2010" max="2022" value="{{$e->tahun}}">
+                                          </div>
+                                          <div>
+                                             <a class="btn btn-primary mb-2 btn-lg" id="add_item_edukasi">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                                </svg>
+                                             </a>
+                                          </div>
+                                    </div>
+                                 </div>
+                                 @else
+                                 <div class="form-group col-md-6" id="edukasi_{{++$key}}">
+                                    <input type="hidden" name="edukasi_id[]" class="form-control" value="{{$e->id}}">
+                                    <div class="d-flex">
+                                          <div class="col-xl-6 col-lg-6 col-sm-6 mx-2">
+                                             <input type="text" name="nama_lembaga[]" class="form-control" placeholder="Nama Lembaga" value="{{$e->nama_lembaga}}">
+                                          </div>
+                                          <div class="col-xl-4 col-lg-2 col-sm-4 mx-2">
+                                             <input type="text" name="bidang[]" class="form-control" placeholder="Bidang" value="{{$e->bidang}}">
+                                          </div>
+                                          <div class="col-xl-4 col-lg-2 col-sm-4 mx-2">
+                                             <input type="number" name="tahun[]" class="form-control" placeholder="Tahun Lulus" min="2010" max="2022" value="{{$e->tahun}}">
+                                          </div>
+                                          <div>
+                                             <a class="btn btn-primary mb-2" id="add_item_edukasi">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                                </svg>
+                                             </a>
+                                          </div>
+                                          <div>
+                                             <a class='btn btn-danger mb-2 ml-2 mx-2 delete_item_edukasi' id='delete_item_edukasi_{{$key}}'> 
+                                                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-x-circle table-cancel'> <circle cx='12' cy='12' r='10'></circle> <line x1='15' y1='9' x2='9' y2='15'></line> <line x1='9' y1='9' x2='15' y2='15'></line> </svg>
+                                             </a>
+                                          </div>
+                                    </div>
+                                 </div>
+                                 @endif
+                                 @endforeach
+                                 <div class="key_count_edukasi" id="key_count_edukasi_{{$key}}"></div>
+                              @endif
+                              {{-- @if (!empty(old('new_nama_lembaga.1')))
+                                 @for ($i=1;$i < (count(old('new_nama_lembaga')));$i++)
+                                 <div class="form-group col-md-6" id="edukasi_{{$i}}">
+                                    <div class="d-flex">
+                                          <div class="col-xl-6 col-lg-6 col-sm-6 mx-2">
+                                             <input type="text" name="new_nama_lembaga[]" class="form-control" placeholder="Nama Lembaga" value="{{old('new_nama_lembaga.' . $i)}}">
+                                          </div>
+                                          <div class="col-xl-4 col-lg-2 col-sm-4 mx-2">
+                                             <input type="text" name="new_bidang[]" class="form-control" placeholder="Bidang" value="{{old('new_bidang.' . $i)}}">
+                                          </div>
+                                          <div class="col-xl-4 col-lg-2 col-sm-4 mx-2">
+                                             <input type="number" name="new_tahun[]" class="form-control" placeholder="Tahun" min="2010" max="2022" value="{{old('new_tahun.' . $i)}}">
+                                          </div>
+                                          <div>
+                                             <a class="btn btn-primary mb-2" id="add_item_edukasi">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                                </svg>
+                                             </a>
+                                          </div>
+                                          <div>
+                                             <a class='btn btn-danger mb-2 ml-2 delete_item_edukasi mx-2' id='delete_item_edukasi_{{$i}}'> 
+                                                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-x-circle table-cancel'> <circle cx='12' cy='12' r='10'></circle> <line x1='15' y1='9' x2='9' y2='15'></line> <line x1='9' y1='9' x2='15' y2='15'></line> </svg>
+                                             </a>
+                                          </div>
+                                    </div>
+                                 </div>
+                                 @endfor
+                              @endif --}}
+                        </div>
+{{---------------------------------------------- End Edukasi  -----------------------------------------------------------------}}
+                        <hr>
+                        <h5 class="mb-3">Security</h5>
+                        <div class="row">
+                           <div class="form-group col-md-6">
+                              <label class="form-label" for="fname">Username : <span class="text-danger">*</span></label>
+                              {{ Form::text('username', empty(old('username')) ? $data->username : old('username'), ['class' => 'form-control', 'placeholder' => 'Username']) }}
+                           </div>
+                           <div class="form-group col-md-6">
+                              <label class="form-label" for="add1">Email : </label>
+                              {{ Form::email('email',empty( old('email')) ? $data->email : old('email'), ['class' => 'form-control', 'placeholder' => 'Email']) }}
+                           </div>
+                           <div class="form-group col-md-6">
+                              <label class="form-label" for="pass">Password:</label>
+                              {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
+                           </div>
+                           <div class="form-group col-md-6">
+                              <label class="form-label" for="rpass">Repeat Password:</label>
+                              {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => 'Repeat Password']) }}
+                           </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">{{$id !== null ? 'Edit' : 'Add' }} Profile</button>
+                  </div>
+               </div>
+            </div>
+         </div>
          @endif
         </div>
         {!! Form::close() !!}
    </div>
+   @if ($data->role == "Alumni")
+   <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
+   <script type="text/javascript">
+          // Pengalaman
+          var no = {!! $pengalaman->count() == 0 ? 1 : "parseInt($('.key_count').attr('id').replace(/key_count_/, ''))" !!};
+          $('body').on('click' , '#add_item' , function() {
+              no = no + 1;
+              var div = $("<div class='form-group col-md-6' id='pengalaman_" + no + "'> <div class='d-flex'> <div class='col-xl-6 col-lg-6 col-sm-6 mx-2'> <input type='text' name='new_judul[]' class='form-control' placeholder='Judul' value='{{old('new_judul." + no + "')}}'> </div> <div class='col-xl-4 col-lg-2 col-sm-4 mx-2'> <input type='text' name='new_perusahaan[]' class='form-control' placeholder='Nama Perusahaan' value='{{old('new_perusahaan." + no + "')}}'> </div> <div class='col-xl-4 col-lg-2 col-sm-4 mx-2'> <input type='number' name='new_dari_tahun[]' class='form-control' placeholder='Dari Tahun' min='2010' max='2022' value='{{old('new_dari_tahun." + no + "')}}'> </div> <div class='col-xl-4 col-lg-2 col-sm-4 mx-2'> <input type='number' name='new_ke_tahun[]' class='form-control' placeholder='Ke Tahun' min='0' value='{{old('new_ke_tahun." + no + "')}}'> </div> <div> <a class='btn btn-primary mb-2' id='add_item'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16'> <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/> <path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/> </svg> </a> </div> <div> <a class='btn btn-danger mb-2 ml-2 delete_item mx-2' id='delete_item_" + no + "'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-x-circle table-cancel'> <circle cx='12' cy='12' r='10'></circle> <line x1='15' y1='9' x2='9' y2='15'></line> <line x1='9' y1='9' x2='15' y2='15'></line> </svg> </a> </div> </div> </div>")
+              $('#pengalaman').append(div); 
+          });
+  
+          $('body').on('click' , '.delete_item' , function() {
+              no = no - 1;
+              var id =  $(this).attr('id').replace(/delete_item_/, '');
+              $("#pengalaman_" + id).remove(); 
+          });
+
+          // Edukasi
+          var no = {!! $edukasi->count() == 0 ? 1 : "parseInt($('.key_count_edukasi').attr('id').replace(/key_count_edukasi/, ''))" !!};
+          $('body').on('click' , '#add_item_edukasi' , function() {
+              no = no + 1;
+              var div = $("<div class='form-group col-md-6' id='edukasi_" + no + "'> <div class='d-flex'> <div class='col-xl-6 col-lg-6 col-sm-6 mx-2'> <input type='text' name='new_nama_lembaga[]' class='form-control' placeholder='Nama Lembaga' value='{{old('new_nama_lembaga." + no + "')}}'> </div> <div class='col-xl-4 col-lg-2 col-sm-4 mx-2'> <input type='text' name='new_bidang[]' class='form-control' placeholder='Bidang' value='{{old('new_bidang." + no + "')}}'> </div> <div class='col-xl-4 col-lg-2 col-sm-4 mx-2'> <input type='number' name='new_tahun[]' class='form-control' placeholder='Tahun Lulus' min='2010' max='2022' value='{{old('new_tahun." + no + "')}}'> </div><div> <a class='btn btn-primary mb-2' id='add_item_edukasi'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16'> <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/> <path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/> </svg> </a> </div> <div> <a class='btn btn-danger mb-2 ml-2 delete_item_edukasi mx-2' id='delete_item_edukasi_" + no + "'> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-x-circle table-cancel'> <circle cx='12' cy='12' r='10'></circle> <line x1='15' y1='9' x2='9' y2='15'></line> <line x1='9' y1='9' x2='15' y2='15'></line> </svg> </a> </div> </div> </div>")
+              $('#edukasi').append(div); 
+          });
+  
+          $('body').on('click' , '.delete_item_edukasi' , function() {
+              no = no - 1;
+              var id =  $(this).attr('id').replace(/delete_item_edukasi_/, '');
+              $("#edukasi_" + id).remove(); 
+          });
+      </script>
 </x-app-layout>
+@endif
+@include('partials.dashboard._app_toast')

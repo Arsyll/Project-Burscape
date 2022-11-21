@@ -65,6 +65,8 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     public function foto_profile(){
         if($this->role == "Admin"){
             return asset('storage/profile_admin/'.$this->user_role->admin->foto_profile);
+        }else if($this->role == "Alumni"){
+            return asset('storage/profile_alumni/'.$this->user_role->alumni->foto_profile);
         }
     }
 }
