@@ -208,9 +208,15 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="{{route('users.show', auth()->id() || 1)}}">Profile</a></li>
-            <li><a class="dropdown-item" href="{{route('auth.userprivacysetting')}}">Privacy Setting</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="{{route('auth.signin')}}">Logout</a></li>
+            <li><form method="POST" action="{{route('logout')}}">
+              @csrf
+              <a href="javascript:void(0)" class="dropdown-item"
+                onclick="event.preventDefault();
+              this.closest('form').submit();">
+                  {{ __('Log out') }}
+              </a>
+              </form></li>
           </ul>
         </li>
       </ul>
