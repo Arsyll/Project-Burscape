@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             PerusahaanTableSeeder::class,
             AlumniTableSeeder::class,
             RoleTableSeeder::class,
+            KategoriPekerjaanSeeder::class,
         ]);
         
         /*\App\Models\User::factory(40)->create()->each(function($user) {
