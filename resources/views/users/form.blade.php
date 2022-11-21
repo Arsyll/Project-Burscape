@@ -9,11 +9,11 @@
       {!! Form::open(['route' => ['users.store'], 'method' => 'post', 'enctype' => 'multipart/form-data']) !!}
       @endif
       <div class="row">
-         <div class="col-xl-3 col-lg-4">
+         {{-- <div class="col-xl-3 col-lg-4">
             <div class="card">
                <div class="card-header d-flex justify-content-between">
                   <div class="header-title">
-                     <h4 class="card-title">{{$id !== null ? 'Update' : 'Add' }} User</h4>
+                     <h4 class="card-title">{{$id !== null ? 'Edit' : 'Add' }} User</h4>
                   </div>
                </div>
                <div class="card-body">
@@ -88,37 +88,34 @@
                      </div>
                </div>
             </div>
-         </div>
-         <div class="col-xl-9 col-lg-8">
+         </div> --}}
+         @if($data->role == "Admin")
+         <div class="col-xl-12 col-lg-8">
             <div class="card">
                <div class="card-header d-flex justify-content-between">
                   <div class="header-title">
-                     <h4 class="card-title">{{$id !== null ? 'Update' : 'New' }} User Information</h4>
+                     <h4 class="card-title">{{$id !== null ? 'Edit' : 'New' }} Admin Information</h4>
                   </div>
-                  <div class="card-action">
+                  {{-- <div class="card-action">
                         <a href="{{route('users.index')}}" class="btn btn-sm btn-primary" role="button">Back</a>
-                  </div>
+                  </div> --}}
                </div>
                <div class="card-body">
                   <div class="new-user-info">
                         <div class="row">
                            <div class="form-group col-md-6">
-                              <label class="form-label" for="fname">First Name: <span class="text-danger">*</span></label>
-                              {{ Form::text('first_name', old('first_name'), ['class' => 'form-control', 'placeholder' => 'First Name', 'required']) }}
+                              <label class="form-label" for="fname">Nama Lengkap: <span class="text-danger">*</span></label>
+                              {{ Form::text('nama_lengkap', empty(old('nama_lengkap')) ? $data->user_role->admin->nama_lengkap : old('nama_lengkap'), ['class' => 'form-control', 'placeholder' => 'Nama Lengkap']) }}
                            </div>
                            <div class="form-group col-md-6">
-                              <label class="form-label" for="lname">Last Name: <span class="text-danger">*</span></label>
-                              {{ Form::text('last_name', old('last_name'), ['class' => 'form-control', 'placeholder' => 'Last Name' ,'required']) }}
+                              <label class="form-label" for="add1">Jabatan : </label>
+                              {{ Form::text('jabatan',empty( old('jabatan')) ? $data->user_role->admin->jabatan : old('jabatan'), ['class' => 'form-control', 'placeholder' => 'Jabatan']) }}
                            </div>
                            <div class="form-group col-md-6">
-                              <label class="form-label" for="add1">Street Address 1:</label>
-                              {{ Form::text('userProfile[street_addr_1]', old('userProfile[street_addr_1]'), ['class' => 'form-control', 'id' => 'add1', 'placeholder' => 'Enter Street Address 1']) }}
+                              <label class="form-label" for="add2">Foto Profile : </label><br>
+                              {{ Form::file('foto_profile', ['class' => 'form-control']) }}
                            </div>
-                           <div class="form-group col-md-6">
-                              <label class="form-label" for="add2">Street Address 2:</label>
-                              {{ Form::text('userProfile[street_addr_2]', old('userProfile[street_addr_2]'), ['class' => 'form-control', 'id' => 'add2', 'placeholder' => 'Enter Street Address 2']) }}
-                           </div>
-                           <div class="form-group col-md-12">
+                           {{-- <div class="form-group col-md-12">
                               <label class="form-label" for="cname">Company Name: <span class="text-danger">*</span></label>
                               {{ Form::text('userProfile[company_name]', old('userProfile[company_name]'), ['class' => 'form-control', 'required', 'placeholder' => 'Company Name']) }}
                            </div>
@@ -146,14 +143,18 @@
                            <div class="form-group col-md-12">
                               <label class="form-label" for="city">Town/City:</label>
                               {{ Form::text('userProfile[city]', old('city'), ['class' => 'form-control', 'id' => 'city', 'placeholder' => 'Enter City Name' ]) }}
-                           </div>
+                           </div> --}}
                         </div>
                         <hr>
-                        <h5 class="mb-3">Security</h5>
+                        <h5 class="mb-3">User</h5>
                         <div class="row">
-                           <div class="form-group col-md-12">
-                              <label class="form-label" for="uname">User Name: <span class="text-danger">*</span></label>
-                              {{ Form::text('username', old('username'), ['class' => 'form-control', 'required', 'placeholder' => 'Enter Username']) }}
+                           <div class="form-group col-md-6">
+                              <label class="form-label" for="fname">Username : <span class="text-danger">*</span></label>
+                              {{ Form::text('username', empty(old('username')) ? $data->username : old('username'), ['class' => 'form-control', 'placeholder' => 'Username']) }}
+                           </div>
+                           <div class="form-group col-md-6">
+                              <label class="form-label" for="add1">Email : </label>
+                              {{ Form::email('email',empty( old('email')) ? $data->email : old('email'), ['class' => 'form-control', 'placeholder' => 'Email']) }}
                            </div>
                            <div class="form-group col-md-6">
                               <label class="form-label" for="pass">Password:</label>
@@ -164,11 +165,14 @@
                               {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => 'Repeat Password']) }}
                            </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">{{$id !== null ? 'Update' : 'Add' }} User</button>
+                        <button type="submit" class="btn btn-primary">{{$id !== null ? 'Edit' : 'Add' }} Profile</button>
                   </div>
                </div>
             </div>
          </div>
+         @elseif($data->role == "Perusahaan")
+         @elseif($data->role == " Admin")
+         @endif
         </div>
         {!! Form::close() !!}
    </div>

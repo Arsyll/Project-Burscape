@@ -8,6 +8,9 @@ use App\Models\User;
 use App\Helpers\AuthHelper;
 use Spatie\Permission\Models\Role;
 use App\Http\Requests\UserRequest;
+use App\Models\Admin;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -69,11 +72,21 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $data = User::findOrFail($id);
-
-        #$profileImage = getSingleMedia($data, 'profile_image');
-
-        return view('users.profile', compact('data'));
+        if(Auth::user()->id == $id){
+            $data = User::findOrFail($id);
+            if($data->role == "Admin"){
+                return view('users.profile-admin', compact('data'));
+            }else if($data->role == "Perusahaan"){
+                return view('users.profile-admin', compact('data'));
+            }else if($data->role == "Alumni"){
+                return view('users.profile-admin', compact('data'));
+            }
+            else{
+                return abort(404);
+            }
+        }else{
+            return abort(404);
+        }
     }
 
     /**
@@ -84,15 +97,19 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $data = User::with('userProfile','roles')->findOrFail($id);
-
-        $data['user_type'] = $data->roles->pluck('id')[0] ?? null;
-
-        $roles = Role::where('status',1)->get()->pluck('title', 'id');
-
-        $profileImage = getSingleMedia($data, 'profile_image');
-
-        return view('users.form', compact('data','id', 'roles', 'profileImage'));
+        if(Auth::user()->id == $id){
+            $data = User::with('user_role.admin')->findOrFail($id);
+        
+            $data['user_type'] = $data->roles->pluck('id')[0] ?? null;
+        
+            $roles = Role::where('status',1)->get()->pluck('title', 'id');
+        
+            $profileImage = getSingleMedia($data, 'profile_image');
+        
+            return view('users.form', compact('data','id', 'roles', 'profileImage'));
+        }else{
+            return abort(404);
+        }
     }
 
     /**
@@ -104,35 +121,43 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, $id)
     {
-        // dd($request->all());
-        $user = User::with('userProfile')->findOrFail($id);
+        $user = User::with('user_role.admin')->findOrFail($id);
 
-        $role = Role::find($request->user_role);
-        if(env('IS_DEMO')) {
-            if($role->name === 'admin'&& $user->user_type === 'admin') {
-                return redirect()->back()->with('error', 'Permission denied');
-            }
-        }
-        $user->assignRole($role->name);
+        $admin = Admin::find($user->user_role->admin->id);
 
         $request['password'] = $request->password != '' ? bcrypt($request->password) : $user->password;
 
         // User user data...
-        $user->fill($request->all())->update();
+        $userData = [
+            'email' => $request->email,
+            'username' => $request->username,
+            'password' => $request->password
+        ];
+        $user->fill($userData)->update();
 
         // Save user image...
-        if (isset($request->profile_image) && $request->profile_image != null) {
-            $user->clearMediaCollection('profile_image');
-            $user->addMediaFromRequest('profile_image')->toMediaCollection('profile_image');
+        $path = storage_path('app/profile_admin/'.$admin->foto_profile);
+        if (isset($request->foto_profile) && $request->foto_profile != null) {
+            if (File::exists($path)) 
+            {
+                File::delete($path);
+            }
+            $newname = $request->username.' '.date("ymdhis").'.'.$request->file('foto_profile')->getClientOriginalExtension();
+            $request->file('foto_profile')->storeAs('profile_admin', $newname);
         }
 
         // user profile data....
-        $user->userProfile->fill($request->userProfile)->update();
+        $adminData = [
+            'nama_lengkap' => $request->nama_lengkap,
+            'jabatan' => $request->jabatan,
+            'foto_profile' => !empty($newname) ? $newname : $admin->foto_profile,
+        ];
+        $admin->fill($adminData)->update();
 
-        if(auth()->check()){
-            return redirect()->route('users.index')->withSuccess(__('message.msg_updated',['name' => __('message.user')]));
-        }
-        return redirect()->back()->withSuccess(__('message.msg_updated',['name' => 'My Profile']));
+        // if(auth()->check()){
+        //     return redirect()->route('users.index')->withSuccess(__('message.msg_updated',['name' => __('message.user')]));
+        // }
+        return redirect()->back()->withSuccess(__('Profile Telah Diubah',['name' => 'My Profile']));
 
     }
 

@@ -46,17 +46,25 @@ class UserRequest extends FormRequest
                 ];
                 break;
             case 'patch':
-                $rules = [
-                    'username' => 'required|max:20',
-                    'email' => 'required|max:191|email|unique:users,email,'.$user_id,
-                    'phone_number'=>'max:13',
-                    'password' => 'confirmed|min:8|nullable',
-                    // 'userProfile.gender' =>  'required',
-                    'userProfile.country' =>  'max:191',
-                    'userProfile.state' =>  'max:191',
-                    'userProfile.city' =>  'max:191',
-                    'userProfile.pin_code' =>  'max:191',
-                ];
+                if(auth()->user()->role == "Admin"){
+                    $rules = [
+                        'username' => 'required|max:30',
+                        'email' => 'required|max:191|email|unique:users,email,'.$user_id,
+                        'nama_lengkap'=>'max:13',
+                        'password' => 'confirmed|min:8|nullable',
+                        'jabatan' => 'required',
+                        'foto_profile' => 'file|mimes:png,jpg|nullable|max:2048',
+                        // 'userProfile.gender' =>  'required',
+                        // 'userProfile.country' =>  'max:191',
+                        // 'userProfile.state' =>  'max:191',
+                        // 'userProfile.city' =>  'max:191',
+                        // 'userProfile.pin_code' =>  'max:191',
+                    ];
+                }else if(auth()->user()->role == "Perusahaan"){
+
+                }else if(auth()->user()->role == "Alumni"){
+
+                }
                 break;
 
         }
