@@ -1,3 +1,6 @@
+<head>
+   <title>Profile</title>
+</head>
 <x-app-layout :assets="$assets ?? []">
    <div class="row">
       <div class="col-lg-12">
@@ -6,7 +9,7 @@
                <div class="d-flex flex-wrap align-items-center justify-content-between">
                   <div class="d-flex flex-wrap align-items-center">
                      <div class="profile-img position-relative me-3 mb-3 mb-lg-0">
-                        <img src="{{ auth()->user()->foto_profile() ?? asset('images/avatars/01.png')}}" alt="User-Profile" class="theme-color-default-img img-fluid rounded-pill avatar-100">
+                        <img src="{{ !empty(auth()->user()->user_role->admin->foto_profile) ? auth()->user()->foto_profile() : asset('images/avatars/01.png')}}" alt="User-Profile" class="theme-color-default-img img-fluid rounded-pill avatar-100">
                      </div>
                      <div class="">
                         <h4 class="me-2 h4">{{ $data->full_name() ?? 'Austin Robertson'  }}</h4>

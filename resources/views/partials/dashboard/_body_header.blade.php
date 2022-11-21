@@ -196,7 +196,7 @@
         </li> --}}
         <li class="nav-item dropdown">
           <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="{{!empty(auth()->user()->foto_profile()) ? auth()->user()->foto_profile() : asset('images/avatars/01.png')}}" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
+          <img src="{{!empty(auth()->user()->user_role->admin->foto_profile) ? auth()->user()->foto_profile() : asset('images/avatars/01.png')}}" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
             <div class="caption ms-3 d-none d-md-block ">
               <h6 class="mb-0 caption-title">{{ auth()->user()->full_name() ?? 'Austin Robertson'  }}</h6>
               <p class="mb-0 caption-sub-title text-capitalize">{{ str_replace('_',' ',auth()->user()->user_type) ?? 'Marketing Administrator' }}</p>
