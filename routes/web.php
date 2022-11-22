@@ -75,10 +75,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('listLoker',[LowonganKerjaController::class,'listLoker']);
     Route::get('lowongan-kerja/update/{id?}',[LowonganKerjaController::class,'edit'])->name('lowongan-kerja.edits');
 
+    
     // Page Perusahaan
     Route::resource('perusahaan', PerusahaanController::class)->except('edit');
     Route::get('listPerusahaan',[PerusahaanController::class,'listPerusahaan']);
     Route::get('perusahaan/update/{id?}',[PerusahaanController::class,'edit'])->name('perusahaan.edit');
+
+    // User Enviroment
+    Route::get('lowongan',[HomeController::class,'lowongan']);
 });
 
 //App Details Page => 'Dashboard'], function() {

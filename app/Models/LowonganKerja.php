@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,7 +21,23 @@ class LowonganKerja extends Model
         'salary',
         'alamat',
         'syarat',
+        'tipe_pekerjaan',
     ];
+
+    public function createdAt(){
+        $updatedAt = Carbon::parse($this->updated_at);
+        $diff = $updatedAt->diff(now());
+        if($diff->i == 0){
+            return 'Sesaat Yang Lalu';
+        }
+        else if($diff->h == 0){
+            return $diff->i . ' Menit Yang Lalu';
+        }else if($diff->d == 0){
+            return $diff->h . ' Jam Yang Lalu';
+        }else{
+            return $diff->d . ' Hari Yang Lalu';
+        }
+    }
 
     public function detailLoker(){
         return $this->hasMany(DetailLoker::class,'id_loker','id');

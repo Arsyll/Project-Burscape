@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('rupiah', function ($money) {
             return "Rp. <?php echo number_format($money, 0, '', '.')?>,-";
         });
+        Paginator::useBootstrap();
     }
 }

@@ -75,6 +75,42 @@
                            </select>
                        </div>
                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="jurusan">Tipe Pekerjaan<span class="text-danger">*</span></label>
+                            <select class="form form-control" name="tipe_pekerjaan" id="tipe_pekerjaan">
+                                <option value="">- Pilih -</option>
+                                    <option value="Full-time"
+                                    @if (!empty(old('tipe_pekerjaan')))
+                                    {{old('tipe_pekerjaan') == 'Full-time' ? 'selected' : ''}}
+                                    @else
+                                    {{$loker->tipe_pekerjaan == 'Full-time' ? 'selected' : ''}}
+                                    @endif
+                                    >Full-time</option>
+                                    <option value="Part-time"
+                                    @if (!empty(old('tipe_pekerjaan')))
+                                    {{old('tipe_pekerjaan') == 'Part-time' ? 'selected' : ''}}
+                                    @else
+                                    {{$loker->tipe_pekerjaan == 'Part-time' ? 'selected' : ''}}
+                                    @endif
+                                    >Part-time</option>
+                                    <option value="Magang"
+                                    @if (!empty(old('tipe_pekerjaan')))
+                                    {{old('tipe_pekerjaan') == 'Magang' ? 'selected' : ''}}
+                                    @else
+                                    {{$loker->tipe_pekerjaan == 'Magang' ? 'selected' : ''}}
+                                    @endif
+                                    >Magang</option>
+                                    <option value="Freelance"
+                                    @if (!empty(old('tipe_pekerjaan')))
+                                    {{old('tipe_pekerjaan') == 'Freelance' ? 'selected' : ''}}
+                                    @else
+                                    {{$loker->tipe_pekerjaan == 'Freelance' ? 'selected' : ''}}
+                                    @endif
+                                    >Freelance</option>
+                            </select>
+                        </div>
+                    </div>
                    <div class="col-sm-4">
                        <div class="form-group">
                            <div><span class="text-danger" id="status_error"></span></div>

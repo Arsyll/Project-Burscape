@@ -29,6 +29,10 @@
                                 <td>: {{$loker->bidangs->nama_jurusan}}</td>
                             </tr>
                             <tr>
+                                <td width="30%"><b>Tipe Pekerjaan</b></td>
+                                <td>: {{$loker->tipe_pekerjaan }}</td>
+                            </tr>
+                            <tr>
                                 <td width="30%"><b>Status</b></td>
                                 <td>: 
                                     @if ($loker->status == "Aktif")

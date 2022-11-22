@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alumni;
+use App\Models\DetailLoker;
+use App\Models\KategoriPekerjaan;
 use App\Models\LowonganKerja;
 use App\Models\Perusahaan;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
@@ -24,12 +29,133 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $assets = ['chart', 'animation'];
-        $totPerusahaan = Perusahaan::count();
-        $totLowongan = LowonganKerja::count();
-        $totAlumni = Alumni::count();
-        $loker = LowonganKerja::with('perusahaan')->latest()->take(5)->get();
-        return view('dashboards.admin-dashboard', compact('totPerusahaan','totLowongan','totAlumni','assets','loker'));
+         // $authUserId = Auth::id();
+         $user = User::find(Auth::id());
+         $assets = ['chart', 'animation'];
+         $perusahaan = Perusahaan::all();
+
+         if ($user->role == "Perusahaan") {
+             return view('dashboards.perusahaan-dashboard', compact('assets'), [
+                 "perusahaan" => Perusahaan::find($this->getCompanyId())->paginate(4)
+ 
+             ]);
+         }
+         else if($user->role == "Admin") {
+            $totPerusahaan = Perusahaan::count();
+            $totLowongan = LowonganKerja::count();
+            $totAlumni = Alumni::count();
+            $loker = LowonganKerja::with('perusahaan')->latest()->take(5)->get();
+            return view('dashboards.admin-dashboard', compact('totPerusahaan','totLowongan','totAlumni','assets','loker'));
+         }
+         else if($user->role == "Alumni") {
+            return redirect(RouteServiceProvider::LOWONGAN);
+         }
+        
+    }
+
+    public function lowongan(Request $request){
+        if(empty($request->filter)){
+            $assets = ['chart', 'animation'];
+            $lowongan = LowonganKerja::with('perusahaan')->where('status','=','Aktif')->paginate(10);
+            $kategori = KategoriPekerjaan::all();
+             return view('dashboards.alumni-dashboard', compact('assets','lowongan','kategori'), [
+                 "alumni" => Alumni::findOrFail(auth()->user()->user_role->alumni->id)
+             ]);
+        }
+        else{
+            $lokerId = [];
+            if(!empty($request->filter["kategori"])){
+                $kategoriName = [];
+                $kategoriName = array_merge($kategoriName, explode(',', $request->filter["kategori"]));
+                $kategori = KategoriPekerjaan::whereIn('nama_kategori',$kategoriName)->get('id');
+                $kategoriId = [];
+                foreach($kategori as $k){
+                    if(!in_array($k->id,$kategoriId)){
+                        array_push($kategoriId,$k->id);
+                    }
+                }
+                $det = DetailLoker::whereIn('id_kategori',$kategoriId)->get('id_loker');
+                
+                foreach($det as $d){
+                    if(!in_array($d->id_loker,$lokerId)){
+                        array_push($lokerId,$d->id_loker);
+                    }
+                }
+            }
+            $tipe = [];
+            $tipe = array_merge($tipe, explode(',', empty($request->filter["tipe"]) ? '' : $request->filter["tipe"]));
+            $search = $request->filter['search'] ?? '';
+            if($request->filter["waktu"] == "Terbaru"){
+                if(!empty($lokerId) && !empty($lokerId && $tipe[0] != "" && !empty($search))){
+                    $lowongan = LowonganKerja::with('perusahaan')->whereIn('id',$lokerId)->whereIn('tipe_pekerjaan',$tipe)
+                    ->where('nama_lowongan','like','%'.$search.'%')
+                    ->orderBy('updated_at','desc')->paginate(10);
+                }
+                else if(!empty($tipe) && $tipe[0] != "" && !empty($search)){
+                    $lowongan = LowonganKerja::with('perusahaan')->whereIn('tipe_pekerjaan',$tipe)
+                    ->where('nama_lowongan','like','%'.$search.'%')
+                    ->orderBy('updated_at','desc')->paginate(10);
+                }else if(!empty($lokerId) && !empty($search)){
+                    $lowongan = LowonganKerja::with('perusahaan')->whereIn('id',$lokerId)
+                    ->where('nama_lowongan','like','%'.$search.'%')
+                    ->orderBy('updated_at','desc')->paginate(10);
+                }else if(!empty($lokerId) && !empty($lokerId && $tipe[0] != "")){
+                    $lowongan = LowonganKerja::with('perusahaan')->whereIn('id',$lokerId)->whereIn('tipe_pekerjaan',$tipe)
+                    ->orderBy('updated_at','desc')->paginate(10);
+                }
+                else if(!empty($tipe) && $tipe[0] != ""){
+                    $lowongan = LowonganKerja::with('perusahaan')->whereIn('tipe_pekerjaan',$tipe)->orderBy('updated_at','desc')->paginate(10);
+                }else if(!empty($lokerId)){
+                    $lowongan = LowonganKerja::with('perusahaan')->whereIn('id',$lokerId)->orderBy('updated_at','desc')->paginate(10);
+                }else if(!empty($search)){
+                    $lowongan = LowonganKerja::with('perusahaan')->where('nama_lowongan','like','%'.$search.'%')
+                    ->orderBy('updated_at','desc')->paginate(10);
+                    // dd($lowongan);;
+                }
+                else{
+                    $lowongan = LowonganKerja::with('perusahaan')->orderBy('updated_at','desc')->paginate(10);
+                }
+                $assets = ['chart', 'animation'];
+                $kategori = KategoriPekerjaan::all();
+                return view('dashboards.alumni-dashboard', compact('assets','lowongan','kategori'), [
+                    "alumni" => Alumni::findOrFail(auth()->user()->user_role->alumni->id)
+                ]);
+            }else{
+                if(!empty($lokerId) && !empty($lokerId && $tipe[0] != "" && !empty($search))){
+                    $lowongan = LowonganKerja::with('perusahaan')->whereIn('id',$lokerId)->whereIn('tipe_pekerjaan',$tipe)
+                    ->where('nama_lowongan','like','%'.$search.'%')
+                    ->paginate(10);
+                }
+                else if(!empty($tipe) && $tipe[0] != "" && !empty($search)){
+                    $lowongan = LowonganKerja::with('perusahaan')->whereIn('tipe_pekerjaan',$tipe)
+                    ->where('nama_lowongan','like','%'.$search.'%')
+                    ->paginate(10);
+                }else if(!empty($lokerId) && !empty($search)){
+                    $lowongan = LowonganKerja::with('perusahaan')->whereIn('id',$lokerId)
+                    ->where('nama_lowongan','like','%'.$search.'%')
+                    ->paginate(10);
+                }else if(!empty($lokerId) && !empty($lokerId && $tipe[0] != "")){
+                    $lowongan = LowonganKerja::with('perusahaan')->whereIn('id',$lokerId)->whereIn('tipe_pekerjaan',$tipe)
+                    ->paginate(10);
+                }
+                else if(!empty($tipe) && $tipe[0] != ""){
+                    $lowongan = LowonganKerja::with('perusahaan')->whereIn('tipe_pekerjaan',$tipe)->paginate(10);
+                }else if(!empty($lokerId)){
+                    $lowongan = LowonganKerja::with('perusahaan')->whereIn('id',$lokerId)->paginate(10);
+                }else if(!empty($search)){
+                    $lowongan = LowonganKerja::with('perusahaan')->where('nama_lowongan','like','%'.$search.'%')
+                    ->paginate(10);
+                }
+                else{
+                    $lowongan = LowonganKerja::with('perusahaan')->paginate(10);
+                }
+                $assets = ['chart', 'animation'];
+                $kategori = KategoriPekerjaan::all();
+                return view('dashboards.alumni-dashboard', compact('assets','lowongan','kategori'), [
+                    "alumni" => Alumni::findOrFail(auth()->user()->user_role->alumni->id)
+                ]);
+            }
+        }
     }
 
     /*

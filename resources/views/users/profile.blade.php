@@ -121,43 +121,57 @@
             </div>
 
 
+           @if ($data->user_role->alumni->tentang == "" || $data->user_role->alumni->alamat == "" || $data->user_role->alumni->foto_profile == "" || $data->user_role->alumni->resume == "" || $pengalaman->count() == 0 || $edukasi->count() == 0)
+            <div class="card">
+                    <div class="card-header">
+                        <div class="header-title d-flex">
+                            <h4 class="card-title">Lengkapi Profil </h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-inline m-0 p-0">
+                            @if ($data->user_role->alumni->tentang == "" || $data->user_role->alumni->alamat == "")
+                            <li class="d-flex mb-2">
+                                <p class="news-detail mb-0"><a href="#">+ Informasi Dasar</a></p>
+                            </li>
+                            @endif
+                            @if ($data->user_role->alumni->foto_profile == "")
+                            <li class="d-flex mb-2">
+                                <p class="news-detail mb-0"><a href="#">+ Foto Profile</a></p>
+                            </li>
+                            @endif
+                            @if ($data->user_role->alumni->resume == "")
+                            <li class="d-flex mb-2">
+                                <p class="news-detail mb-0"><a href="#">+ Resume</a></p>
+                            </li>
+                            @endif
+                            @if ($pengalaman->count() == 0)
+                            <li class="d-flex mb-2">
+                                <p class="news-detail mb-0"><a href="#">+ Riwayat Pengalaman</a></p>
+                            </li>
+                            @endif
+                            @if ($edukasi->count() == 0)
+                            <li class="d-flex mb-2">
+                                <p class="news-detail mb-0"><a href="#">+ Riwayat Edukasi</a></p>
+                            </li>
+                            @endif
+                        </ul>
+                    </div>
+                </div>
+            </div>
+           @else
             <div class="card">
                 <div class="card-header">
                     <div class="header-title d-flex">
-                        <h4 class="card-title">Lengkapi Profil </h4>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="blue" class="bi bi-check-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                          </svg>
+                        <h4 class="ms-2 card-title pb-4p">Profile Sudah Lengkap</h4>
                     </div>
                 </div>
-                <div class="card-body">
-                    <ul class="list-inline m-0 p-0">
-                        @if ($data->user_role->alumni->tentang == "" || $data->user_role->alumni->alamat == "")
-                        <li class="d-flex mb-2">
-                            <p class="news-detail mb-0"><a href="#">+ Informasi Dasar</a></p>
-                        </li>
-                        @endif
-                        @if ($data->user_role->alumni->foto_profile == "")
-                        <li class="d-flex mb-2">
-                            <p class="news-detail mb-0"><a href="#">+ Foto Profile</a></p>
-                        </li>
-                        @endif
-                        @if ($data->user_role->alumni->resume == "")
-                        <li class="d-flex mb-2">
-                            <p class="news-detail mb-0"><a href="#">+ Resume</a></p>
-                        </li>
-                        @endif
-                        @if ($pengalaman->count() == 0)
-                        <li class="d-flex mb-2">
-                            <p class="news-detail mb-0"><a href="#">+ Riwayat Pengalaman</a></p>
-                        </li>
-                        @endif
-                        @if ($edukasi->count() == 0)
-                        <li class="d-flex mb-2">
-                            <p class="news-detail mb-0"><a href="#">+ Riwayat Edukasi</a></p>
-                        </li>
-                        @endif
-                    </ul>
-                </div>
             </div>
-        </div>
+           @endif
 
 
 
