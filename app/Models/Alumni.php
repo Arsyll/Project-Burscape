@@ -31,8 +31,17 @@ class Alumni extends Model
     public function pengalaman(){
         return $this->hasMany(PengalamanKerja::class,'id_alumni','id');
     }
-
+    
+    public function lamaran(){
+        return $this->hasOne(LamaranKerja::class,'id_alumni','id');
+    }
+    
     public function edukasi(){
         return $this->hasMany(Edukasi::class,'id_alumni','id');
     }
+
+    public function profile_image(){
+        return asset('storage/alumni_images/'.$this->foto_profile);
+    }
+
 }

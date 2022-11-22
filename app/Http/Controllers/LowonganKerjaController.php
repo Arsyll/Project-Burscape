@@ -158,6 +158,15 @@ class LowonganKerjaController extends Controller
 
         return back()->with('success','Lowongan Kerja Berhasil Diubah!');
     }
+    
+    public function detailLowongan($id){
+        // dd(auth()->user()->user_role->alumni->edukasi->count());
+        $lowongan = LowonganKerja::with('detailLoker')->findOrFail($id);
+        if($lowongan->status != "Aktif"){
+            return abort(404);
+        }
+        return view('lowongan_kerja.detail-loker',compact('lowongan'));
+    }
 
     public function destroy($id){
         $loker = LowonganKerja::findOrFail($id);
