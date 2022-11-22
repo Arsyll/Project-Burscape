@@ -52,7 +52,7 @@
                    <div class="col-sm-6">
                        <div class="form-group">
                            <div><span class="text-danger" id="bidang_error"></span></div>
-                           <label for="jurusan">Bidang</label>
+                           <label for="jurusan">Bidang<span class="text-danger">*</span></label>
                            <select class="form form-control" name="bidang" id="bidang">
                                <option value="">- Pilih -</option>
                                @foreach ($bidang as $b)
@@ -63,10 +63,30 @@
                            </select>
                        </div>
                    </div>
+                   <div class="col-sm-6">
+                       <div class="form-group">
+                           <label for="jurusan">Tipe Pekerjaan<span class="text-danger">*</span></label>
+                           <select class="form form-control" name="tipe_pekerjaan" id="tipe_pekerjaan">
+                               <option value="">- Pilih -</option>
+                                   <option value="Full-time"
+                                    {{old('tipe_pekerjaan') == 'Full-time' ? 'selected' : ''}}
+                                    >Full-time</option>
+                                   <option value="Part-time"
+                                    {{old('tipe_pekerjaan') == 'Part-time' ? 'selected' : ''}}
+                                    >Part-time</option>
+                                   <option value="Magang"
+                                    {{old('tipe_pekerjaan') == 'Magang' ? 'selected' : ''}}
+                                    >Magang</option>
+                                   <option value="Freelance"
+                                    {{old('tipe_pekerjaan') == 'Freelance' ? 'selected' : ''}}
+                                    >Freelance</option>
+                           </select>
+                       </div>
+                   </div>
                    <div class="col-sm-4">
                        <div class="form-group">
                            <div><span class="text-danger" id="status_error"></span></div>
-                           <label for="status">Status</label>
+                           <label for="status">Status<span class="text-danger">*</span></label>
                            <select class="form form-control" name="status" id="status">
                                <option value="">- Pilih -</option>
                                <option value="Aktif" {{old('status') == 'Aktif' ? 'selected' : ''}}>Aktif</option>
