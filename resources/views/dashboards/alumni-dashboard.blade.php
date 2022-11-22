@@ -198,7 +198,7 @@
                                 <div class="col-lg-12 col-md-3 col-sm-3 mb-2  ">
                                     <button
                                         class="btn btn-primary rounded-pill btn-md d-flex justify-content-center ms-4 "><i
-                                            class="fa-solid fa-check me-2 pt-1"></i>Actively Recruiting</button>
+                                            class="fa-solid fa-check me-2 pt-1"></i>Menerima Lowongan</button>
                                 </div>
                                 <div class="col mb-3">
                                     <button type="button" class="btn btn-primary" id="btn-created" style="
