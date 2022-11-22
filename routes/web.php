@@ -10,6 +10,7 @@ use App\Http\Controllers\Security\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\DokumenController;
+use App\Http\Controllers\LamaranKerjaController;
 use App\Http\Controllers\LowonganKerjaController;
 use App\Http\Controllers\PerusahaanController;
 use Illuminate\Support\Facades\Artisan;
@@ -32,6 +33,10 @@ require __DIR__.'/auth.php';
 Route::get('/storage', function () {
     Artisan::call('storage:link');
 });
+
+// User Enviroment
+Route::get('lowongan',[HomeController::class,'lowongan']);
+Route::get('lowongan/{id}',[LowonganKerjaController::class,'detailLowongan'])->name('detail.lowongan');
 
 Route::get('/',[HomeController::class, 'landingPage'])->name('landingPage');
 
@@ -81,8 +86,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('listPerusahaan',[PerusahaanController::class,'listPerusahaan']);
     Route::get('perusahaan/update/{id?}',[PerusahaanController::class,'edit'])->name('perusahaan.edit');
 
-    // User Enviroment
-    Route::get('lowongan',[HomeController::class,'lowongan']);
+    // Page Lamaran
+    Route::resource('lamaran-kerja', LamaranKerjaController::class)->except('index');
 });
 
 //App Details Page => 'Dashboard'], function() {

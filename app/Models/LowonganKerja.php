@@ -25,6 +25,21 @@ class LowonganKerja extends Model
     ];
 
     public function createdAt(){
+        $createdAt = Carbon::parse($this->created_at);
+        $diff = $createdAt->diff(now());
+        if($diff->i == 0){
+            return 'Sesaat Yang Lalu';
+        }
+        else if($diff->h == 0){
+            return $diff->i . ' Menit Yang Lalu';
+        }else if($diff->d == 0){
+            return $diff->h . ' Jam Yang Lalu';
+        }else{
+            return $diff->d . ' Hari Yang Lalu';
+        }
+    }
+
+    public function updatedAt(){
         $updatedAt = Carbon::parse($this->updated_at);
         $diff = $updatedAt->diff(now());
         if($diff->i == 0){

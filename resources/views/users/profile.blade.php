@@ -16,11 +16,13 @@
                             <form method="POST" action="{{route('download.resume',$data->id)}}">
                                 @csrf
                                 <a href="{{route('users.edit',$data->id)}}" class="btn btn-primary btn-sm ms-3">Edit Profile</a>
+                                @if (!empty($data->user_role->alumni->resume))
                                 <a href="javascript:void(0)" class="btn btn-primary btn-sm"
                                   onclick="event.preventDefault();
                                 this.closest('form').submit();">
                                     {{ __('Download Resume') }}
                                 </a>
+                                @endif
                                 </form>
                         </div>
                     </div>
@@ -167,7 +169,7 @@
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                             <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
                           </svg>
-                        <h4 class="ms-2 card-title pb-4p">Profile Sudah Lengkap</h4>
+                        <h4 class="ms-2 card-title pb-4">Profile Sudah Lengkap</h4>
                     </div>
                 </div>
             </div>

@@ -208,106 +208,174 @@ class UserController extends Controller
             $alumni->update(array_merge($dataAlumni));
             $alumni->refresh();
 
-            // Pengalaman
-            for($i=0; $i < count($request->pengalaman_id); $i++)
-            {
-                $id_item = $request->pengalaman_id[$i];
-                $pengalaman = PengalamanKerja::find($id_item);
-                if(!empty($pengalaman))
+            // Pengalaman Update
+            $pengalamanUser = PengalamanKerja::where('id_alumni','=',$alumni->id);
+            if($pengalamanUser->count() != 0){
+                for($i=0; $i < count($request->pengalaman_id); $i++)
                 {
-                    $updatedPengalaman = [
+                    $id_item = $request->pengalaman_id[$i];
+                    $pengalaman = PengalamanKerja::find($id_item);
+                    if(!empty($pengalaman))
+                    {
+                        $updatedPengalaman = [
+                            'id_alumni' => $alumni->id,
+                            'judul' => $request->judul[$i],
+                            'perusahaan' => $request->perusahaan[$i],
+                            'tahun' => $request->dari_tahun[$i].'-'.$request->ke_tahun[$i],
+                        ];
+                        $pengalaman->update(array_merge($updatedPengalaman));
+                    }
+                }
+    
+                // Delete The Deleted Pengalaman Kerja
+                $deleted_pengalaman_id = DB::table('pengalaman_kerja')
+                                        ->select('id')
+                                        ->where('id_alumni' , '=' , $alumni->id)
+                                        ->whereNotIn('id' , $request->pengalaman_id)
+                                        ->get('id');
+                if($deleted_pengalaman_id->count() != 0)
+                {
+                    foreach($deleted_pengalaman_id as $d){
+                        $deletedPengalaman = PengalamanKerja::find($d->id);
+                        $deletedPengalaman->delete();
+                    }
+                }
+    
+                // Create New Pengalaman
+                if($request->new_judul > 0)
+                {
+                    for($i=0; $i < count($request->new_judul); $i++)
+                    {
+                        if($request->new_judul[$i] != "" && $request->new_perusahaan[$i] != "" && $request->new_dari_tahun[$i] && $request->new_ke_tahun[$i]){
+                            $pengalamanbaru = new PengalamanKerja();
+                            $new_pengalaman[$i] = [
+                                'id_alumni' => $alumni->id,
+                                'judul' => $request->new_judul[$i],
+                                'perusahaan' => $request->new_perusahaan[$i],
+                                'tahun' => $request->new_dari_tahun[$i] .'-'.$request->new_ke_tahun[$i],
+                            ];
+                            if($i == 2){
+                                dd($new_pengalaman[$i]);
+                            }
+                            $pengalamanbaru->create(array_merge($new_pengalaman[$i]));
+                        }
+                    }
+                }
+            }else{
+                for($i=0; $i < count($request->judul); $i++)
+                {
+                    $id_item = $request->judul[$i];
+                    $pengalaman = new PengalamanKerja();
+                    $dataPengalaman = [
                         'id_alumni' => $alumni->id,
                         'judul' => $request->judul[$i],
                         'perusahaan' => $request->perusahaan[$i],
                         'tahun' => $request->dari_tahun[$i].'-'.$request->ke_tahun[$i],
                     ];
-                    $pengalaman->update(array_merge($updatedPengalaman));
-                }
-            }
-
-            // Delete The Deleted Pengalaman Kerja
-            $deleted_pengalaman_id = DB::table('pengalaman_kerja')
-                                    ->select('id')
-                                    ->where('id_alumni' , '=' , $alumni->id)
-                                    ->whereNotIn('id' , $request->pengalaman_id)
-                                    ->get('id');
-            if($deleted_pengalaman_id->count() != 0)
-            {
-                foreach($deleted_pengalaman_id as $d){
-                    $deletedPengalaman = PengalamanKerja::find($d->id);
-                    $deletedPengalaman->delete();
-                }
-            }
-
-            // Create New Pengalaman
-            if($request->new_judul > 0)
-            {
-                for($i=0; $i < count($request->new_judul); $i++)
-                {
-                    if($request->new_judul[$i] != "" && $request->new_perusahaan[$i] != "" && $request->new_dari_tahun[$i] && $request->new_ke_tahun[$i]){
-                        $pengalamanbaru = new PengalamanKerja();
-                        $new_pengalaman[] = [
-                            'id_alumni' => $alumni->id,
-                            'judul' => $request->new_judul[$i],
-                            'perusahaan' => $request->new_perusahaan[$i],
-                            'tahun' => $request->new_dari_tahun[$i] .'-'.$request->new_ke_tahun[$i],
-                        ];
-                        $pengalamanbaru->create(array_merge($new_pengalaman[$i]));
+                        $pengalaman->create(array_merge($dataPengalaman));
+                    }
+                    if($request->new_judul > 0)
+                    {
+                        for($i=0; $i < count($request->new_judul); $i++)
+                        {
+                            if($request->new_judul[$i] != "" && $request->new_perusahaan[$i] != "" && $request->new_dari_tahun[$i] && $request->new_ke_tahun[$i]){
+                                $pengalamanbaru = new PengalamanKerja();
+                                $new_pengalaman[] = [
+                                    'id_alumni' => $alumni->id,
+                                    'judul' => $request->new_judul[$i],
+                                    'perusahaan' => $request->new_perusahaan[$i],
+                                    'tahun' => $request->new_dari_tahun[$i] .'-'.$request->new_ke_tahun[$i],
+                                ];
+                                $pengalamanbaru->create(array_merge($new_pengalaman[$i]));
+                            }
+                        }
                     }
                 }
             }
 
             // Edukasi
-            for($i=0; $i < count($request->edukasi_id); $i++)
+            $edukasiUser = Edukasi::where('id_alumni','=',$alumni->id)->get();
+            if($edukasiUser->count() != 0)
             {
-                $id_item = $request->edukasi_id[$i];
-                $edukasi = Edukasi::find($id_item);
-                if(!empty($edukasi))
+                for($i=0; $i < count($request->edukasi_id); $i++)
                 {
-                    $updatedEdukasi = [
+                    $id_item = $request->edukasi_id[$i];
+                    $edukasi = Edukasi::find($id_item);
+                    if(!empty($edukasi))
+                    {
+                        $updatedEdukasi = [
+                            'id_alumni' => $alumni->id,
+                            'nama_lembaga' => $request->nama_lembaga[$i],
+                            'bidang' => $request->bidang[$i],
+                            'tahun' => $request->tahun[$i],
+                        ];
+                        $edukasi->update(array_merge($updatedEdukasi));
+                    }
+                }
+    
+                // Delete The Deleted Pengalaman Kerja
+                $deleted_edukasi_id = DB::table('edukasi')
+                                        ->select('id')
+                                        ->where('id_alumni' , '=' , $alumni->id)
+                                        ->whereNotIn('id' , $request->edukasi_id)
+                                        ->get('id');
+                if($deleted_edukasi_id->count() != 0)
+                {
+                    foreach($deleted_edukasi_id as $d){
+                        $deletedEdukasi = Edukasi::find($d->id);
+                        $deletedEdukasi->delete();
+                    }
+                }
+    
+                // Create New Edukasi
+                if($request->new_nama_lembaga > 0)
+                {
+                    for($i=0; $i < count($request->new_nama_lembaga); $i++)
+                    {
+                        if($request->new_nama_lembaga[$i] != "" && $request->new_bidang[$i] && $request->new_tahun[$i]){
+                            $edukasi = new Edukasi();
+                            $new_edukasi[] = [
+                                'id_alumni' => $alumni->id,
+                                'nama_lembaga' => $request->new_nama_lembaga[$i],
+                                'bidang' => $request->new_bidang[$i],
+                                'tahun' => $request->new_tahun[$i],
+                            ];
+                            $edukasi->create(array_merge($new_edukasi[$i]));
+                        }
+                    }
+                }
+            }else{
+                for($i=0; $i < count($request->nama_lembaga); $i++)
+                {
+                    $edukasi = new Edukasi();
+                    $dataEdukasi = [
                         'id_alumni' => $alumni->id,
                         'nama_lembaga' => $request->nama_lembaga[$i],
                         'bidang' => $request->bidang[$i],
                         'tahun' => $request->tahun[$i],
                     ];
-                    $edukasi->update(array_merge($updatedEdukasi));
+                    $edukasi->create(array_merge($dataEdukasi));
                 }
-            }
-
-            // Delete The Deleted Pengalaman Kerja
-            $deleted_edukasi_id = DB::table('edukasi')
-                                    ->select('id')
-                                    ->where('id_alumni' , '=' , $alumni->id)
-                                    ->whereNotIn('id' , $request->edukasi_id)
-                                    ->get('id');
-            if($deleted_edukasi_id->count() != 0)
-            {
-                foreach($deleted_edukasi_id as $d){
-                    $deletedEdukasi = Edukasi::find($d->id);
-                    $deletedEdukasi->delete();
-                }
-            }
-
-            // Create New Pengalaman
-            if($request->new_nama_lembaga > 0)
-            {
-                for($i=0; $i < count($request->new_nama_lembaga); $i++)
+                if($request->new_nama_lembaga > 0)
                 {
-                    if($request->new_nama_lembaga[$i] != "" && $request->new_bidang[$i] && $request->new_tahun[$i]){
-                        $edukasi = new Edukasi();
-                        $new_edukasi[] = [
-                            'id_alumni' => $alumni->id,
-                            'nama_lembaga' => $request->new_nama_lembaga[$i],
-                            'bidang' => $request->new_bidang[$i],
-                            'tahun' => $request->new_tahun[$i],
-                        ];
-                        $edukasi->create(array_merge($new_edukasi[$i]));
+                    for($i=0; $i < count($request->new_nama_lembaga); $i++)
+                    {
+                        if($request->new_nama_lembaga[$i] != "" && $request->new_bidang[$i] && $request->new_tahun[$i]){
+                            $edukasi = new Edukasi();
+                            $new_edukasi[] = [
+                                'id_alumni' => $alumni->id,
+                                'nama_lembaga' => $request->new_nama_lembaga[$i],
+                                'bidang' => $request->new_bidang[$i],
+                                'tahun' => $request->new_tahun[$i],
+                            ];
+                            $edukasi->create(array_merge($new_edukasi[$i]));
+                        }
                     }
                 }
             }
 
             return redirect()->back()->withSuccess(__('Profile Telah Diubah',['name' => 'My Profile']));
-        }
+        
 
     }
 

@@ -58,9 +58,7 @@ class HomeController extends Controller
             $assets = ['chart', 'animation'];
             $lowongan = LowonganKerja::with('perusahaan')->where('status','=','Aktif')->paginate(10);
             $kategori = KategoriPekerjaan::all();
-             return view('dashboards.alumni-dashboard', compact('assets','lowongan','kategori'), [
-                 "alumni" => Alumni::findOrFail(auth()->user()->user_role->alumni->id)
-             ]);
+             return view('dashboards.alumni-dashboard', compact('assets','lowongan','kategori'));
         }
         else{
             $lokerId = [];
@@ -117,9 +115,7 @@ class HomeController extends Controller
                 }
                 $assets = ['chart', 'animation'];
                 $kategori = KategoriPekerjaan::all();
-                return view('dashboards.alumni-dashboard', compact('assets','lowongan','kategori'), [
-                    "alumni" => Alumni::findOrFail(auth()->user()->user_role->alumni->id)
-                ]);
+                return view('dashboards.alumni-dashboard', compact('assets','lowongan','kategori'));
             }else{
                 if(!empty($lokerId) && !empty($lokerId && $tipe[0] != "" && !empty($search))){
                     $lowongan = LowonganKerja::with('perusahaan')->whereIn('id',$lokerId)->whereIn('tipe_pekerjaan',$tipe)
@@ -151,12 +147,12 @@ class HomeController extends Controller
                 }
                 $assets = ['chart', 'animation'];
                 $kategori = KategoriPekerjaan::all();
-                return view('dashboards.alumni-dashboard', compact('assets','lowongan','kategori'), [
-                    "alumni" => Alumni::findOrFail(auth()->user()->user_role->alumni->id)
-                ]);
+                return view('dashboards.alumni-dashboard', compact('assets','lowongan','kategori'));
             }
         }
     }
+
+    
 
     /*
      * Menu Style Routs
