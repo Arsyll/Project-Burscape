@@ -7,12 +7,16 @@
 <script>
     tinymce.init({
       selector: 'textarea#deskripsi',
+      plugins: ["lists","stylebuttons"],
       promotion: false,
+      toolbar: ['undo redo | styles | bold italic | indent outdent bullist numlist | alignleft aligncenter alignright'],
       menubar: '',
     });
     tinymce.init({
       selector: 'textarea#syarat',
+      plugins: ["lists","stylebuttons"],
       promotion: false,
+      toolbar: ['undo redo | styles | bold italic | indent outdent bullist numlist | alignleft aligncenter alignright'],
       menubar: '',
     });
 </script>

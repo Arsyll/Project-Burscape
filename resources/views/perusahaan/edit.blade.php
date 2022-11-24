@@ -7,7 +7,9 @@
 <script>
     tinymce.init({
       selector: 'textarea#tentang',
+      plugins: ["lists","stylebuttons"],
       promotion: false,
+      toolbar: ['undo redo | styles | bold italic | indent outdent bullist numlist | alignleft aligncenter alignright'],
       menubar: '',
     });
 
@@ -67,6 +69,12 @@
                            <input type="text" class="form-control" id="alamat" name="alamat" value="{{!empty(old('alamat')) ? old('alamat') : $perusahaan->alamat}}" placeholder="">
                        </div>
                    </div>
+                   <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="alamat">Alamat Website</label>
+                            <input type="text" class="form-control" value="{{empty(old('url')) ? $perusahaan->url : old('url')}}" id="url" name="url" placeholder="">
+                        </div>
+                    </div>  
                    <div class="col-sm-12">
                        <div class="form-group">
                            <div><span class="text-danger" id="deksripsi_error"></span></div>

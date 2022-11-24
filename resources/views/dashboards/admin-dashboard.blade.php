@@ -79,13 +79,13 @@
                   </div>
                   <div class="card-body p-0">
                      <div class="table-responsive mt-4">
-                        <table id="basic-table" class="table table-striped mb-0" role="grid">
+                        <table id="basic-table" class="table table-striped mb-0 w-100" role="grid">
                            <thead>
                               <tr>
                                  <th>NAMA</th>
                                  <th>PERUSAHAAN</th>
                                  <th>STATUS</th>
-                                 <th>JUMLAH LAMARAN</th>
+                                 <th class="text-center">JUMLAH LAMARAN</th>
                                  <th class="text-center">AKSI</th>
                               </tr>
                            </thead>
@@ -105,14 +105,12 @@
                                  </td>
                                  <td><span class="badge {{$l->status == "Aktif" ? 'bg-success' : 'bg-danger'}} p-2">{{$l->status}}</span></td>
                                  <td>
-                                    <div class="d-flex align-items-center mb-2">
-                                       <h6>60%</h6>
+                                    <div class="text-center mb-2">
+                                       <h6>{{$l->lamaran->count()}}</h6>
                                     </div>
-                                    <div class="progress bg-soft-primary shadow-none w-100" style="height: 4px">
-                                       <div class="progress-bar bg-primary" data-toggle="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                                  
                                  </td>
-                                 <td>
+                                 <td class="text-center">
                                     <a href="{{route('lowongan-kerja.show',$l->id)}}" class="btn btn-primary">Lihat</a>
                                  </td>
                               </tr>

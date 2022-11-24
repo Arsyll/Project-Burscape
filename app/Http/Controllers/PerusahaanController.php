@@ -165,6 +165,16 @@ class PerusahaanController extends Controller
         return back()->with('success','Perusahaan Telah Diedit!');
     }
 
+    public function perusahaanList(){
+        $assets = ['chart', 'animation'];
+        $perusahaan = Perusahaan::with('lowongan')->paginate(8);
+        return view('perusahaan.list-perusahaan',compact('perusahaan','assets'));
+    }
+    public function detailPerusahaan($id){
+        $perusahaan = Perusahaan::with('lowongan')->findOrFail($id);
+        return view('users.profile-perusahaan', compact('perusahaan'));
+    }
+
     public function destroy($id){
         $perusahaan = Perusahaan::findOrFail($id);
         $path = storage_path('app/perusahaan_images/'.$perusahaan->foto_perusahaan);
