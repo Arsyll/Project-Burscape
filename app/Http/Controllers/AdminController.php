@@ -27,12 +27,13 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_lengkap' => 'required',
+            'nama_lengkap' => 'required|unique:users,username',
             'jabatan' => 'required',
             'email' => 'required|unique:users,email',
             'password' => 'min:8|required_with:con_password|same:con_password',
             'con_password' => 'min:8'
         ],[
+            'nama_lengkap.unique' => 'Nama Sudah Terpakai.',
             'nama_lengkap.required' => 'Nama Harus Diisi.',
             'jabatan.required' => 'Jabatan Harus Diisi.',
             'email.unique' => 'Email Sudah Terpakai!',
@@ -95,13 +96,14 @@ class AdminController extends Controller
         $admin = Admin::findOrFail($id);
 
         $request->validate([
-            'nama_lengkap' => 'required',
+            'nama_lengkap' => 'required|unique:users,username,'. $admin->admin_role->user->id,
             'jabatan' => 'required',
             'email' => 'required|unique:users,email,' . $admin->admin_role->user->id,
             'password' => 'min:8|required_with:con_password|same:con_password',
             'con_password' => 'min:8'
         ],[
             'nama_lengkap.required' => 'Nama Harus Diisi.',
+            'nama_lengkap.unique' => 'Nama Sudah Terpakai.',
             'jabatan.required' => 'Jabatan Harus Diisi.',
             'email.unique' => 'Email Sudah Terpakai!',
             'email.required' => 'Email Harus Diisi.',

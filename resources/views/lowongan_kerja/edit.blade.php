@@ -9,12 +9,16 @@
     console.log({{$loker->deskripsi}})
     tinymce.init({
       selector: 'textarea#deskripsi',
+      plugins: ["lists","stylebuttons"],
       promotion: false,
+      toolbar: ['undo redo | styles | bold italic | indent outdent bullist numlist | alignleft aligncenter alignright'],
       menubar: '',
     });
     tinymce.init({
       selector: 'textarea#syarat',
+      plugins: ["lists","stylebuttons"],
       promotion: false,
+      toolbar: ['undo redo | styles | bold italic | indent outdent bullist numlist | alignleft aligncenter alignright'],
       menubar: '',
     });
 </script>
@@ -192,7 +196,7 @@
                    </div>
                    <div class="col-sm-8 d-flex">
                        <div class="form-group">
-                           <button class="btn btn-primary" type="submit">Tambah</button>
+                           <button class="btn btn-primary" type="submit">Edit</button>
                        </div>
                        <div class="form-group ms-2">
                            <a class="btn btn-secondary" href="{{route('lowongan-kerja.index')}}">Cancel</a>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Alumni;
 use App\Models\DetailLoker;
 use App\Models\KategoriPekerjaan;
+use App\Models\LamaranKerja;
 use App\Models\LowonganKerja;
 use App\Models\Perusahaan;
 use App\Models\User;
@@ -12,6 +13,7 @@ use App\Providers\RouteServiceProvider;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
@@ -35,10 +37,13 @@ class HomeController extends Controller
          $perusahaan = Perusahaan::all();
 
          if ($user->role == "Perusahaan") {
-             return view('dashboards.perusahaan-dashboard', compact('assets'), [
-                 "perusahaan" => Perusahaan::find($this->getCompanyId())->paginate(4)
- 
-             ]);
+            $perusahaan = Perusahaan::findOrFail($user->user_role->perusahaan->id);
+            $totLowongan = LowonganKerja::with('perusahaan')->where('id_perusahaan',$perusahaan->id)->count();
+            $totLamaran =   DB::table('lamaran_kerja')
+                        ->join('lowongan_kerja','lamaran_kerja.id_lowongan','=','lowongan_kerja.id')
+                        ->where('lowongan_kerja.id_perusahaan','=', $perusahaan->id)
+                        ->count();
+            return view('dashboards.perusahaan-dashboard', compact('assets','perusahaan','totLowongan','totLamaran'));
          }
          else if($user->role == "Admin") {
             $totPerusahaan = Perusahaan::count();
@@ -151,7 +156,6 @@ class HomeController extends Controller
             }
         }
     }
-
     
 
     /*

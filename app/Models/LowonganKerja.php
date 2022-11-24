@@ -65,4 +65,8 @@ class LowonganKerja extends Model
     public function bidangs(){
         return $this->belongsTo(Jurusan::class,'bidang');
     }
+
+    public function lamaran(){
+        return $this->hasMany(LamaranKerja::class,'id_lowongan');
+    }
 }

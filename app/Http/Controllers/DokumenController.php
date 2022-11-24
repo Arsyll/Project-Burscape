@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dokumen;
+use App\Models\LowonganKerja;
+use App\Models\Perusahaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -19,8 +21,9 @@ class DokumenController extends Controller
      */
     public function index()
     {
-        $docs = Dokumen::all();
-        return view('dokumen.index', compact('docs'));
+        $perusahaan = Perusahaan::with('role_perusahaan')->get();
+        $lowongan = LowonganKerja::with('detailLoker')->get();
+        return view('dokumen.index', compact('perusahaan','lowongan'));
     }
 
     /**

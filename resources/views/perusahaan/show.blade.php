@@ -14,7 +14,7 @@
                         <div class="col-lg-9">
                           <h3 class="mb-3 pb-2">{{ $perusahaan->nama}}</h3>
                           <p><strong>Bidang</strong> : {{$perusahaan->bidang}}</p>
-                          <p><strong>Email</strong> : {{$perusahaan->email}}</p>
+                          <p><strong>Email</strong> : {{$perusahaan->email_perusahaan}}</p>
                           <p><strong>Telp</strong> : {{$perusahaan->no_telp}}</p>
                           <p><strong>Alamat</strong> : {{$perusahaan->alamat}}</p>
                           <p><strong>Alamat Website</strong> : {{$perusahaan->url ? $perusahaan->url : '-'}}</p>

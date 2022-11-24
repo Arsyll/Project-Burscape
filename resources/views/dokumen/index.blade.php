@@ -45,7 +45,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah Perusahaan</h5>
+                <h5 class="modal-title">Tambah Dokumen</h5>
             </div>
             <div class="modal-body">
                 <div class="modal-body">
@@ -77,8 +77,9 @@
                             <label for="jurusan">Perusahaan</label>
                             <select class="form form-control" name="id_perusahaan" id="id_perusahaan">
                                 <option value="">- Pilih -</option>
-                                <option value="1">Some Workshop</option>
-                                <option value="2">Lainnya</option>
+                                @foreach ($perusahaan as $p)
+                                <option value="{{$p->id}}">{{$p->nama}}</option>
+                                @endforeach
                             </select>
                             <small class="form-text text-danger"></small>
                         </div>
@@ -87,8 +88,9 @@
                             <label for="jurusan">Lowongan Kerja</label>
                             <select class="form form-control" name="id_loker" id="id_loker">
                                 <option value="">- Pilih -</option>
-                                <option value="1">LOker Some Workshop</option>
-                                <option value="2">Lainnya</option>
+                                @foreach ($lowongan as $l)
+                                <option value="{{$l->id}}">{{$l->nama_lowongan}}</option>
+                                @endforeach
                             </select>
                             <small class="form-text text-danger"></small>
                         </div>
@@ -143,8 +145,9 @@
                             <label for="jurusan">Perusahaan</label>
                             <select class="form form-control" name="uid_perusahaan" id="uid_perusahaan">
                                 <option value="">- Pilih -</option>
-                                <option value="1">Some Workshop</option>
-                                <option value="2">Lainnya</option>
+                                @foreach ($perusahaan as $p)
+                                <option value="{{$p->id}}">{{$p->nama}}</option>
+                                @endforeach
                             </select>
                             <small class="form-text text-danger"></small>
                         </div>
@@ -152,8 +155,9 @@
                             <label for="jurusan">Lowongan Kerja</label>
                             <select class="form form-control" name="uid_loker" id="uid_loker">
                                 <option value="">- Pilih -</option>
-                                <option value="1">LOker Some Workshop</option>
-                                <option value="2">Lainnya</option>
+                                @foreach ($lowongan as $l)
+                                <option value="{{$l->id}}">{{$l->nama_lowongan}}</option>
+                                @endforeach
                             </select>
                             <small class="form-text text-danger"></small>
                         </div>
@@ -403,18 +407,18 @@
                                 { 'data' : 'perusahaan' },
                                 {'data' : "id" , render : function ( data, type, row, meta ) {
                                 return type === 'display'  ?
-                                '<div class="row justify-content-center">'+
-                                    '<div class="col-3">'+
+                                '<div class="d-flex justify-content-center">'+
+                                    '<div class="col-4">'+
                                         '<a class="btn btn-primary btn-sm" id="download-btn" href="{{url('dokumen/download')}}/'+data+'">'+
                                             '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>'+
                                         '</a>'+
                                     '</div>'+
-                                    '<div class="col-3">'+
+                                    '<div class="col-4">'+
                                         '<button class="btn btn-warning btn-sm" id="update-btn" href="#" data-id="'+data+'" data-bs-toggle="modal" data-bs-target="#form-modal-edit">'+
                                             '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"> <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/> <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>'+
                                         '</button>'+
                                     '</div>'+
-                                    '<div class="col-3">'+
+                                    '<div class="col-4">'+
                                         '<button class="btn btn-danger btn-sm" id="del-btn" href="#" data-id="'+data+'">'+
                                             '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"> <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/> <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/> </svg>'+
                                         '</button>'+

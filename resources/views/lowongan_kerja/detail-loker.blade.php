@@ -17,7 +17,7 @@
                                     fill="#000000" dy=".3em" dominant-baseline="hanging"
                                     style="font-size: 200%">logo</text>
                             </svg> --}}
-                            <img src="{{!empty($lowongan->perusahaan->foto_perusahaan) ? $lowongan->perusahaan->profile_image : asset('images/icons/delesign-construction.svg')}}" alt="logo" width="200" height="200">
+                            <img src="{{!empty($lowongan->perusahaan->foto_perusahaan) ? $lowongan->perusahaan->profile_image : asset('images/icons/delesign-construction.svg')}}" alt="logo" width="200" height="200" class="img-fluid ms-4">
                         </div>
                         <div class="col-lg-9 ms-5 align-items-start">
                             <h3 class="mb-3 ">{{$lowongan->nama_lowongan}}</h3>
@@ -45,10 +45,60 @@
                                             {{$lowongan->updatedAt()}}</p>
                                         <div class="bd-example d-flex justify-content-start ">
                                             <div class="col-lg-3 col-md-3 col-sm-4 d-flex flex-column ms-2">
-                                                <a type="button"
-                                                    href="https://getbootstrap.com/docs/5.2/components/navs-tabs/"
-                                                    class="btn btn-outline-primary btn-lg me-3"><i
-                                                        class="fa-solid fa-share-nodes me-2"></i>Bagikan</a>
+                                                <button type="button"
+                                                    class="btn btn-outline-primary btn-lg me-3" data-bs-toggle="modal" data-bs-target="#share"><i
+                                                        class="fa-solid fa-share-nodes me-2" ></i>Bagikan</button>
+                                                     
+                                                    <div class="modal fade" id="share" tabindex="-1" aria-labelledby="exampleModalLabels"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content col-12">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Share</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="icon-container d-flex justify-content-evenly text-center">
+                                                                        <div class="smd">
+                                                                            <i class=" img-thumbnail fab fa-twitter fa-2x"
+                                                                                style="color:#4c6ef5;background-color: aliceblue"></i>
+                                                                            <p>Twitter</p>
+                                                                        </div>
+                                                                        <div class="smd">
+                                                                            <i class="img-thumbnail fab fa-facebook fa-2x"
+                                                                                style="color: #3b5998;background-color: #eceff5;"></i>
+                                                                            <p>Facebook</p>
+                                                                        </div>
+                                                                        <div class="smd">
+                                                                            <i class="img-thumbnail fab fa-whatsapp fa-2x"
+                                                                                style="color:  #25D366;background-color: #cef5dc;"></i>
+                                                                            <p>Whatsapp</p>
+                                                                        </div>
+                                                                        <div class="smd">
+                                                                            <i class="img-thumbnail fab fa-telegram fa-2x"
+                                                                                style="color:  #4c6ef5;background-color: aliceblue"></i>
+                                                                            <p>Telegram</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                                <div class="modal-footer">
+                                            <div class="col-12 ">
+                                                <h6 class="mx-3 mb-2" style="font-weight: 400">Page Link <span class="message"></span></h6>
+                                                <div class="input-group mb-3 ms-3 ">
+                                                    <input type="search" class="form-control"  aria-label="Search" id="myInput"
+                                                      aria-describedby="search-addon" value="{{ route('detail.lowongan',$lowongan->id)}}" disabled/>
+                                                      <button class="btn btn-light me-3" onclick="myFunction()" type="button" 
+                                                      style="background-color:#ffffff ; border: none;"><i class="far fa-clone"></i></button>
+                                                </div>
+                                            </div>
+                                                                    
+                                                                 
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-sm-4 d-flex flex-column">
                                                 @if (!empty(auth()->user()))
@@ -222,7 +272,7 @@
                                         <img src="{{!empty($lowongan->perusahaan->foto_perusahaan) ? $lowongan->perusahaan->profile_image : asset('images/icons/delesign-construction.svg')}}" alt="logo" width="200" height="200">
                                     </div>
                                     <div class="col-lg-9 align-items-start ms-5 ">
-                                        <a href="" class="fs-4">{{$lowongan->perusahaan->nama}}</a>
+                                        <a href="{{route('perusahaan.detail',$lowongan->perusahaan->id)}}" class="fs-4">{{$lowongan->perusahaan->nama}}</a>
                                         <br>
                                         {!! $lowongan->perusahaan->tentang !!}
                                 </div>
@@ -306,7 +356,17 @@
 
                 }
             }
+            function myFunction() {
+                // Get the text field
+                var copyText = document.getElementById("myInput");
 
+                // Select the text field
+                copyText.select();
+                copyText.setSelectionRange(0, 99999); // For mobile devices
+
+                // Copy the text inside the text field
+                navigator.clipboard.writeText(copyText.value);
+}
         </script>
         {{-- @include('partials.components.share-offcanvas') --}}
 </x-app-layout>

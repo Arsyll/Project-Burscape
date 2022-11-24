@@ -36,6 +36,8 @@ Route::get('/storage', function () {
 
 // User Enviroment
 Route::get('lowongan',[HomeController::class,'lowongan']);
+Route::get('perusahaan/list',[PerusahaanController::class,'perusahaanList']);
+Route::get('perusahaan/detail/{id}',[PerusahaanController::class,'detailPerusahaan'])->name('perusahaan.detail');
 Route::get('lowongan/{id}',[LowonganKerjaController::class,'detailLowongan'])->name('detail.lowongan');
 
 Route::get('/',[HomeController::class, 'landingPage'])->name('landingPage');

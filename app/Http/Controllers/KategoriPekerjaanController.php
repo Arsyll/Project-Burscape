@@ -50,8 +50,9 @@ class KategoriPekerjaanController extends Controller
     }
 
     public function update(Request $request, $id){
+        $kategori_pekerjaan = KategoriPekerjaan::find($id);
         $rule = [
-            'nama_kategori' => 'required'
+            'nama_kategori' => 'required|unique:kategori_pekerjaan,nama_kategori,'. $kategori_pekerjaan->id 
         ];
         $this->validate($request, $rule);
 
@@ -60,7 +61,6 @@ class KategoriPekerjaanController extends Controller
         // unset($input['_method']);
         // $status = DB::table('t_produk')->where('id', $id)->update($input);
 
-        $kategori_pekerjaan = KategoriPekerjaan::find($id);
         $status = $kategori_pekerjaan->update($input);
 
         return response()->json([

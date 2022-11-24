@@ -26,6 +26,10 @@ class Perusahaan extends Model
         return $this->hasOne(Role::class, 'id_perusahaan', 'id');
     }
 
+    public function lowongan(){
+        return $this->hasMany(LowonganKerja::class,'id_perusahaan','id');
+    }
+
     public function profile_image(){
         return asset('storage/perusahaan_images/'.$this->foto_perusahaan);
     }
