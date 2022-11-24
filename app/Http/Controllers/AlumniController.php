@@ -47,7 +47,7 @@ class AlumniController extends Controller
         ]);
 
         $foto_profile = ['foto_profile' => $request->foto_profile ? $request->foto_profile : 'something'];
-       
+
         $alumni = new Alumni();
         $status = $alumni->create(array_merge($input,$foto_profile));
 
@@ -110,7 +110,7 @@ class AlumniController extends Controller
             'status' => 'required',
             'id_jurusan' => 'required',
         ]);
-       
+
         $alumni = Alumni::find($id);
         $status = $alumni->update($input);
 
@@ -137,9 +137,10 @@ class AlumniController extends Controller
     }
 
     public function listAlumni(){
+        $alumni = Alumni::with(['btjurusan'])->get();
         return response()->json([
             'massage' => 'List Jurusan',
-            'data' => Alumni::get()->load('jurusan')
+            'data' => $alumni
         ]);
     }
 }

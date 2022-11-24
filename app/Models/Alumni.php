@@ -24,18 +24,18 @@ class Alumni extends Model
         'resume',
     ];
 
-    public function jurusan(){
+    public function btjurusan(){
         return $this->belongsTo(Jurusan::class, 'id_jurusan');
     }
 
     public function pengalaman(){
         return $this->hasMany(PengalamanKerja::class,'id_alumni','id');
     }
-    
+
     public function lamaran(){
         return $this->hasOne(LamaranKerja::class,'id_alumni','id');
     }
-    
+
     public function edukasi(){
         return $this->hasMany(Edukasi::class,'id_alumni','id');
     }
