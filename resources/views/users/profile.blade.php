@@ -13,7 +13,7 @@
                     <div class="d-flex justify-content-between">
                         <h3 class="me-2 ">{{ $data->full_name() ?? 'Austin Robertson'  }}</h3>
                         <div class="d-flex">
-                            <form method="POST" action="{{route('download.resume',$data->id)}}">
+                            <form method="POST" action="{{route('download.resume',$data->user_role->alumni->id)}}">
                                 @csrf
                                 <a href="{{route('users.edit',$data->id)}}" class="btn btn-primary btn-sm ms-3">Edit Profile</a>
                                 @if (!empty($data->user_role->alumni->resume))

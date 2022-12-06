@@ -39,6 +39,9 @@
                            <input type="text" class="form-control" value="{{old('nama_lowongan')}}" id="nama_lowongan" name="nama_lowongan" placeholder="">
                        </div>
                    </div>
+                   @if(auth()->user()->user_role->perusahaan)
+                   <input type="hidden" name="id_perusahaan" value="{{ auth()->user()->user_role->perusahaan->id }}">
+                   @else
                    <div class="col-sm-6">
                        <div class="form-group">
                            <div><span class="text-danger" id="id_perusahaan_error"></span></div>
@@ -53,6 +56,7 @@
                            </select>
                        </div>
                    </div>
+                   @endif
                    <div class="col-sm-6">
                        <div class="form-group">
                            <div><span class="text-danger" id="bidang_error"></span></div>

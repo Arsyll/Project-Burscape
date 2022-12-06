@@ -38,12 +38,13 @@ class HomeController extends Controller
 
          if ($user->role == "Perusahaan") {
             $perusahaan = Perusahaan::findOrFail($user->user_role->perusahaan->id);
-            $totLowongan = LowonganKerja::with('perusahaan')->where('id_perusahaan',$perusahaan->id)->count();
+            $loker = LowonganKerja::with('perusahaan')->where('id_perusahaan',$perusahaan->id)->get();
+            $totLowongan = $loker->count();
             $totLamaran =   DB::table('lamaran_kerja')
                         ->join('lowongan_kerja','lamaran_kerja.id_lowongan','=','lowongan_kerja.id')
                         ->where('lowongan_kerja.id_perusahaan','=', $perusahaan->id)
                         ->count();
-            return view('dashboards.perusahaan-dashboard', compact('assets','perusahaan','totLowongan','totLamaran'));
+            return view('dashboards.perusahaan-dashboard', compact('assets','perusahaan','loker','totLowongan','totLamaran'));
          }
          else if($user->role == "Admin") {
             $totPerusahaan = Perusahaan::count();

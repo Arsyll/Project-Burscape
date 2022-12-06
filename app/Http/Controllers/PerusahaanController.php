@@ -125,7 +125,7 @@ class PerusahaanController extends Controller
             'tentang.required' => 'Tentang Perusahaan Harus Diisi',
         ]);
 
-        $path = storage_path('app/perusahaan_images/'.$perusahaan->foto_perusahaan);
+        $path = storage_path('app/profile_perusahaan/'.$perusahaan->foto_perusahaan);
 
         if($request->hasFile('foto_perusahaan')){
             if (File::exists($path)) 
@@ -133,7 +133,7 @@ class PerusahaanController extends Controller
                 File::delete($path);
             }
             $newname = $request->nama.' '.date("ymdhis").'.'.$request->file('foto_perusahaan')->getClientOriginalExtension();
-            $request->file('foto_perusahaan')->storeAs('perusahaan_images', $newname);
+            $request->file('foto_perusahaan')->storeAs('profile_perusahaan', $newname);
         }
         
         $data = [
@@ -143,7 +143,7 @@ class PerusahaanController extends Controller
             'no_telp' => $request->no_telp,
             'alamat' => $request->alamat,
             'tentang' => $request->tentang,
-            'foto_perusahaan' => $newname ?? '',
+            'foto_perusahaan' => $newname ?? $perusahaan->foto_perusahaan,
             'url' => $request->url ?? ''
         ];
 
@@ -172,7 +172,7 @@ class PerusahaanController extends Controller
     }
     public function detailPerusahaan($id){
         $perusahaan = Perusahaan::with('lowongan')->findOrFail($id);
-        return view('users.profile-perusahaan', compact('perusahaan'));
+        return view('perusahaan.profile-perusahaan', compact('perusahaan'));
     }
 
     public function destroy($id){

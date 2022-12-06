@@ -18,6 +18,9 @@
         @can('is_admin')
             @include('partials.dashboard.sidebar_admin')
         @endcan
+        @can('is_perusahaan')
+            @include('partials.dashboard.sidebar_perusahaan')
+        @endcan
         </div>
     </div>
     <div class="sidebar-footer"></div>

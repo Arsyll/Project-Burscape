@@ -69,26 +69,20 @@
                             <thead>
                                <tr>
                                   <th>NAMA</th>
-                                  <th>PERUSAHAAN</th>
-                                  <th>STATUS</th>
+                                  <th class="text-center">STATUS</th>
                                   <th class="text-center">JUMLAH LAMARAN</th>
                                   <th class="text-center">AKSI</th>
                                </tr>
                             </thead>
                             <tbody>
-                              {{-- @foreach ($loker as $l)
+                              @foreach ($loker as $l)
                               <tr>
                                   <td>
                                      <div class="d-flex align-items-center">
                                         <h6>{{$l->nama_lowongan}}</h6>
                                      </div>
                                   </td>
-                                  <td>
-                                     <div class="iq-media-group iq-media-group-1">
-                                        <h6>{{$l->perusahaan->nama}}</h6>
-                                     </div>
-                                  </td>
-                                  <td><span class="badge {{$l->status == "Aktif" ? 'bg-success' : 'bg-danger'}} p-2">{{$l->status}}</span></td>
+                                  <td align="center"><span class="badge {{$l->status == "Aktif" ? 'bg-success' : 'bg-danger'}} p-2">{{$l->status}}</span></td>
                                   <td>
                                      <div class="text-center mb-2">
                                         <h6>{{$l->lamaran->count()}}</h6>
@@ -99,7 +93,7 @@
                                      <a href="{{route('lowongan-kerja.show',$l->id)}}" class="btn btn-primary">Lihat</a>
                                   </td>
                                </tr>
-                              @endforeach --}}
+                              @endforeach
                             </tbody>
                          </table>
                       </div>
