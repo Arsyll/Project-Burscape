@@ -90,6 +90,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Page Lamaran
     Route::resource('lamaran-kerja', LamaranKerjaController::class)->except('index');
+    Route::get('lamaran',[LamaranKerjaController::class,'index']);
+    Route::get('listLamaran',[LamaranKerjaController::class,'listLamaran']);
+    Route::get('lamaran/{id}',[LamaranKerjaController::class,'show']);
 });
 
 //App Details Page => 'Dashboard'], function() {

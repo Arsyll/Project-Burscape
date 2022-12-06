@@ -8,6 +8,7 @@ use App\Models\KategoriPekerjaan;
 use App\Models\LowonganKerja;
 use App\Models\Perusahaan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -18,11 +19,21 @@ class LowonganKerjaController extends Controller
     }
 
     public function listLoker(){
-        $loker = LowonganKerja::with('perusahaan','bidangs')->get();
-        return response()->json([
-            'massage' => 'List Perusahaan',
-            'data' => $loker
-        ]);  
+        if(Auth::user()->user_role->perusahaan){
+            $loker = LowonganKerja::whereHas('perusahaan',function($query){
+                                $query->where('id_perusahaan','=',Auth::user()->user_role->perusahaan->id);
+                            })->with('perusahaan','bidangs')->get();
+            return response()->json([
+                'massage' => 'List Perusahaan',
+                'data' => $loker
+            ]);
+        }else{
+            $loker = LowonganKerja::with('perusahaan','bidangs')->get();
+            return response()->json([
+                'massage' => 'List Perusahaan',
+                'data' => $loker
+            ]);  
+        }
     }
 
     public function create(){

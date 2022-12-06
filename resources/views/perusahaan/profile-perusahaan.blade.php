@@ -1,29 +1,35 @@
+<head>
+    <title>Perusahaan | {{$perusahaan->nama}}</title>
+</head>
 <x-app-layout layout="horizontal" :assets="$assets ?? []">
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body ">
                     <div class="row flex-lg-row align-items-center g-5 py-2">
-                        <div class="col-2 col-sm-3 col-lg-2">
-                            <img src="{{ empty($perusahaan->foto_perusahaan) ? asset("images/default/delesign-construction (1).svg") : $perusahaan->foto_perusahaan }}"
-                            alt="" class="img-fluid">
-                        </svg>
+                        <div class="col-2 col-sm-3  col-lg-2">
+                            <img src="{{ empty($perusahaan->foto_perusahaan) ? asset('images/icons/delesign-construction.svg') : $perusahaan->profile_image }}"
+                            alt="logo-perusahaan" class="img-fluid ms-3"  width="200" height="200">
                         </div>
                         <div class="col-lg-9">
-                          <h3 class="mb-3 pb-2">{{ $data->full_name() ?? 'Austin Robertson'  }}</h3>
-                          <p class="text-justify text-black pb-5">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+                          <h3 class="mb-3 pb-2">{{ $perusahaan->nama  }}</h3>
+                          {!! $perusahaan->tentang !!}
                         </div>
                       </div>
                     <div class="bd-example d-flex justify-content-end">
                         <div class="col-lg-3 col-md-4 col-sm-4 d-flex flex-column">
-                                <a type="button" href="https://getbootstrap.com/docs/5.2/components/navs-tabs/"
-                            class="btn btn-outline-primary btn-lg me-3" ><i class="fa-solid fa-arrow-up-right-from-square me-2">
-                                </i>Lihat situs</a>
+                                @if (empty($perusahaan->url))
+                                
+                                @else
+                                    <a type="button" href="{{$perusahaan->url}}" target="_blank"
+                                        class="btn btn-outline-primary btn-lg me-3" ><i class="fa-solid fa-arrow-up-right-from-square me-2">
+                                            </i>Lihat situs</a>
+                                @endif
                         </div>
-                                <div class="col-lg-3 col-md-4 col-sm-4 d-flex flex-column">
+                                {{-- <div class="col-lg-3 col-md-4 col-sm-4 d-flex flex-column">
                         <button type="button" class="btn btn-primary btn-lg" >Lihat lowongan
                             kerja</button>
-                        </div>
+                        </div> --}}
                     </div>
 
                 </div>
@@ -33,20 +39,6 @@
 
         <div class="col-lg-9">
             <div class="card">
-                <div class="card-body ms-3">
-                    <h4 class="me-2 ">Tentang</h4>
-                    <div class="mt-4 mb-3">
-                        <p class="text-justify text-black">This is some placeholder content for the scrollspy page.
-                            Note that as you
-                            scroll down the page, the appropriate navigation link is highlighted. It's repeated
-                            throughout the component example. We keep adding some more example copy here to
-                            emphasize the scrolling and highlighting.</p>
-
-                    </div>
-
-                </div>
-            </div>
-            <div class="card">
                 <div class="card-header">
                     <div class="header-title">
                         <h4 class="card-title ms-3">Lowongan Saat Ini</h4>
@@ -54,33 +46,16 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-inline m-0 p-0">
+                        @foreach ($perusahaan->lowongan as $l)
                         <li class="d-flex mb-4 align-items-center">
-
                             <div class="ms-3 flex-grow-1">
-                               <a href="" class="">Human Resource Project Manager</a>
-                                <h6 class="mb-1" style="font-size: 15px;">Bandung</h6>
-                                <p class="mb-0" style="font-size: 13px;">2 Jam yang lalu</p>
+                               <a href="{{route('detail.lowongan',$l->id)}}" class="">{{$l->nama_lowongan}}</a>
+                                <h6 class="mb-1" style="font-size: 15px;">{{$l->alamat}}</h6>
+                                <p class="mb-0" style="font-size: 13px;">{{$l->updatedAt()}}</p>
                             </div>
                         </li>
                         <hr class="ms-3">
-                        <li class="d-flex mb-4 align-items-center">
-
-                            <div class="ms-3 flex-grow-1">
-                               <a href="" class="">Human Resource Project Manager</a>
-                                <h6 class="mb-1" style="font-size: 15px;">Bandung</h6>
-                                <p class="mb-0" style="font-size: 13px;">2 Jam yang lalu</p>
-                            </div>
-                        </li>
-                        <hr class="ms-3">
-                        <li class="d-flex mb-4 align-items-center">
-
-                            <div class="ms-3 flex-grow-1">
-                               <a href="" class="">Human Resource Project Manager</a>
-                                <h6 class="mb-1" style="font-size: 15px;">Bandung</h6>
-                                <p class="mb-0" style="font-size: 13px;">2 Jam yang lalu</p>
-                            </div>
-                        </li>
-
+                        @endforeach
                     </ul>
                 </div>
             </div>

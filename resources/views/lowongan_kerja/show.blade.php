@@ -9,8 +9,11 @@
        <div class="col-sm-12">
           <div class="card">
              <div class="card-header d-flex justify-content-between">
-                <div class="header-title">
-                   <h4 class="card-title">Detail Lowongan</h4>
+                <div class="header-title w-100">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="card-title">Detail Lowongan</h4>
+                        <a href="{{ url('lamaran?id='.$loker->id) }}" class="btn btn-primary">Lihat Semua Lamaran</a>
+                    </div>
                 </div>
              </div>
                 <div class="card-body">
