@@ -51,7 +51,7 @@ class PerusahaanController extends Controller
         
         if($request->hasFile('foto_perusahaan')){
             $newname = $request->nama.' '.date("ymdhis").'.'.$request->file('foto_perusahaan')->getClientOriginalExtension();
-            $request->file('foto_perusahaan')->storeAs('perusahaan_images', $newname);
+            $request->file('foto_perusahaan')->storeAs('profile_perusahaan', $newname);
         }
 
         $data = [
@@ -165,9 +165,13 @@ class PerusahaanController extends Controller
         return back()->with('success','Perusahaan Telah Diedit!');
     }
 
-    public function perusahaanList(){
+    public function perusahaanList(Request $request){
         $assets = ['chart', 'animation'];
-        $perusahaan = Perusahaan::with('lowongan')->paginate(8);
+        if(!empty($request->search)){
+            $perusahaan = Perusahaan::with('lowongan')->where('nama','like','%'.$request->search.'%')->paginate(8);
+        }else{
+            $perusahaan = Perusahaan::with('lowongan')->paginate(8);
+        }
         return view('perusahaan.list-perusahaan',compact('perusahaan','assets'));
     }
     public function detailPerusahaan($id){
@@ -177,7 +181,7 @@ class PerusahaanController extends Controller
 
     public function destroy($id){
         $perusahaan = Perusahaan::findOrFail($id);
-        $path = storage_path('app/perusahaan_images/'.$perusahaan->foto_perusahaan);
+        $path = storage_path('app/profile_perusahaan/'.$perusahaan->foto_perusahaan);
         if (File::exists($path)) 
         {
             File::delete($path);

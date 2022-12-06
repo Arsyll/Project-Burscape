@@ -17,7 +17,7 @@
                                     fill="#000000" dy=".3em" dominant-baseline="hanging"
                                     style="font-size: 200%">logo</text>
                             </svg> --}}
-                            <img src="{{!empty($lowongan->perusahaan->foto_perusahaan) ? $lowongan->perusahaan->profile_image : asset('images/icons/delesign-construction.svg')}}" alt="logo" width="200" height="200" class="img-fluid ms-4">
+                            <img src="{{!empty($lowongan->perusahaan->foto_perusahaan) ? $lowongan->perusahaan->profile_image() : asset('images/icons/delesign-construction.svg')}}" alt="logo" width="200" height="200" class="img-fluid ms-4">
                         </div>
                         <div class="col-lg-9 ms-5 align-items-start">
                             <h3 class="mb-3 ">{{$lowongan->nama_lowongan}}</h3>
@@ -102,126 +102,127 @@
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-6 d-flex flex-column">
                                                 @if (!empty(auth()->user()))
-                                                    
-                                                    @if (!empty(auth()->user()->user_role->alumni->checkLamaran($lowongan->id)))
-                                                        @if(auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status == "Ditolak")
-                                                            <button type="button" class="btn btn-danger btn-lg">Anda {{auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status}} Di Lowongan Ini</button>
-                                                        @elseif((auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status == "Diterima"))
-                                                            <button type="button" class="btn btn-success btn-lg">{{auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status}}</button>
-                                                        @elseif (auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status == "Pending")
-                                                        <button type="button" class="btn btn-secondary btn-lg">{{auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status}}</button>
-                                                        <button class="btn btn-danger btn-lg mt-2" id="del-btn" href="#" data-id="{{auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->id}}">
-                                                            Batalkan Proses Lamaran
-                                                        </button>
-                                                        
-                                                        @endif
-                                                    @else
-                                                        @if(auth()->user()->user_role->alumni->checkTerimaLamaran() && empty(auth()->user()->user_role->alumni->checkPendingLamaran()))
-                                                            <button type="button" class="btn btn-primary btn-lg"
-                                                                data-bs-toggle="modal" data-bs-target="#exampleModal">Lamar Sekarang</button>
-                                                            <!-- Modal -->
-                                                            <div class="modal fade" id="exampleModal" tabindex="-1"
-                                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                <div class="modal-dialog modal-dialog-centered modal-lg">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h3 class="modal-title" id="exampleModalLabel">Apply to {{$lowongan->perusahaan->nama}}</h3>
-                                                                            <button type="button" class="btn-close"
-                                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                        </div>
-                                                                        <div class="modal-body px-5 ">
-                                                                            <div class="d-flex justify-content-center">
-                                                                                <img src="{{ empty(auth()->user()->user_role->alumni->foto_profile) ? asset('images/avatars/01.png') : auth()->user()->foto_profile()}}"
-                                                                                    alt="User-Profile"
-                                                                                    class="theme-color-default-img img-fluid rounded-pill avatar-100">
+                                                    @if(auth()->user()->role == "Alumni")
+                                                        @if (!empty(auth()->user()->user_role->alumni->checkLamaran($lowongan->id)))
+                                                            @if(auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status == "Ditolak")
+                                                                <button type="button" class="btn btn-danger btn-lg">Anda {{auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status}} Di Lowongan Ini</button>
+                                                            @elseif((auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status == "Diterima"))
+                                                                <button type="button" class="btn btn-success btn-lg">{{auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status}}</button>
+                                                            @elseif (auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status == "Pending")
+                                                            <button type="button" class="btn btn-secondary btn-lg">{{auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status}}</button>
+                                                            <button class="btn btn-danger btn-lg mt-2" id="del-btn" href="#" data-id="{{auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->id}}">
+                                                                Batalkan Proses Lamaran
+                                                            </button>
+                                                            
+                                                            @endif
+                                                        @else
+                                                            @if(auth()->user()->user_role->alumni->checkTerimaLamaran() && empty(auth()->user()->user_role->alumni->checkPendingLamaran()))
+                                                                <button type="button" class="btn btn-primary btn-lg"
+                                                                    data-bs-toggle="modal" data-bs-target="#exampleModal">Lamar Sekarang</button>
+                                                                <!-- Modal -->
+                                                                <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h3 class="modal-title" id="exampleModalLabel">Apply to {{$lowongan->perusahaan->nama}}</h3>
+                                                                                <button type="button" class="btn-close"
+                                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
                                                                             </div>
-            
-                                                                            <h3 class="me-2 d-flex justify-content-center">{{auth()->user()->user_role->alumni->nama}}</h3>
-                                                                            {{-- <span
-                                                                                class="me-2 d-flex justify-content-center mb-5">Sedang
-                                                                                Berkuliah di Harvard University</span> --}}
-                                                                            <form action="{{route('lamaran-kerja.store')}}" method="post">
-                                                                            @csrf
-                                                                            <input type="hidden" name="id_lowongan" value="{{$lowongan->id}}">
-                                                                            <label for="exampleDataList"
-                                                                                class="form-label fs-4 fw-bold"
-                                                                                style="color:black">Contact Info</label>
-                                                                            <div class="form-group">
-                                                                                <label>Email</label>
-                                                                                <input class="form-control mb-4" type="email"
-                                                                                    placeholder="Email Address"
-                                                                                    name="email"
-                                                                                    aria-label="Email Address"
-                                                                                    value={{auth()->user()->email}}
-                                                                                    >
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label>No Telp</label>
-                                                                                <input class="form-control mb-5" type="number" maxlength="13" minlength="10"
-                                                                                    placeholder="Phone Number"
-                                                                                    name="no_telp"
-                                                                                    value={{auth()->user()->user_role->alumni->no_telp}}
-                                                                                    aria-label="Phone Number">
-                                                                            </div>
-            
-
-                                                                                @if (!empty(auth()->user()->user_role->alumni->resume))
-                                                                                <div class="d-flex">
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="current" class="bi bi-check-circle mt-1 me-2" viewBox="0 0 16 16">
-                                                                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                                                                        <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
-                                                                                    </svg>
-                                                                                    <p class="me-2">Resume Sudah Tersimpan |</p>
-                                                                                    <a href="{{route('users.edit',auth()->user()->id)}}">Ubah Resume</a>
+                                                                            <div class="modal-body px-5 ">
+                                                                                <div class="d-flex justify-content-center">
+                                                                                    <img src="{{ empty(auth()->user()->user_role->alumni->foto_profile) ? asset('images/avatars/01.png') : auth()->user()->foto_profile()}}"
+                                                                                        alt="User-Profile"
+                                                                                        class="theme-color-default-img img-fluid rounded-pill avatar-100">
                                                                                 </div>
-                                                                                @else
-                                                                                <div class="mb-3">
-                                                                                    <label for="exampleDataList"
+                
+                                                                                <h3 class="me-2 d-flex justify-content-center">{{auth()->user()->user_role->alumni->nama}}</h3>
+                                                                                {{-- <span
+                                                                                    class="me-2 d-flex justify-content-center mb-5">Sedang
+                                                                                    Berkuliah di Harvard University</span> --}}
+                                                                                <form action="{{route('lamaran-kerja.store')}}" method="post">
+                                                                                @csrf
+                                                                                <input type="hidden" name="id_lowongan" value="{{$lowongan->id}}">
+                                                                                <label for="exampleDataList"
                                                                                     class="form-label fs-4 fw-bold"
-                                                                                    style="color:black">Resume *</label>
-                                                                                    <input class="form-control mb-3" type="file" name="resume" id="formFile">
-                                                                                    <label for="exampleDataList"
-                                                                                    class="form-label fw-semibold"
-                                                                                    >* Upload file dalam format PDF / DOCX maks 4MB.</label>
+                                                                                    style="color:black">Contact Info</label>
+                                                                                <div class="form-group">
+                                                                                    <label>Email</label>
+                                                                                    <input class="form-control mb-4" type="email"
+                                                                                        placeholder="Email Address"
+                                                                                        name="email"
+                                                                                        aria-label="Email Address"
+                                                                                        value={{auth()->user()->email}}
+                                                                                        >
                                                                                 </div>
-                                                                                @endif
+                                                                                <div class="form-group">
+                                                                                    <label>No Telp</label>
+                                                                                    <input class="form-control mb-5" type="number" maxlength="13" minlength="10"
+                                                                                        placeholder="Phone Number"
+                                                                                        name="no_telp"
+                                                                                        value={{auth()->user()->user_role->alumni->no_telp}}
+                                                                                        aria-label="Phone Number">
+                                                                                </div>
+                
 
-                                                                                @if (empty(auth()->user()->user_role->alumni->tentang) || empty(auth()->user()->user_role->alumni->foto_profile) || empty(auth()->user()->user_role->alumni->id_jurusan) || auth()->user()->user_role->alumni->edukasi->count() == 0 || auth()->user()->user_role->alumni->pengalaman->count() == 0)
-                                                                                <hr>
-                                                                                <p class="me-2">Lengkapi Profil Terlebih Dahulu | <a href="{{route('users.edit',auth()->user()->id)}}">Ubah Resume</a></p>
-                                                                                <div class="modal-footer mt-5">
-                                                                                    <button type="button" class="btn btn-secondary"
-                                                                                    data-bs-dismiss="modal">Close</button>
-                                                                                <button type="submit" class="btn btn-primary" disabled>Apply now</button>
-                                                                                @else
+                                                                                    @if (!empty(auth()->user()->user_role->alumni->resume))
+                                                                                    <div class="d-flex">
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="current" class="bi bi-check-circle mt-1 me-2" viewBox="0 0 16 16">
+                                                                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                                                            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                                                                                        </svg>
+                                                                                        <p class="me-2">Resume Sudah Tersimpan |</p>
+                                                                                        <a href="{{route('users.edit',auth()->user()->id)}}">Ubah Resume</a>
+                                                                                    </div>
+                                                                                    @else
+                                                                                    <div class="mb-3">
+                                                                                        <label for="exampleDataList"
+                                                                                        class="form-label fs-4 fw-bold"
+                                                                                        style="color:black">Resume *</label>
+                                                                                        <input class="form-control mb-3" type="file" name="resume" id="formFile">
+                                                                                        <label for="exampleDataList"
+                                                                                        class="form-label fw-semibold"
+                                                                                        >* Upload file dalam format PDF / DOCX maks 4MB.</label>
+                                                                                    </div>
+                                                                                    @endif
+
+                                                                                    @if (empty(auth()->user()->user_role->alumni->tentang) || empty(auth()->user()->user_role->alumni->foto_profile) || empty(auth()->user()->user_role->alumni->id_jurusan) || auth()->user()->user_role->alumni->edukasi->count() == 0 || auth()->user()->user_role->alumni->pengalaman->count() == 0)
                                                                                     <hr>
-                                                                                    <p class="text-justify " style="text-align: justify;" >Jawaban dan resume Anda akan disimpan secara otomatis untuk digunakan untuk melakukan pra-pengisian lamaran di masa depan dan meningkatkan pengalaman Anda di Burscape.
+                                                                                    <p class="me-2">Lengkapi Profil Terlebih Dahulu | <a href="{{route('users.edit',auth()->user()->id)}}">Ubah Resume</a></p>
                                                                                     <div class="modal-footer mt-5">
                                                                                         <button type="button" class="btn btn-secondary"
                                                                                         data-bs-dismiss="modal">Close</button>
-                                                                                    <button type="submit" class="btn btn-primary">Apply now</button>
-                                                                                @endif
-            
-                                                                            </form>
-                                                                        </div>
-            
-            
-            
+                                                                                    <button type="submit" class="btn btn-primary" disabled>Apply now</button>
+                                                                                    @else
+                                                                                        <hr>
+                                                                                        <p class="text-justify " style="text-align: justify;" >Jawaban dan resume Anda akan disimpan secara otomatis untuk digunakan untuk melakukan pra-pengisian lamaran di masa depan dan meningkatkan pengalaman Anda di Burscape.
+                                                                                        <div class="modal-footer mt-5">
+                                                                                            <button type="button" class="btn btn-secondary"
+                                                                                            data-bs-dismiss="modal">Close</button>
+                                                                                        <button type="submit" class="btn btn-primary">Apply now</button>
+                                                                                    @endif
+                
+                                                                                </form>
+                                                                            </div>
+                
+                
+                
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            @elseif(!empty(auth()->user()->user_role->alumni->checkPendingLamaran()))
-                                                            <button type="button" class="btn btn-secondary btn-lg">Menunggu Lamaran Lain</button>
+                                                                @elseif(!empty(auth()->user()->user_role->alumni->checkPendingLamaran()))
+                                                                <button type="button" class="btn btn-secondary btn-lg">Menunggu Lamaran Lain</button>
 
-                                                            <a class="btn btn-danger btn-lg mt-2" href="{{url('lowongan/'.auth()->user()->user_role->alumni->checkPendingLamaran()->lowongan->id)}}">
-                                                                Batalkan Lamaran Lain
-                                                            </a>
-                                                            @else
-                                                            <button type="button" class="btn btn-secondary btn-lg w-100">Anda Sudah Diterima Di Lowongan Lain</button>
+                                                                <a class="btn btn-danger btn-lg mt-2" href="{{url('lowongan/'.auth()->user()->user_role->alumni->checkPendingLamaran()->lowongan->id)}}">
+                                                                    Batalkan Lamaran Lain
+                                                                </a>
+                                                                @else
+                                                                <button type="button" class="btn btn-secondary btn-lg w-100">Anda Sudah Diterima Di Lowongan Lain</button>
+                                                            @endif
                                                         @endif
                                                     @endif
-                                                @else
+                                                @elseif(auth())
                                                 <a href="{{route('auth.signin')}}" class="btn btn-primary btn-lg">Lamar Sekarang</a>                                                    
                                                 @endif
                                             </div>
@@ -279,7 +280,8 @@
                             <div class="mt-4 mb-3">
                                 <div class="row">
                                     <div class="col-2 col-sm-3 col-lg-2 ">
-                                        <img src="{{!empty($lowongan->perusahaan->foto_perusahaan) ? $lowongan->perusahaan->profile_image : asset('images/icons/delesign-construction.svg')}}" alt="logo" width="200" height="200">
+                                        <img src="{{!empty($lowongan->perusahaan->foto_perusahaan) ? $lowongan->perusahaan->profile_image() : asset('images/icons/delesign-construction.svg')}}" alt="logo" width="200" height="200"
+                                         class="theme-color-default-img img-fluid rounded-pill avatar-100">
                                     </div>
                                     <div class="col-lg-9 align-items-start ms-5 ">
                                         <a href="{{route('perusahaan.detail',$lowongan->perusahaan->id)}}" class="fs-4">{{$lowongan->perusahaan->nama}}</a>
@@ -301,7 +303,7 @@
 
         </div>
         <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
-        @if(!empty(auth()->user()));
+        @if((auth()->user()->role == "Alumni"));
         <script>
             $(document).on('click', '#del-btn', function () {
                 var id = $(this).data('id');
