@@ -195,7 +195,7 @@
         @if (!empty(auth()->user()))
         <li class="nav-item dropdown">
           <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            @if (auth()->user()->foto_profile() == asset('storage/profile_alumni/') || auth()->user()->foto_profile() == asset('storage/profile_perusahaan/'))
+            @if (auth()->user()->foto_profile() == asset('storage/profile_alumni/') || auth()->user()->foto_profile() == asset('storage/profile_perusahaan/') || auth()->user()->foto_profile() == asset('storage/profile_admin/'))
               <img src="{{asset('images/avatars/01.png')}}" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
             @else
               <img src="{{ auth()->user()->foto_profile() }}" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
@@ -206,6 +206,9 @@
             </div>
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            @if(auth()->user()->role != "Alumni")
+            <li><a class="dropdown-item" href="{{url('dashboard')}}">Dashboard</a></li>
+            @endif
             <li><a class="dropdown-item" href="{{route('users.show', auth()->id())}}">Profile</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><form method="POST" action="{{route('logout')}}">

@@ -9,18 +9,23 @@
             <div class="row row-cols-1">
                 <div class="d-slider1 overflow-hidden ">
                    <div class="d-flex justify-content-center mb-4">
-                   <form action="/search" class="js-search-input-form search-input-form" method="get" style="width:50% ">
+                   <form action="{{ url('perusahaan/list') }}" class="js-search-input-form search-input-form" method="get" style="width:50% ">
 
                     <div class="input-group mb-3 ">
                       <button class="btn btn-light" type="button" id="button-addon1"
                         style="background-color:#ffffff ; border: none;"><i
                           class="fa-solid fa-magnifying-glass"></i></button>
-                      <input type="search" class="form-control" placeholder="Search..." aria-label="Search"
+                      <input type="text" name="search" class="form-control" placeholder="Search..." aria-label="Search"
                         aria-describedby="search-addon" />
                     </div>
                   </form>
                    </div>
                     <div class="row mx-2 gs-2" >
+                        @if($perusahaan->count() == 0)
+                        <div class="d-flex justify-content-center">
+                            Perusahaan Tidak Ditemukan
+                        </div>
+                        @else
                         @foreach ($perusahaan as $p)
                         <div class="col-md-6 col-lg-3">
                         <a href="{{route('perusahaan.detail',$p->id)}}">
@@ -28,7 +33,7 @@
                                     <div class="d-flex justify-content-start">
                                         <div class="row d-flex justify-align-center">
                                             <img src="{{ empty($p->foto_perusahaan) ? asset("images/icons/delesign-construction.svg") : $p->profile_image() }}"
-                                                alt="" class=".img-fluid. max-width: 100%;">
+                                                alt="" style="max-width:100%;max-height:100%;height:100px;width:100px;" class="ms-2 mt-2 img-rounded me-4 mb-2">
                                         </div>
                                         <div class="col d-flex mt-4 mx-0 flex-wrap">
                                             <div class="header-title">
@@ -65,6 +70,7 @@
                         </div>
                         @endforeach
                         {{ $perusahaan->links() }}
+                        @endif
                     </div>
                     {{-- <div class="d-flex justify-content-center m-5">
                     </div> --}}

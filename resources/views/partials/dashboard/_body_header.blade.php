@@ -199,6 +199,8 @@
           <img src="
             @if(!empty(auth()->user()->user_role->admin->foto_profile) || !empty(auth()->user()->user_role->perusahaan->foto_perusahaan))
           {{auth()->user()->foto_profile()}}
+          @else
+          {{ asset('images/avatars/01.png') }}
           @endif
           " alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
             <div class="caption ms-3 d-none d-md-block ">

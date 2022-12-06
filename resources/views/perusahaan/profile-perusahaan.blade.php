@@ -8,7 +8,7 @@
                 <div class="card-body ">
                     <div class="row flex-lg-row align-items-center g-5 py-2">
                         <div class="col-2 col-sm-3  col-lg-2">
-                            <img src="{{ empty($perusahaan->foto_perusahaan) ? asset('images/icons/delesign-construction.svg') : $perusahaan->profile_image }}"
+                            <img src="{{ empty($perusahaan->foto_perusahaan) ? asset('images/icons/delesign-construction.svg') : $perusahaan->profile_image() }}"
                             alt="logo-perusahaan" class="img-fluid ms-3"  width="200" height="200">
                         </div>
                         <div class="col-lg-9">
