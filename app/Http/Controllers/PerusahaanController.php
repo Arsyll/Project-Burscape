@@ -12,10 +12,12 @@ use Illuminate\Support\Facades\Hash;
 class PerusahaanController extends Controller
 {
     public function index(){
+        $this->roleCheck('Admin');
         return view('perusahaan.index');
     }
 
     public function listPerusahaan(){
+        $this->roleCheck('Admin');
         $perusahaan = Perusahaan::all();
         return response()->json([
             'massage' => 'List Jurusan',
@@ -24,10 +26,12 @@ class PerusahaanController extends Controller
     }
 
     public function create(){
+        $this->roleCheck('Admin');
         return view('perusahaan.create');
     }
 
     public function store(Request $request){
+        $this->roleCheck('Admin');
         $request->validate([
             'nama' => 'required',
             'bidang' => 'required',
@@ -93,16 +97,19 @@ class PerusahaanController extends Controller
     }
 
     public function show($id){
+        $this->roleCheck('Admin');
         $perusahaan = Perusahaan::findOrFail($id);
         return view('perusahaan.show',compact('perusahaan'));
     }
 
     public function edit($id){
+        $this->roleCheck('Admin');
         $perusahaan = Perusahaan::findOrFail($id);
         return view('perusahaan.edit',compact('perusahaan'));
     }
 
     public function update(Request $request,$id){
+        $this->roleCheck('Admin');
         $perusahaan = Perusahaan::findOrFail($id);
         $request->validate([
             'nama' => 'required',
@@ -180,6 +187,7 @@ class PerusahaanController extends Controller
     }
 
     public function destroy($id){
+        $this->roleCheck('Admin');
         $perusahaan = Perusahaan::findOrFail($id);
         $path = storage_path('app/profile_perusahaan/'.$perusahaan->foto_perusahaan);
         if (File::exists($path)) 

@@ -48,6 +48,10 @@ class Alumni extends Model
         }
     }
 
+    public function role_alumni(){
+        return $this->hasOne(Role::class,'id_alumni','id');
+    }
+
     public function jurusan(){
         return $this->belongsTo(Jurusan::class, 'id_jurusan');
     }

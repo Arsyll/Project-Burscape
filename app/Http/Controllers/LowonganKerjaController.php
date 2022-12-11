@@ -15,10 +15,12 @@ use Yajra\DataTables\Facades\DataTables;
 class LowonganKerjaController extends Controller
 {
     public function index(){
+        $this->notRole('Alumni');
         return view('lowongan_kerja.index');
     }
 
     public function listLoker(){
+        $this->notRole('Alumni');
         if(Auth::user()->user_role->perusahaan){
             $loker = LowonganKerja::whereHas('perusahaan',function($query){
                                 $query->where('id_perusahaan','=',Auth::user()->user_role->perusahaan->id);
@@ -37,6 +39,7 @@ class LowonganKerjaController extends Controller
     }
 
     public function create(){
+        $this->notRole('Alumni');
         $bidang = Jurusan::all();
         $perusahaan = Perusahaan::all();
         $kategori = KategoriPekerjaan::all();
@@ -45,6 +48,7 @@ class LowonganKerjaController extends Controller
     }
 
     public function store(Request $request){
+        $this->notRole('Alumni');
         $request->validate([
             'nama_lowongan' => 'required',
             'id_perusahaan' => 'required|numeric',
@@ -97,6 +101,7 @@ class LowonganKerjaController extends Controller
     }
 
     public function show($id){
+        $this->notRole('Alumni');
         $loker = LowonganKerja::with('detailLoker','bidangs')->findOrFail($id);
         $detailLoker = DetailLoker::with('lowonganKerja')->where('id_loker','=',$id)->get();
         $bidang = Jurusan::all();
@@ -106,6 +111,7 @@ class LowonganKerjaController extends Controller
     }
 
     public function edit($id){
+        $this->notRole('Alumni');
         $loker = LowonganKerja::with('detailLoker')->findOrFail($id);
         $detailLoker = DetailLoker::with('lowonganKerja')->where('id_loker','=',$id)->get();
         $bidang = Jurusan::all();
@@ -115,6 +121,7 @@ class LowonganKerjaController extends Controller
     }
 
     public function update(Request $request, $id){
+        $this->notRole('Alumni');
         $request->validate([
             'nama_lowongan' => 'required',
             'id_perusahaan' => 'required|numeric',
@@ -180,6 +187,7 @@ class LowonganKerjaController extends Controller
     }
 
     public function destroy($id){
+        $this->notRole('Alumni');
         $loker = LowonganKerja::findOrFail($id);
         $loker->delete($loker);
         return response()->json([

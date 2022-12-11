@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class LamaranKerjaController extends Controller
 {
 
-    public function roleCheck(){
+    public function roleCheck2(){
         if(Auth::user()->user_role->perusahaan){
             return true;
         }else{
@@ -39,14 +39,14 @@ class LamaranKerjaController extends Controller
     }
 
     public function index(Request $request){
-        if($this->roleCheck()){
+        if($this->roleCheck2()){
             $id = $request->id ?? '';
             return view('lamaran_kerja.index',compact('id'));
         }
     }
 
     public function show($id){
-        if($this->roleCheck()){
+        if($this->roleCheck2()){
             $lamaran = LamaranKerja::with('alumni')->findOrFail($id);
             $idAlumni = $lamaran->alumni->id;
             $pengalaman = PengalamanKerja::with('alumni')->where('id_alumni','=',$idAlumni)->get();
