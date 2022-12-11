@@ -13,10 +13,12 @@ class AdminController extends Controller
 {
     public function index()
     {
+        $this->roleCheck("Admin");
         return view('admin.index');
     }
 
     public function listAdmin(){
+        $this->roleCheck("Admin");
         $admin = Admin::with('admin_role');
         return response()->json([
             'massage' => 'List Jurusan',
@@ -26,6 +28,7 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
+        $this->roleCheck("Admin");
         $request->validate([
             'nama_lengkap' => 'required|unique:users,username',
             'jabatan' => 'required',
@@ -84,6 +87,7 @@ class AdminController extends Controller
 
     public function show($id)
     {
+        $this->roleCheck("Admin");
         $admin = Admin::with('admin_role.user')->findOrFail($id);
         return response()->json([
             'message' => 'detail dokumen!',
@@ -93,6 +97,7 @@ class AdminController extends Controller
 
     public function update(Request $request,$id)
     {
+        $this->roleCheck("Admin");
         $admin = Admin::findOrFail($id);
 
         $request->validate([

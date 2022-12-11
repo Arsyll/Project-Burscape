@@ -50,7 +50,7 @@
                         <h5 class="mb-3">User</h5>
                         <div class="row">
                            <div class="form-group col-md-6">
-                              <label class="form-label" for="fname">Username : <span class="text-danger">*</span></label>
+                              <label class="form-label" for="fname">Username</label>
                               {{ Form::text('username', empty(old('username')) ? $data->username : old('username'), ['class' => 'form-control', 'placeholder' => 'Username']) }}
                            </div>
                            <div class="form-group col-md-6">
@@ -470,7 +470,7 @@
                         <h5 class="mb-3">Security</h5>
                         <div class="row">
                            <div class="form-group col-md-6">
-                              <label class="form-label" for="fname">Username : <span class="text-danger">*</span></label>
+                              <label class="form-label" for="fname">Username :</label>
                               {{ Form::text('username', empty(old('username')) ? $data->username : old('username'), ['class' => 'form-control', 'placeholder' => 'Username']) }}
                            </div>
                            <div class="form-group col-md-6">

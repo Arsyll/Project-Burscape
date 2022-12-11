@@ -187,9 +187,7 @@
                             clearErrorMessages();
                             var message = $.parseJSON(reject.responseText);
                             var errors = message['errors'];
-                            console.log(errors)
                             $.each(errors, function (key, val) {
-                                console.log(key)
                                 $("#" + key + "_error").text(val[0]);
                             });
                             $('#btn-close-add').on('click', function(){
@@ -204,14 +202,12 @@
             $(document).on('click', '#update-btn', function() {
                 const thisIs = $(this);
                 var id = $(this).data('id');
-                console.log(id)
                 $.ajax({
                     type: "GET",
                     url: "{{ url('admin') }}/"+id,
                     dataType: "JSON",
                     success: function (response) {
                         // Set Data
-                        console.log(response.data);
                         $('#update_nama_lengkap').val(response.data.nama_lengkap);
                         $('#update_email').val(response.data.admin_role.user.email);
                         $('#update_jabatan').val(response.data.jabatan);
@@ -265,7 +261,6 @@
                                         var message = $.parseJSON(reject.responseText);
                                         var errors = message['errors'];
                                         $.each(errors, function (key, val) {
-                                            console.log(key)
                                             $("#update_" + key + "_error").text(val[0]);
                                         });
                                         $('#btn-close-edit').on('click', function(){

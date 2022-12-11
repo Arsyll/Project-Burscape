@@ -73,6 +73,13 @@ class UserTableSeeder extends Seeder
                 'role' => 'Alumni',
             ],
             [
+                'username' => 'Della',
+                'email' => 'della@gmail.com',
+                'password' => bcrypt('della'),
+                'email_verified_at' => now(),
+                'role' => 'Alumni',
+            ],
+            [
                 'username' => 'Dhafin Qinthara Khalish',
                 'email' => 'dhafin@gmail.com',
                 'password' => bcrypt('dhafin'),
