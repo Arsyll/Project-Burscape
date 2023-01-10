@@ -22,7 +22,13 @@ class HomeController extends Controller
      * Landing Page
      */
     public function landingPage(){
-        return view('landing-page');
+        $perusahaan = Perusahaan::with('lowongan')->latest()->take(3)->get();
+        $lowongan = LowonganKerja::with('perusahaan')->where('status','=','Aktif')->latest()->take(3)->get();
+        return view('landing-page',compact('perusahaan','lowongan'));
+    }
+
+    public function about(){
+        return view('about');
     }
 
 
@@ -38,12 +44,13 @@ class HomeController extends Controller
 
          if ($user->role == "Perusahaan") {
             $perusahaan = Perusahaan::findOrFail($user->user_role->perusahaan->id);
-            $totLowongan = LowonganKerja::with('perusahaan')->where('id_perusahaan',$perusahaan->id)->count();
+            $loker = LowonganKerja::with('perusahaan')->where('id_perusahaan',$perusahaan->id)->get();
+            $totLowongan = $loker->count();
             $totLamaran =   DB::table('lamaran_kerja')
                         ->join('lowongan_kerja','lamaran_kerja.id_lowongan','=','lowongan_kerja.id')
                         ->where('lowongan_kerja.id_perusahaan','=', $perusahaan->id)
                         ->count();
-            return view('dashboards.perusahaan-dashboard', compact('assets','perusahaan','totLowongan','totLamaran'));
+            return view('dashboards.perusahaan-dashboard', compact('assets','perusahaan','loker','totLowongan','totLamaran'));
          }
          else if($user->role == "Admin") {
             $totPerusahaan = Perusahaan::count();
@@ -55,15 +62,24 @@ class HomeController extends Controller
          else if($user->role == "Alumni") {
             return redirect(RouteServiceProvider::LOWONGAN);
          }
-        
+
     }
 
     public function lowongan(Request $request){
         if(empty($request->filter)){
-            $assets = ['chart', 'animation'];
-            $lowongan = LowonganKerja::with('perusahaan')->where('status','=','Aktif')->paginate(10);
-            $kategori = KategoriPekerjaan::all();
-             return view('dashboards.alumni-dashboard', compact('assets','lowongan','kategori'));
+            $search = $request->search;
+            if(!empty($search)){
+                $lowongan = LowonganKerja::with('perusahaan')->where('nama_lowongan','like','%'.$search.'%')
+                    ->paginate(10);
+                $assets = ['chart', 'animation'];
+                $kategori = KategoriPekerjaan::all();
+                return view('dashboards.alumni-dashboard', compact('assets','lowongan','kategori'));
+            }else{
+                $assets = ['chart', 'animation'];
+                $lowongan = LowonganKerja::with('perusahaan')->where('status','=','Aktif')->paginate(10);
+                $kategori = KategoriPekerjaan::all();
+                 return view('dashboards.alumni-dashboard', compact('assets','lowongan','kategori'));
+            }
         }
         else{
             $lokerId = [];
@@ -78,7 +94,7 @@ class HomeController extends Controller
                     }
                 }
                 $det = DetailLoker::whereIn('id_kategori',$kategoriId)->get('id_loker');
-                
+
                 foreach($det as $d){
                     if(!in_array($d->id_loker,$lokerId)){
                         array_push($lokerId,$d->id_loker);
@@ -121,7 +137,7 @@ class HomeController extends Controller
                 $assets = ['chart', 'animation'];
                 $kategori = KategoriPekerjaan::all();
                 return view('dashboards.alumni-dashboard', compact('assets','lowongan','kategori'));
-            }else{
+            }else if($request->filter["waktu"] == "Paling Sesuai"){
                 if(!empty($lokerId) && !empty($lokerId && $tipe[0] != "" && !empty($search))){
                     $lowongan = LowonganKerja::with('perusahaan')->whereIn('id',$lokerId)->whereIn('tipe_pekerjaan',$tipe)
                     ->where('nama_lowongan','like','%'.$search.'%')
@@ -156,7 +172,7 @@ class HomeController extends Controller
             }
         }
     }
-    
+
 
     /*
      * Menu Style Routs

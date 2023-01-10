@@ -41,6 +41,7 @@ Route::get('perusahaan/detail/{id}',[PerusahaanController::class,'detailPerusaha
 Route::get('lowongan/{id}',[LowonganKerjaController::class,'detailLowongan'])->name('detail.lowongan');
 
 Route::get('/',[HomeController::class, 'landingPage'])->name('landingPage');
+Route::get('/about',[HomeController::class, 'about'])->name('about');
 
 //UI Pages Routs
 Route::get('/uisheet', [HomeController::class, 'uisheet'])->name('uisheet');
@@ -82,7 +83,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('listLoker',[LowonganKerjaController::class,'listLoker']);
     Route::get('lowongan-kerja/update/{id?}',[LowonganKerjaController::class,'edit'])->name('lowongan-kerja.edits');
 
-    
+
     // Page Perusahaan
     Route::resource('perusahaan', PerusahaanController::class)->except('edit');
     Route::get('listPerusahaan',[PerusahaanController::class,'listPerusahaan']);

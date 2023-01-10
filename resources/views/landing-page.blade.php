@@ -687,14 +687,14 @@ Burscape - Link To Opportunities
     <div class="footer-top">
       <div class="container">
         <div class="row">
-          
+
           <div class="col-lg-4 col-md-6">
-           
+
               <img src="{{asset('images/icons/Burscapelogo(no-caption).png')}}" width="300px" heigth="300px" class="pe-3" >
-            
-           
+
+
           </div>
-<!-- 
+<!--
           <div class="col-lg-4 col-md-6">
             <div class="footer-info">
               <h3>Bootsrap</h3>
