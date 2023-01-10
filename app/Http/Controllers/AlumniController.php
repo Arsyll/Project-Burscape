@@ -6,7 +6,9 @@ use App\Models\Alumni;
 use App\Models\Jurusan;
 use App\Models\Role;
 use App\Models\User;
+use App\Imports\AlumniImport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
@@ -76,10 +78,10 @@ class AlumniController extends Controller
             $request->file('foto_profile')->storeAs('profile_alumni', $newname);
         }
         $foto_profile = ['foto_profile' => $newname ?? ''];
-       
+
         $alumni = new Alumni();
         $status = $alumni->create(array_merge($input,$foto_profile));
-        
+
         $dataUser = [
             'username' => $request->nama,
             'role' => 'Alumni',
@@ -92,7 +94,7 @@ class AlumniController extends Controller
         $createdUser = $user->create(array_merge($dataUser));
 
         $role = new Role();
-        
+
         $dataRole = [
             'id_user' => $createdUser->id,
             'id_alumni' => $status->id
@@ -184,7 +186,7 @@ class AlumniController extends Controller
         $image = storage_path('app/profile_alumni/'.$alumni->foto_profile);
 
         if (isset($request->foto_profile) && $request->foto_profile != null) {
-            if (File::exists($image)) 
+            if (File::exists($image))
             {
                 File::delete($image);
             }
@@ -221,7 +223,7 @@ class AlumniController extends Controller
         $this->roleCheck("Admin");
         $alumni = Alumni::findOrFail($id);
         $path = storage_path('app/profile_alumni/'.$alumni->foto_profile);
-        if (File::exists($path)) 
+        if (File::exists($path))
         {
             File::delete($path);
         }
@@ -239,5 +241,29 @@ class AlumniController extends Controller
             'massage' => 'List Jurusan',
             'data' => $alumni
         ]);
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'import_alumni' => 'required|file|mimes:xlsx,xls'
+        ],[
+            'import_alumni.required' => 'File Alumni Wajib Di Isi.',
+            'import_alumni.mimes' => 'File Alumni Wajib Bertipe xlsx atau xls.',
+        ]);
+        // dd($request->file('import_alumni'));
+        Excel::import(new AlumniImport, $request->file('import_alumni'));
+
+        return response()->json([
+            'code' => 200,
+            'message' => 'Alumni berhasil ditambah!',
+        ]);
+    }
+
+
+    public function downloadTemplate()
+    {
+        $file = storage_path('template/Template Alumni.xlsx');
+        return response()->download($file);
     }
 }

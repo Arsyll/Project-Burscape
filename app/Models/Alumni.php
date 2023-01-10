@@ -59,11 +59,11 @@ class Alumni extends Model
     public function pengalaman(){
         return $this->hasMany(PengalamanKerja::class,'id_alumni','id');
     }
-    
+
     public function lamaran(){
         return $this->hasMany(LamaranKerja::class,'id_alumni','id');
     }
-    
+
     public function edukasi(){
         return $this->hasMany(Edukasi::class,'id_alumni','id');
     }
