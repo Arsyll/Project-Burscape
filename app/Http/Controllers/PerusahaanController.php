@@ -12,10 +12,12 @@ use Illuminate\Support\Facades\Hash;
 class PerusahaanController extends Controller
 {
     public function index(){
+        $this->roleCheck('Admin');
         return view('perusahaan.index');
     }
 
     public function listPerusahaan(){
+        $this->roleCheck('Admin');
         $perusahaan = Perusahaan::all();
         return response()->json([
             'massage' => 'List Jurusan',
@@ -24,10 +26,12 @@ class PerusahaanController extends Controller
     }
 
     public function create(){
+        $this->roleCheck('Admin');
         return view('perusahaan.create');
     }
 
     public function store(Request $request){
+        $this->roleCheck('Admin');
         $request->validate([
             'nama' => 'required',
             'bidang' => 'required',
@@ -51,7 +55,7 @@ class PerusahaanController extends Controller
         
         if($request->hasFile('foto_perusahaan')){
             $newname = $request->nama.' '.date("ymdhis").'.'.$request->file('foto_perusahaan')->getClientOriginalExtension();
-            $request->file('foto_perusahaan')->storeAs('perusahaan_images', $newname);
+            $request->file('foto_perusahaan')->storeAs('profile_perusahaan', $newname);
         }
 
         $data = [
@@ -93,16 +97,19 @@ class PerusahaanController extends Controller
     }
 
     public function show($id){
+        $this->roleCheck('Admin');
         $perusahaan = Perusahaan::findOrFail($id);
         return view('perusahaan.show',compact('perusahaan'));
     }
 
     public function edit($id){
+        $this->roleCheck('Admin');
         $perusahaan = Perusahaan::findOrFail($id);
         return view('perusahaan.edit',compact('perusahaan'));
     }
 
     public function update(Request $request,$id){
+        $this->roleCheck('Admin');
         $perusahaan = Perusahaan::findOrFail($id);
         $request->validate([
             'nama' => 'required',
@@ -125,7 +132,7 @@ class PerusahaanController extends Controller
             'tentang.required' => 'Tentang Perusahaan Harus Diisi',
         ]);
 
-        $path = storage_path('app/perusahaan_images/'.$perusahaan->foto_perusahaan);
+        $path = storage_path('app/profile_perusahaan/'.$perusahaan->foto_perusahaan);
 
         if($request->hasFile('foto_perusahaan')){
             if (File::exists($path)) 
@@ -133,7 +140,7 @@ class PerusahaanController extends Controller
                 File::delete($path);
             }
             $newname = $request->nama.' '.date("ymdhis").'.'.$request->file('foto_perusahaan')->getClientOriginalExtension();
-            $request->file('foto_perusahaan')->storeAs('perusahaan_images', $newname);
+            $request->file('foto_perusahaan')->storeAs('profile_perusahaan', $newname);
         }
         
         $data = [
@@ -143,7 +150,7 @@ class PerusahaanController extends Controller
             'no_telp' => $request->no_telp,
             'alamat' => $request->alamat,
             'tentang' => $request->tentang,
-            'foto_perusahaan' => $newname ?? '',
+            'foto_perusahaan' => $newname ?? $perusahaan->foto_perusahaan,
             'url' => $request->url ?? ''
         ];
 
@@ -165,19 +172,24 @@ class PerusahaanController extends Controller
         return back()->with('success','Perusahaan Telah Diedit!');
     }
 
-    public function perusahaanList(){
+    public function perusahaanList(Request $request){
         $assets = ['chart', 'animation'];
-        $perusahaan = Perusahaan::with('lowongan')->paginate(8);
+        if(!empty($request->search)){
+            $perusahaan = Perusahaan::with('lowongan')->where('nama','like','%'.$request->search.'%')->paginate(8);
+        }else{
+            $perusahaan = Perusahaan::with('lowongan')->paginate(8);
+        }
         return view('perusahaan.list-perusahaan',compact('perusahaan','assets'));
     }
     public function detailPerusahaan($id){
         $perusahaan = Perusahaan::with('lowongan')->findOrFail($id);
-        return view('users.profile-perusahaan', compact('perusahaan'));
+        return view('perusahaan.profile-perusahaan', compact('perusahaan'));
     }
 
     public function destroy($id){
+        $this->roleCheck('Admin');
         $perusahaan = Perusahaan::findOrFail($id);
-        $path = storage_path('app/perusahaan_images/'.$perusahaan->foto_perusahaan);
+        $path = storage_path('app/profile_perusahaan/'.$perusahaan->foto_perusahaan);
         if (File::exists($path)) 
         {
             File::delete($path);

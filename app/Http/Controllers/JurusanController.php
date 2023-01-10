@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class JurusanController extends Controller
 {
     public function index(){
+        $this->roleCheck("Admin");
         $data['jurusan'] = Jurusan::orderBy('nama_jurusan','asc')->get();
         return view('table_master.jurusan.index', $data);
         // $data['produk']=DB::table('t_produk')->orderBy('nama')->get();
@@ -15,6 +16,7 @@ class JurusanController extends Controller
 
     }
     public function isi(){
+        $this->roleCheck("Admin");
         return response()->json([
             'massage' => 'List Jurusan',
             'data' => Jurusan::all()
@@ -22,6 +24,7 @@ class JurusanController extends Controller
     }
 
     public function store(Request $request){
+        $this->roleCheck("Admin");
         $rule = [
             'nama_jurusan' => 'required|unique:jurusan',
         ];
@@ -40,6 +43,7 @@ class JurusanController extends Controller
 
     public function show($id)
     {
+        $this->roleCheck("Admin");
         return response()->json([
             'message' => 'detail jurusan!',
             'data' => Jurusan::findOrFail($id)
@@ -47,6 +51,7 @@ class JurusanController extends Controller
     }
 
     public function update(Request $request, $id){
+        $this->roleCheck("Admin");
         $rule = [
             'nama_jurusan' => 'required'
         ];
@@ -67,6 +72,7 @@ class JurusanController extends Controller
         ]);
     }
     public function destroy(Jurusan $jurusan){
+        $this->roleCheck("Admin");
         $jurusan->findOrFail($jurusan->id)->delete($jurusan);
         return response()->json([
             'message' => 'Jurusan berhasil dihapus!'

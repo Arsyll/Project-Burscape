@@ -13,28 +13,16 @@ Burscape - Link To Opportunities
         <div class="px-4 py-2 my-2 text-center align-items-start">
           <div data-aos="zoom-out">
             <h2>Jelajahi Pekerjaan yang sesuai untukmu!</h2>
-            <div class="d-flex justify-content-center ">
+            <div class="d-flex justify-content-center mb-4">
 
-              <form action="/search" class="js-search-input-form search-input-form" method="get" style="width:50% ">
+              <form action="{{ url('lowongan') }}" class="js-search-input-form search-input-form" method="get" style="width:50% ">
 
-                <div class="input-group mb-3 ">
-                  <button class="btn btn-light" type="button" id="button-addon1"
+                <div class="input-group mb-3 w-100">
+                  <input type="text" name="search" class="form-control" placeholder="Search" aria-label="Search"
+                  aria-describedby="search-addon" />
+                  <button class="btn btn-light" type="submit" id="button-addon1"
                     style="background-color:#ffffff ; border: none;"><i
                       class="fa-solid fa-magnifying-glass"></i></button>
-                  <input type="search" class="form-control" placeholder="Search" aria-label="Search"
-                    aria-describedby="search-addon" />
-
-                </div>
-              </form>
-              <form action="/search" class="js-search-input-form search-input-form" method="get" style="width:50%;">
-
-                <div class="input-group mb-5 ms-4">
-                  <button class="btn btn-light" type="button" id="button-addon1"
-                    style="background-color:#ffffff ; border: none;"><i class="fa-solid fa-briefcase"></i></button>
-                  <input type="search" class="form-control" placeholder="Bidang" aria-label="Search"
-                    aria-describedby="search-addon" />
-
-                    <button class="btn btn-primary ms-2" type="button">Search</button>
                 </div>
               </form>
               <!-- <div class="text-center text-lg-start">
@@ -106,206 +94,83 @@ Burscape - Link To Opportunities
           Berbagai Lowongan Kerja Yang Ada Di Burscape</h2>
       </div>
       <div class="row g-5 justify-content-center">
+        @foreach($lowongan as $l)
         <div class="col-md-4">
-          <div class="card " data-aos="fade-up" data-aos-delay="400">
-            <div class="d-flex justify-content-start">
-              <div class="row d-flex justify-align-center">
-                <img src="{{asset('images/icons/delesign-construction.svg')}}" alt="" class=".img-fluid. max-width: 100%;">
-              </div>
-              <div class="col d-flex mt-4 mx-0 flex-wrap">
-                <div class="header-title">
-
-                  <h5 class="col-lg-10 mb-0 me-5">Judul Lowongan</h4>
-                    <p class="mb-0">
-                      Nama Perusahaan
-                    </p>
-
+          <a href="{{ url('lowongan/'.$l->id) }}">
+            <div class="card " data-aos="fade-up" data-aos-delay="400">
+              <div class="d-flex justify-content-start">
+                <div class="row d-flex justify-align-center">
+                  <img src="{{$l->perusahaan->profile_image()}}" alt="" 
+                  style="max-width:100%;max-height:100%;height:120px;width:120px;" class="ms-2 mt-2 img-rounded me-4 mb-2">
+                </div>
+                <div class="col d-flex mt-4 mx-0 flex-wrap">
+                  <div class="header-title">
+  
+                    <h5 class="col-lg-10 mb-0 me-5">{{ $l->nama_lowongan }}</h4>
+                      <p class="mb-0">
+                       {{$l->perusahaan->nama}}
+                      </p>
+  
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col">
-              <div class="mt-2" style="margin-left: 30px">
-                <div class="ms-0">
-                  <h6 class="mb-3 ">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="me-3 ms-1" width="25px">
+              <div class="col">
+                <div class="mt-2" style="margin-left: 30px">
+                  <div class="ms-0">
+                    <h6 class="mb-3 ">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="me-3 ms-1" width="25px">
+                        <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                        <path
+                          d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z" />
+                      </svg>{{ $l->alamat }}</h6>
+                  </div>
+                  <div class="ms-0">
+                    <h6 class="mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="me-2 " viewBox="0 0 576 512"
+                        width="35px">
+                        <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                        <path
+                          d="M0 112.5V422.3c0 18 10.1 35 27 41.3c87 32.5 174 10.3 261-11.9c79.8-20.3 159.6-40.7 239.3-18.9c23 6.3 48.7-9.5 48.7-33.4V89.7c0-18-10.1-35-27-41.3C462 15.9 375 38.1 288 60.3C208.2 80.6 128.4 100.9 48.7 79.1C25.6 72.8 0 88.6 0 112.5zM288 352c-44.2 0-80-43-80-96s35.8-96 80-96s80 43 80 96s-35.8 96-80 96zM64 352c35.3 0 64 28.7 64 64H64V352zm64-208c0 35.3-28.7 64-64 64V144h64zM512 304v64H448c0-35.3 28.7-64 64-64zM448 96h64v64c-35.3 0-64-28.7-64-64z" />
+                      </svg> @rupiah($l->salary)</h6>
+                  </div>
+  
+  
+                </div>
+              </div>
+  
+              <div class="row d-flex">
+                <div class="col-lg-12 col-md-3 col-sm-3 mb-2 ms-4 ">
+                  <button class="btn btn-primary rounded-pill btn-md d-flex justify-content-center "><i
+                      class="fa-solid fa-check me-2 pt-1"></i>Actively Recruiting</button>
+                </div>
+                <div class="col mb-3">
+                  <button type="button" class="btn btn-primary" id="btn-created" style="
+                                    font-size: 15px;
+                                    line-height: 18px;
+                                    background-color: #ffffff;
+                                    border-color: #ffffff;
+                                    color: #3A57E8;
+                                    width: 200px; height: 33.92px;
+                                    ">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 512 512"
+                      style="fill: #3A57E8" class="me-1">
                       <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
                       <path
-                        d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z" />
-                    </svg>Jenis Pekerjaan</h6>
+                        d="M232 120C232 106.7 242.7 96 256 96C269.3 96 280 106.7 280 120V243.2L365.3 300C376.3 307.4 379.3 322.3 371.1 333.3C364.6 344.3 349.7 347.3 338.7 339.1L242.7 275.1C236 271.5 232 264 232 255.1L232 120zM256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0zM48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48C141.1 48 48 141.1 48 256z" />
+                    </svg> {{ $l->updatedAt() }}</button>
                 </div>
-                <div class="ms-0">
-                  <h6 class="mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="me-2 " viewBox="0 0 576 512"
-                      width="35px">
-                      <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                      <path
-                        d="M0 112.5V422.3c0 18 10.1 35 27 41.3c87 32.5 174 10.3 261-11.9c79.8-20.3 159.6-40.7 239.3-18.9c23 6.3 48.7-9.5 48.7-33.4V89.7c0-18-10.1-35-27-41.3C462 15.9 375 38.1 288 60.3C208.2 80.6 128.4 100.9 48.7 79.1C25.6 72.8 0 88.6 0 112.5zM288 352c-44.2 0-80-43-80-96s35.8-96 80-96s80 43 80 96s-35.8 96-80 96zM64 352c35.3 0 64 28.7 64 64H64V352zm64-208c0 35.3-28.7 64-64 64V144h64zM512 304v64H448c0-35.3 28.7-64 64-64zM448 96h64v64c-35.3 0-64-28.7-64-64z" />
-                    </svg> 2 Lowongan</h6>
-                </div>
-
-
               </div>
+  
             </div>
-
-            <div class="row d-flex">
-              <div class="col-lg-12 col-md-3 col-sm-3 mb-2 ms-4 ">
-                <button class="btn btn-primary rounded-pill btn-md d-flex justify-content-center "><i
-                    class="fa-solid fa-check me-2 pt-1"></i>Actively Recruiting</button>
-              </div>
-              <div class="col mb-3">
-                <button type="button" class="btn btn-primary" id="btn-created" style="
-                                  font-size: 15px;
-                                  line-height: 18px;
-                                  background-color: #ffffff;
-                                  border-color: #ffffff;
-                                  color: #3A57E8;
-                                  width: 200px; height: 33.92px;
-                                  ">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 512 512"
-                    style="fill: #3A57E8" class="me-1">
-                    <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                    <path
-                      d="M232 120C232 106.7 242.7 96 256 96C269.3 96 280 106.7 280 120V243.2L365.3 300C376.3 307.4 379.3 322.3 371.1 333.3C364.6 344.3 349.7 347.3 338.7 339.1L242.7 275.1C236 271.5 232 264 232 255.1L232 120zM256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0zM48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48C141.1 48 48 141.1 48 256z" />
-                  </svg> 2 hours ago</button>
-              </div>
-            </div>
-
-          </div>
+          </a>
 
         </div>
-        <div class="col-md-4">
-          <div class="card " data-aos="fade-up" data-aos-delay="400">
-            <div class="d-flex justify-content-start">
-              <div class="row d-flex justify-align-center">
-                <img src="{{asset('images/icons/delesign-construction.svg')}}" alt="" class=".img-fluid. max-width: 100%;">
-              </div>
-              <div class="col d-flex mt-4 mx-0 flex-wrap">
-                <div class="header-title">
+        @endforeach
 
-                  <h5 class="col-lg-10 mb-0 me-5">Judul Lowongan</h4>
-                    <p class="mb-0">
-                      Nama Perusahaan
-                    </p>
-
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="mt-2" style="margin-left: 30px">
-                <div class="ms-0">
-                  <h6 class="mb-3 ">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="me-3 ms-1" width="25px">
-                      <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                      <path
-                        d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z" />
-                    </svg>Jenis Pekerjaan</h6>
-                </div>
-                <div class="ms-0">
-                  <h6 class="mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="me-2 " viewBox="0 0 576 512"
-                      width="35px">
-                      <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                      <path
-                        d="M0 112.5V422.3c0 18 10.1 35 27 41.3c87 32.5 174 10.3 261-11.9c79.8-20.3 159.6-40.7 239.3-18.9c23 6.3 48.7-9.5 48.7-33.4V89.7c0-18-10.1-35-27-41.3C462 15.9 375 38.1 288 60.3C208.2 80.6 128.4 100.9 48.7 79.1C25.6 72.8 0 88.6 0 112.5zM288 352c-44.2 0-80-43-80-96s35.8-96 80-96s80 43 80 96s-35.8 96-80 96zM64 352c35.3 0 64 28.7 64 64H64V352zm64-208c0 35.3-28.7 64-64 64V144h64zM512 304v64H448c0-35.3 28.7-64 64-64zM448 96h64v64c-35.3 0-64-28.7-64-64z" />
-                    </svg> 2 Lowongan</h6>
-                </div>
-
-
-              </div>
-            </div>
-
-            <div class="row d-flex">
-              <div class="col-lg-12 col-md-3 col-sm-3 mb-2  ">
-                <button class="btn btn-primary rounded-pill btn-md d-flex justify-content-center ms-4  "><i
-                    class="fa-solid fa-check me-2 pt-1"></i>Actively Recruiting</button>
-              </div>
-              <div class="col mb-3">
-                <button type="button" class="btn btn-primary" id="btn-created" style="
-                                  font-size: 15px;
-                                  line-height: 18px;
-                                  background-color: #ffffff;
-                                  border-color: #ffffff;
-                                  color: #3A57E8;
-                                  width: 200px; height: 33.92px;
-                                  ">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 512 512"
-                    style="fill: #3A57E8" class="me-1">
-                    <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                    <path
-                      d="M232 120C232 106.7 242.7 96 256 96C269.3 96 280 106.7 280 120V243.2L365.3 300C376.3 307.4 379.3 322.3 371.1 333.3C364.6 344.3 349.7 347.3 338.7 339.1L242.7 275.1C236 271.5 232 264 232 255.1L232 120zM256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0zM48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48C141.1 48 48 141.1 48 256z" />
-                  </svg> 2 hours ago</button>
-              </div>
-            </div>
-
-          </div>
+        
 
         </div>
-        <div class="col-md-4">
-          <div class="card " data-aos="fade-up" data-aos-delay="400">
-            <div class="d-flex justify-content-start">
-              <div class="row d-flex justify-align-center">
-                <img src="{{asset('images/icons/delesign-construction.svg')}}" alt="" class=".img-fluid. max-width: 100%;">
-              </div>
-              <div class="col d-flex mt-4 mx-0 flex-wrap">
-                <div class="header-title">
-
-                  <h5 class="col-lg-10 mb-0 me-5">Judul Lowongan</h4>
-                    <p class="mb-0">
-                      Nama Perusahaan
-                    </p>
-
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="mt-2" style="margin-left: 30px">
-                <div class="ms-0">
-                  <h6 class="mb-3 ">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="me-3 ms-1" width="25px">
-                      <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                      <path
-                        d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z" />
-                    </svg>Jenis Pekerjaan</h6>
-                </div>
-                <div class="ms-0">
-                  <h6 class="mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="me-2 " viewBox="0 0 576 512"
-                      width="35px">
-                      <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                      <path
-                        d="M0 112.5V422.3c0 18 10.1 35 27 41.3c87 32.5 174 10.3 261-11.9c79.8-20.3 159.6-40.7 239.3-18.9c23 6.3 48.7-9.5 48.7-33.4V89.7c0-18-10.1-35-27-41.3C462 15.9 375 38.1 288 60.3C208.2 80.6 128.4 100.9 48.7 79.1C25.6 72.8 0 88.6 0 112.5zM288 352c-44.2 0-80-43-80-96s35.8-96 80-96s80 43 80 96s-35.8 96-80 96zM64 352c35.3 0 64 28.7 64 64H64V352zm64-208c0 35.3-28.7 64-64 64V144h64zM512 304v64H448c0-35.3 28.7-64 64-64zM448 96h64v64c-35.3 0-64-28.7-64-64z" />
-                    </svg> 2 Lowongan</h6>
-                </div>
-
-
-              </div>
-            </div>
-
-            <div class="row d-flex">
-              <div class="col-lg-12 col-md-3 col-sm-3 mb-2  ">
-                <button class="btn btn-primary rounded-pill btn-md d-flex justify-content-center ms-4 "><i
-                    class="fa-solid fa-check me-2 pt-1"></i>Actively Recruiting</button>
-              </div>
-              <div class="col mb-3">
-                <button type="button" class="btn btn-primary" id="btn-created" style="
-                                  font-size: 15px;
-                                  line-height: 18px;
-                                  background-color: #ffffff;
-                                  border-color: #ffffff;
-                                  color: #3A57E8;
-                                  width: 200px; height: 33.92px;
-                                  ">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 512 512"
-                    style="fill: #3A57E8" class="me-1">
-                    <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                    <path
-                      d="M232 120C232 106.7 242.7 96 256 96C269.3 96 280 106.7 280 120V243.2L365.3 300C376.3 307.4 379.3 322.3 371.1 333.3C364.6 344.3 349.7 347.3 338.7 339.1L242.7 275.1C236 271.5 232 264 232 255.1L232 120zM256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0zM48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48C141.1 48 48 141.1 48 256z" />
-                  </svg> 2 hours ago</button>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-4 d-flex flex-column  ">
-          <a type="button" href="https://getbootstrap.com/docs/5.2/components/navs-tabs/"
+        <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center ">
+          <a type="button" href="{{ url('lowongan') }}"
             class="btn btn-outline-primary btn-lg me-3 ">Learn More</a>
         </div>
       </div>
@@ -334,18 +199,20 @@ Burscape - Link To Opportunities
           Berbagai Perusahaan Yang Berada Di Burscape</h2>
       </div>
       <div class="row g-5 justify-content-center">
+        @foreach($perusahaan as $p)
         <div class="col-md-4">
           <div class="card " data-aos="fade-up" data-aos-delay="400">
             <div class="d-flex justify-content-start">
               <div class="row d-flex justify-align-center">
-                <img src="{{asset('images/icons/delesign-construction.svg')}}" alt="" class=".img-fluid. max-width: 100%;">
+                <img src="{{ $p->profile_image() }}" alt="" 
+                style="max-width:100%;max-height:100%;height:120px;width:120px;" class="ms-2 mt-2 img-rounded me-4 mb-2">
               </div>
               <div class="col d-flex mt-4 mx-0 flex-wrap">
                 <div class="header-title">
 
-                  <h5 class="col-lg-10 mb-0 me-5">Judul Lowongan</h4>
+                  <h5 class="col-lg-10 mb-0 me-5">{{ $p->nama }}</h4>
                     <p class="mb-0">
-                      Nama Perusahaan
+                      {{ $p->bidang }}
                     </p>
 
                 </div>
@@ -359,7 +226,7 @@ Burscape - Link To Opportunities
                       <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
                       <path
                         d="M384 0H0V512H144V384h96V512H384V0zM64 224h64v64H64V224zm160 0v64H160V224h64zm32 0h64v64H256V224zM128 96v64H64V96h64zm32 0h64v64H160V96zm160 0v64H256V96h64z" />
-                    </svg> <span style="visibility: hidden;">..</span>Jenis Pekerjaan</h6>
+                    </svg> <span style="visibility: hidden;">..</span>{{ $p->alamat }}</h6>
                 </div>
                 <div class="ms-0">
                   <h6 class="mb-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="30px"
@@ -367,7 +234,7 @@ Burscape - Link To Opportunities
                       <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
                       <path
                         d="M176 56V96H336V56c0-4.4-3.6-8-8-8H184c-4.4 0-8 3.6-8 8zM128 96V56c0-30.9 25.1-56 56-56H328c30.9 0 56 25.1 56 56V96v32V480H128V128 96zM64 96H96V480H64c-35.3 0-64-28.7-64-64V160c0-35.3 28.7-64 64-64zM448 480H416V96h32c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64z" />
-                    </svg> 2 Lowongan</h6>
+                    </svg> {{ $p->lowongan->count() }} Lowongan</h6>
                 </div>
 
 
@@ -379,94 +246,9 @@ Burscape - Link To Opportunities
           </div>
 
         </div>
-        <div class="col-md-4">
-          <div class="card " data-aos="fade-up" data-aos-delay="400">
-            <div class="d-flex justify-content-start">
-              <div class="row d-flex justify-align-center">
-                <img src="{{asset('images/icons/delesign-construction.svg')}}" alt="" class=".img-fluid. max-width: 100%;">
-              </div>
-              <div class="col d-flex mt-4 mx-0 flex-wrap">
-                <div class="header-title">
-
-                  <h5 class="col-lg-10 mb-0 me-5">Judul Lowongan</h4>
-                    <p class="mb-0">
-                      Nama Perusahaan
-                    </p>
-
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="mt-2" style="margin-left: 30px">
-                <div class="ms-0">
-                  <h6 class="mb-3 "><svg xmlns="http://www.w3.org/2000/svg" class="ms-1" viewBox="0 0 384 512"
-                      width="23px">
-                      <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                      <path
-                        d="M384 0H0V512H144V384h96V512H384V0zM64 224h64v64H64V224zm160 0v64H160V224h64zm32 0h64v64H256V224zM128 96v64H64V96h64zm32 0h64v64H160V96zm160 0v64H256V96h64z" />
-                    </svg> <span style="visibility: hidden;">..</span>Jenis Pekerjaan</h6>
-                </div>
-                <div class="ms-0">
-                  <h6 class="mb-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="30px"
-                      class="me-1">
-                      <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                      <path
-                        d="M176 56V96H336V56c0-4.4-3.6-8-8-8H184c-4.4 0-8 3.6-8 8zM128 96V56c0-30.9 25.1-56 56-56H328c30.9 0 56 25.1 56 56V96v32V480H128V128 96zM64 96H96V480H64c-35.3 0-64-28.7-64-64V160c0-35.3 28.7-64 64-64zM448 480H416V96h32c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64z" />
-                    </svg> 2 Lowongan</h6>
-                </div>
-
-              </div>
-            </div>
-
-
-          </div>
-
-        </div>
-        <div class="col-md-4">
-          <div class="card " data-aos="fade-up" data-aos-delay="400">
-            <div class="d-flex justify-content-start">
-              <div class="row d-flex justify-align-center">
-                <img src="{{asset('images/icons/delesign-construction.svg')}}" alt="" class=".img-fluid. max-width: 100%;">
-              </div>
-              <div class="col d-flex mt-4 mx-0 flex-wrap">
-                <div class="header-title">
-
-                  <h5 class="col-lg-10 mb-0 me-5">Judul Lowongan</h4>
-                    <p class="mb-0">
-                      Nama Perusahaan
-                    </p>
-
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="mt-2" style="margin-left: 30px">
-                <div class="ms-0">
-                  <h6 class="mb-3 "><svg xmlns="http://www.w3.org/2000/svg" class="ms-1" viewBox="0 0 384 512"
-                      width="23px">
-                      <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                      <path
-                        d="M384 0H0V512H144V384h96V512H384V0zM64 224h64v64H64V224zm160 0v64H160V224h64zm32 0h64v64H256V224zM128 96v64H64V96h64zm32 0h64v64H160V96zm160 0v64H256V96h64z" />
-                    </svg> <span style="visibility: hidden;">..</span>Jenis Pekerjaan</h6>
-                </div>
-                <div class="ms-0">
-                  <h6 class="mb-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="30px"
-                      class="me-1">
-                      <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                      <path
-                        d="M176 56V96H336V56c0-4.4-3.6-8-8-8H184c-4.4 0-8 3.6-8 8zM128 96V56c0-30.9 25.1-56 56-56H328c30.9 0 56 25.1 56 56V96v32V480H128V128 96zM64 96H96V480H64c-35.3 0-64-28.7-64-64V160c0-35.3 28.7-64 64-64zM448 480H416V96h32c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64z" />
-                    </svg> 2 Lowongan</h6>
-                </div>
-              </div>
-            </div>
-
-
-
-          </div>
-
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-4 d-flex flex-column  ">
-          <a type="button" href="https://getbootstrap.com/docs/5.2/components/navs-tabs/"
+        @endforeach
+        <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center  ">
+          <a type="button" href="{{ url('perusahaan/list') }}"
             class="btn btn-outline-primary btn-lg me-3 ">Learn More</a>
         </div>
       </div>

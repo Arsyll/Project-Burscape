@@ -241,6 +241,12 @@ class RoleTableSeeder extends Seeder
                 'id_perusahaan' => null,
                 'id_alumni' => 35
             ],
+            [
+                'id_user' => 38,
+                'id_admin' => null,
+                'id_perusahaan' => null,
+                'id_alumni' => 36
+            ],
         ];
 
         foreach ($roles as $value) {

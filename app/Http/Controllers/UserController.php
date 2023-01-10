@@ -13,10 +13,12 @@ use App\Models\Alumni;
 use App\Models\Edukasi;
 use App\Models\Jurusan;
 use App\Models\PengalamanKerja;
+use App\Models\Perusahaan;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -114,7 +116,8 @@ class UserController extends Controller
                 $edukasi = Edukasi::with('alumni')->where('id_alumni','=',$data->user_role->alumni->id)->get();
                 return view('users.form', compact('data','id','layout','jurusan','pengalaman','edukasi'));
             }else{
-
+                $layout = '';
+                return view('users.form', compact('data','id','layout'));
             }
         }else{
             return abort(404);
@@ -167,7 +170,52 @@ class UserController extends Controller
         // if(auth()->check()){
         //     return redirect()->route('users.index')->withSuccess(__('message.msg_updated',['name' => __('message.user')]));
         // }
-        return redirect()->back()->withSuccess(__('Profile Telah Diubah',['name' => 'My Profile']));}
+        return redirect()->back()->withSuccess(__('Profile Telah Diubah',['name' => 'My Profile']));
+    }else if($user->role == "Perusahaan"){
+        $perusahaan = Perusahaan::with('lowongan')->findOrFail($user->user_role->perusahaan->id);
+
+        $path = storage_path('app/profile_perusahaan/'.$perusahaan->foto_perusahaan);
+
+        if($request->hasFile('foto_perusahaan')){
+            if (File::exists($path)) 
+            {
+                File::delete($path);
+            }
+            $newname = $request->nama.' '.date("ymdhis").'.'.$request->file('foto_perusahaan')->getClientOriginalExtension();
+            $request->file('foto_perusahaan')->storeAs('profile_perusahaan', $newname);
+        }
+        
+        $data = [
+            'nama' => $request->nama,
+            'bidang' => $request->bidang,
+            'email_perusahaan' => $request->email_perusahaan,
+            'no_telp' => $request->no_telp,
+            'alamat' => $request->alamat,
+            'tentang' => $request->tentang,
+            'foto_perusahaan' => $newname ?? $perusahaan->foto_perusahaan,
+            'url' => $request->url ?? ''
+        ];
+
+
+        $perusahaan->update(array_merge($data));
+        $perusahaan->refresh();
+
+        $dataUser = [
+            'username' => $request->nama,
+            'role' => 'Perusahaan',
+            'email' => $request->email_perusahaan,
+            'password' => empty($request->password) ? $user->password : Hash::make($request->password)
+        ];
+
+        $user = User::findOrFail($perusahaan->role_perusahaan->user->id);
+
+        $user->update(array_merge($dataUser));
+        $user->refresh();
+
+        return back()->with('success','Profile Telah Diedit!');
+
+    }
+
 
         else if($user->role == "Alumni"){
             $alumni = Alumni::with('pengalaman')->findOrFail($user->user_role->alumni->id);
@@ -188,8 +236,8 @@ class UserController extends Controller
                 {
                     File::delete($resume);
                 }
-                $resume = $request->nama.' '.date("ymdhis").'.'.$request->file('resume')->getClientOriginalExtension();
-                $request->file('resume')->storeAs('resume_alumni', $resume);
+                $newresume = $request->nama.' '.date("ymdhis").'.'.$request->file('resume')->getClientOriginalExtension();
+                $request->file('resume')->storeAs('resume_alumni', $newresume);
             }
 
             $dataAlumni = [
@@ -201,7 +249,7 @@ class UserController extends Controller
                 'id_jurusan' => $request->id_jurusan,
                 'angkatan' => $request->angkatan,
                 'foto_profile' => $newname ?? $alumni->foto_profile,
-                'resume' => $resume ?? $alumni->resume,
+                'resume' => $newresume ?? $alumni->resume,
                 'tentang' => $request->tentang,
             ];
 
@@ -380,9 +428,7 @@ class UserController extends Controller
     }
 
     public function download($id){
-        $data = User::findOrFail($id);
-        $id_alumni = $data->user_role->alumni->id;
-        $alumni = Alumni::findOrFail($id_alumni);
+        $alumni = Alumni::findOrFail($id);
         $file = storage_path('app/resume_alumni/'.$alumni->resume);
         return response()->download($file);
     }

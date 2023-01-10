@@ -56,7 +56,16 @@ class UserRequest extends FormRequest
                         'foto_profile' => 'file|mimes:png,jpg|nullable|max:2048',
                     ];
                 }else if(auth()->user()->role == "Perusahaan"){
-
+                    $rules = [
+                        'nama' => 'required',
+                        'bidang' => 'required',
+                        'email_perusahaan' => 'required|email|unique:users,email,'.$user_id,
+                        'no_telp' => 'required|numeric|min:0',
+                        'alamat' => 'required',
+                        'tentang' => 'required',
+                        'password' => 'nullable|confirmed|min:8',
+                        'url' => 'nullable|url'
+                    ];
                 }else if(auth()->user()->role == "Alumni"){
                     $rules = [
                         'username' => 'required|max:30',
@@ -97,7 +106,10 @@ class UserRequest extends FormRequest
         return [
             'username.required'  =>'Username Harus Diisi',
             'email.required'  =>'Email Harus Diisi',
+            'email_perusahaan.required'  =>'Email Harus Diisi',
             'email.unique'  =>'Email Sudah Terpakai',
+            'email_perusahaan.unique'  =>'Email Sudah Terpakai',
+            'url.url'  =>'URL Tidak Valid',
             'nama_lengkap.required'  =>'Nama Harus Diisi',
             'password.required'  =>'Password Harus Diisi',
             'password.confirmed'  =>'Password Tidak Sesuai Dengan Confirm Password',

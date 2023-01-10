@@ -31,7 +31,7 @@ class Perusahaan extends Model
     }
 
     public function profile_image(){
-        return asset('storage/perusahaan_images/'.$this->foto_perusahaan);
+        return asset('storage/profile_perusahaan/'.$this->foto_perusahaan);
     }
 
 }
