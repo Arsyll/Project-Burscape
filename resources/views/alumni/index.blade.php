@@ -1,6 +1,5 @@
 <!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <x-app-layout :assets="$assets ?? []">
     <div class="row">
        <div class="col-sm-12">
@@ -30,27 +29,9 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="datatable" class="table table-striped text-center">
-                            <thead class="">
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Foto</th>
-                                    <th>Nama</th>
-                                    <th>Status</th>
-                                    <th>Jurusan</th>
-                                    <th>Alamat</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id='list'>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+             </div>
+          </div>
+       </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
 
@@ -133,7 +114,6 @@
 
                 });
             });
-        });
 
             $(document).on('click', '#update-btn', function() {
                 const thisIs = $(this);
@@ -219,13 +199,13 @@
                                 }
                             });
                         });
-                }
+                    }
+                });
             });
-        });
 
-        $(document).on('click', '#del-btn', function() {
-            var id = $(this).data('id');
-            Swal.fire({
+            $(document).on('click', '#del-btn', function () {
+                var id = $(this).data('id');
+                Swal.fire({
                     icon: 'error',
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
@@ -238,13 +218,13 @@
                 .then((result) => {
                     if (result.value) {
                         $.ajax({
-                            'url': '{{ url('alumni') }}/' + id,
+                            'url': '{{url('alumni')}}/' + id,
                             'type': 'POST',
                             'data': {
                                 '_method': 'DELETE',
-                                '_token': '{{ csrf_token() }}'
+                                '_token': '{{csrf_token()}}'
                             },
-                            success: function(response) {
+                            success: function (response) {
                                 if (response.message) {
                                     getAlumni();
                                     return toastr.success(response.message, 'Success!', {
