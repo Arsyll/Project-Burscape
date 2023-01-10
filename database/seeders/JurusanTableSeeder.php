@@ -22,6 +22,9 @@ class JurusanTableSeeder extends Seeder
                 'nama_jurusan' => 'Multi Media',
             ],
             [
+                'nama_jurusan' => 'Teknik Komputer Jaringan',
+            ],
+            [
                 'nama_jurusan' => 'Audio Video Interleave',
             ],
             [
@@ -30,7 +33,7 @@ class JurusanTableSeeder extends Seeder
             [
                 'nama_jurusan' => 'Teknik Otomosi Industri',
             ],
-            
+
         ];
 
         foreach($jurusan as $j){

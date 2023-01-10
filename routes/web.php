@@ -57,6 +57,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Page Alumni
     Route::resource('alumni', AlumniController::class);
     Route::get('listAlumni', [AlumniController::class, 'listAlumni']);
+    Route::get('template-alumni',[AlumniController::class , 'downloadTemplate'])->name('download.template.alumni');
+    Route::post('import-alumni', [AlumniController::class, 'import'])->name('importAlumni');
 
     // Page Admin
     Route::resource('admin', AdminController::class);
@@ -132,16 +134,16 @@ Route::group(['middleware' => 'auth'], function () {
 //     Route::get('vector', [HomeController::class, 'vector'])->name('maps.vector');
 // });
 
-// //Auth pages Routs
-// Route::group(['prefix' => 'auth'], function() {
-//     Route::get('signin', [HomeController::class, 'signin'])->name('auth.signin');
-//     Route::get('signup', [HomeController::class, 'signup'])->name('auth.signup');
-//     Route::post('set-profile', [HomeController::class, 'signup2'])->name('auth.signup2');
-//     Route::get('confirmmail', [HomeController::class, 'confirmmail'])->name('auth.confirmmail');
-//     Route::get('lockscreen', [HomeController::class, 'lockscreen'])->name('auth.lockscreen');
-//     Route::get('recoverpw', [HomeController::class, 'recoverpw'])->name('auth.recoverpw');
-//     Route::get('userprivacysetting', [HomeController::class, 'userprivacysetting'])->name('auth.userprivacysetting');
-// });
+//Auth pages Routs
+Route::group(['prefix' => 'auth'], function() {
+    Route::get('signin', [HomeController::class, 'signin'])->name('auth.signin');
+    Route::get('signup', [HomeController::class, 'signup'])->name('auth.signup');
+    Route::post('set-profile', [HomeController::class, 'signup2'])->name('auth.signup2');
+    Route::get('confirmmail', [HomeController::class, 'confirmmail'])->name('auth.confirmmail');
+    Route::get('lockscreen', [HomeController::class, 'lockscreen'])->name('auth.lockscreen');
+    Route::get('recoverpw', [HomeController::class, 'recoverpw'])->name('auth.recoverpw');
+    Route::get('userprivacysetting', [HomeController::class, 'userprivacysetting'])->name('auth.userprivacysetting');
+});
 
 // //Error Page Route
 // Route::group(['prefix' => 'errors'], function() {

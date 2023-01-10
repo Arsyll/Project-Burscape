@@ -6,7 +6,9 @@ use App\Models\Alumni;
 use App\Models\Jurusan;
 use App\Models\Role;
 use App\Models\User;
+use App\Imports\AlumniImport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
@@ -239,5 +241,29 @@ class AlumniController extends Controller
             'massage' => 'List Jurusan',
             'data' => $alumni
         ]);
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'import_alumni' => 'required|file|mimes:xlsx,xls'
+        ],[
+            'import_alumni.required' => 'File Alumni Wajib Di Isi.',
+            'import_alumni.mimes' => 'File Alumni Wajib Bertipe xlsx atau xls.',
+        ]);
+        // dd($request->file('import_alumni'));
+        Excel::import(new AlumniImport, $request->file('import_alumni'));
+
+        return response()->json([
+            'code' => 200,
+            'message' => 'Alumni berhasil ditambah!',
+        ]);
+    }
+
+
+    public function downloadTemplate()
+    {
+        $file = storage_path('template/Template Alumni.xlsx');
+        return response()->download($file);
     }
 }
