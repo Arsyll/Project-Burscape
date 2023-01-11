@@ -34,16 +34,38 @@ h6 {
   font-family: "Montserrat", sans-serif;
 }
 
+
+#linkto{
+    font-family: 'Poppins', sans-serif; color: black; font-weight: 900; font-size: 4rem;
+  }
+
+  @media screen and (max-width: 500px) {
+
+    #linkto {
+     font-size: 2rem;
+    }
+  }
 #peluang{
   font-family: 'Poppins', sans-serif; color: black; font-weight: 900; font-size: 60px;
 }
 
-@media screen and (max-width: 600px) {
-  
+#detpeluang {
+    font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 46px;text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+
+    #detpeluang {
+     font-size: 2rem;text-align: center;  font-family: 'Poppins', sans-serif; font-weight: 500;
+    }
+  }
+@media screen and (max-width: 500px) {
+
   #peluang {
-   font-size: 40px;
+   font-size: 2rem;
   }
 }
+
 
 /*--------------------------------------------------------------
 # Preloader
@@ -145,7 +167,7 @@ h6 {
 
 
 /**
-* Mobile Navigation 
+* Mobile Navigation
 */
 .fa{
   color: #fff;
@@ -177,7 +199,7 @@ h6 {
   right: 0;
   left: 0;
   bottom: 0;
-  background: rgba(40, 58, 90, 0.9);
+  /* background: rgba(40, 58, 90, 0.9); */
   transition: 0.3s;
   z-index: 999;
 }
@@ -307,7 +329,7 @@ h6 {
 # Navigation Menu
 --------------------------------------------------------------*/
 /**
-* Desktop Navigation 
+* Desktop Navigation
 */
 
 
@@ -367,7 +389,7 @@ h6 {
 .navbar .active:before {
   visibility: visible;
   width: 50px;
- 
+
 } */
 #loker:hover:before,
 #loker li:hover>a:before,
@@ -425,7 +447,7 @@ h6 {
 .navbar .dropdown ul a:hover,
 .navbar .dropdown ul .active:hover,
 .navbar .dropdown ul li:hover>a {
-  background-color: #01036f;
+  /* background-color: #01036f; */
 }
 
 .navbar .dropdown:hover>ul {
@@ -470,7 +492,7 @@ h6 {
 }
 
 @media screen and (max-width: 600px) {
-  
+
   .header-transparent a.icon {
     float: right;
     display: block;
@@ -484,10 +506,10 @@ h6 {
     right: 0;
     top: 0;
   }
-  
+
 } */
 /**
-* Mobile Navigation 
+* Mobile Navigation
 */
 .mobile-nav-toggle {
   color: #fff;
@@ -612,11 +634,11 @@ h6 {
   background: url("../images/icons/hero-bg.jpg");
   position: relative;
   padding: 120px 0 0 0;
-  
+
 }
 
 .svg-border-rounded svg {
-  
+
   position: absolute;
     bottom: 0;
     left: 0;
@@ -753,7 +775,7 @@ h6 {
 
 #lamar:hover {
   transition: fill 0.3s ease 0s;
-  
+
     box-shadow: rgb(0 0 0 / 5%) 0px 0px 20px 0px;
 }
 
@@ -959,6 +981,28 @@ h6 {
   }
 }
 
+    #peru {
+        font-family: 'Poppins', sans-serif; color: black; font-weight: 900; font-size: 4rem;
+    }
+
+    @media (max-width: 575px) {
+        #peru {
+            font-size: 50px;
+
+        }
+      }
+   #lopek {
+    font-size: 70px;
+    font-family: 'Poppins', sans-serif; color: black; font-weight: 900;
+}
+@media (max-width: 575px) {
+    #lopek {
+        font-size: 50px;
+
+    }
+  }
+
+
 /*--------------------------------------------------------------
 # Team
 --------------------------------------------------------------*/
@@ -1077,7 +1121,7 @@ h6 {
 		margin-bottom: 30px;
 	}
 	.map-area {
-		width: 50%;
+		width: 55%;
 		height: 400px;
 	}
 }

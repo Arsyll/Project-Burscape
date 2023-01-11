@@ -21,6 +21,7 @@ class DokumenController extends Controller
      */
     public function index()
     {
+        $this->roleCheck("Admin");
         $perusahaan = Perusahaan::with('role_perusahaan')->get();
         $lowongan = LowonganKerja::with('detailLoker')->get();
         return view('dokumen.index', compact('perusahaan','lowongan'));
@@ -44,6 +45,7 @@ class DokumenController extends Controller
      */
     public function store(Request $request)
     {
+        $this->roleCheck("Admin");
         $input = $request->validate([
             'name_doc' => 'required',
             'no_doc' => 'required',
@@ -83,6 +85,7 @@ class DokumenController extends Controller
      */
     public function show($id)
     {
+        $this->roleCheck("Admin");
         return response()->json([
             'message' => 'detail dokumen!',
             'data' => Dokumen::findOrFail($id)
@@ -109,6 +112,7 @@ class DokumenController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->roleCheck("Admin");
         $input = $request->validate([
             'name_doc' => 'required',
             'no_doc' => 'required',
@@ -150,6 +154,7 @@ class DokumenController extends Controller
      */
     public function destroy($id)
     {
+        $this->roleCheck("Admin");
         $dokumen = Dokumen::findOrFail($id);
         $oldFile = $dokumen->file_doc;
         $path = storage_path('app/doc_folder/'.$oldFile);
@@ -164,6 +169,7 @@ class DokumenController extends Controller
     }
 
     public function listDokumen(Request $request){
+        $this->roleCheck("Admin");
         $dokumen = Dokumen::with('perusahaan');
         return response()->json([
             'massage' => 'List Jurusan',
@@ -174,6 +180,7 @@ class DokumenController extends Controller
     }
 
     public function download($id){
+        $this->roleCheck("Admin");
         // dd($id);
         $dokumen = Dokumen::where('id','=',$id)->first();
         // dd($dokumen);

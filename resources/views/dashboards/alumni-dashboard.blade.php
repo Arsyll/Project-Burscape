@@ -34,7 +34,7 @@
                         <h3 class="font-weight-bold ms-3 mt-4">Filter Pencarian</h3>
                         <hr>
                         <div class="ms-3 me-3" data-filter="search">
-                            <input type="text" name="search" class="form-control" id="search" placeholder="Nama Lowongan..." value="{{!empty(request()->input('filter.search')) ? request()->input('filter.search') : '' }}">
+                            <input type="text" name="search" class="form-control" id="search" placeholder="Nama Lowongan..." value="@if(!empty(request()->input('filter.search'))){{ request()->input('filter.search') }}@elseif(!empty(request()->input('search'))){{ request()->input('search') }}@endif">
                         </div>
                         <hr>
                         <div class="ms-3" data-filter="orderby">

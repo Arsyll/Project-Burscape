@@ -68,5 +68,8 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         }else if($this->role == "Alumni"){
             return asset('storage/profile_alumni/'.$this->user_role->alumni->foto_profile);
         }
+        else if($this->role == "Perusahaan"){
+            return asset('storage/profile_perusahaan/'.$this->user_role->perusahaan->foto_perusahaan);
+        }
     }
 }

@@ -24,6 +24,34 @@ class Alumni extends Model
         'resume',
     ];
 
+    public function checkLamaran($idLoker){
+        $lamaran = LamaranKerja::with('lowongan')->where('id_lowongan','=',$idLoker)->where('id_alumni','=',$this->id)->first();
+        return $lamaran;
+    }
+
+    public function checkTerimaLamaran(){
+        $lamarans = $this->lamaran;
+        foreach($lamarans as $lamaran){
+            if($lamaran->status == "Diterima"){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function checkPendingLamaran(){
+        $lamarans = $this->lamaran;
+        foreach($lamarans as $lamaran){
+            if($lamaran->status == "Pending"){
+                return $lamaran;
+            }
+        }
+    }
+
+    public function role_alumni(){
+        return $this->hasOne(Role::class,'id_alumni','id');
+    }
+
     public function jurusan(){
         return $this->belongsTo(Jurusan::class, 'id_jurusan');
     }
@@ -31,17 +59,17 @@ class Alumni extends Model
     public function pengalaman(){
         return $this->hasMany(PengalamanKerja::class,'id_alumni','id');
     }
-    
+
     public function lamaran(){
-        return $this->hasOne(LamaranKerja::class,'id_alumni','id');
+        return $this->hasMany(LamaranKerja::class,'id_alumni','id');
     }
-    
+
     public function edukasi(){
         return $this->hasMany(Edukasi::class,'id_alumni','id');
     }
 
     public function profile_image(){
-        return asset('storage/alumni_images/'.$this->foto_profile);
+        return asset('storage/profile_alumni/'.$this->foto_profile);
     }
 
 }

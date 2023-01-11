@@ -20,9 +20,9 @@
         </section>
         <!-- End about Section -->
         <!-- ======= ourquest Section ======= -->
-        <section id="ourquest" class="ourquest" style="background-color: #2478FF ;color:white">
+        <section id="ourquest" class="ourquest mt-3" style="background-color: #2478FF ;color:white">
 
-            <div class="container px-5 py-5" id="featured-3">
+            <div class="container px-5 py-5 mt-3" id="featured-3">
                 <h1 class="pb-2 text-center bold mb-3" data-aos="fade-up"
                     style="font-family: 'Poppins', sans-serif; color: white; font-weight: 900; font-size: 4rem;">Our Mission
                 </h1>
@@ -42,7 +42,7 @@
         <section id="team" class="team section-bg">
             <div class="container" data-aos="fade-up">
 
-                <div class="section-title">
+                <div class="section-title mt-5 text-center mb-4">
                     <h2 id="ourteam">Our Team</h2>
                 </div>
 
