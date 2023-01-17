@@ -1,6 +1,6 @@
 <x-app-layout layout="horizontal" :assets="$assets ?? []">
     @extends('base.main')
-    <style href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"></style>
+    {{-- <style href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"></style> --}}
     @section('title')
         Burscape - Link To Opportunities
     @endsection
@@ -345,7 +345,8 @@
                             <div class="member-info">
                                 <h4>Dhafin Qintara Khalish</h4>
                                 <span>CEO</span>
-                                <p>Explicabo voluptatem mollitia et repellat qui dolorum quasi</p>
+                                <p>Direktur utama, yaitu mengatur perusahaan, memotivasi anggota tim, dan membuat keputusan besar di perusahaan.
+                                </p>
                                 <div class="social">
                                     <a href=""><i class="ri-twitter-fill"></i></a>
                                     <a href=""><i class="ri-facebook-fill"></i></a>
@@ -363,7 +364,8 @@
                             <div class="member-info">
                                 <h4>Arsyl Slamet Amrulloh</h4>
                                 <span>CTO</span>
-                                <p>Aut maiores voluptates amet et quis praesentium qui senda para</p>
+                                <p>Bertanggung jawab atas kebutuhan teknologi organisasi serta penelitian dan pengembanggannya.
+                                </p>
                                 <div class="social">
                                     <a href=""><i class="ri-twitter-fill"></i></a>
                                     <a href=""><i class="ri-facebook-fill"></i></a>
@@ -381,7 +383,8 @@
                             <div class="member-info">
                                 <h4>Fajri Zhahiran Wiriadinata</h4>
                                 <span>COO</span>
-                                <p>Quisquam facilis cum velit laborum corrupti fuga rerum quia</p>
+                                <p>Bertanggung jawab pada pembuatan keputusan administrasi dan operasional perusahaan.
+                                </p>
                                 <div class="social">
                                     <a href=""><i class="ri-twitter-fill"></i></a>
                                     <a href=""><i class="ri-facebook-fill"></i></a>
@@ -399,7 +402,8 @@
                             <div class="member-info">
                                 <h4>Dio Fathir Zinedine Khalaf</h4>
                                 <span>CMO</span>
-                                <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
+                                <p>Bertugas sebagai pimpinan yang bertanggung jawab dalam urusan marketing / pemasaran dan periklanan.
+                                </p>
                                 <div class="social">
                                     <a href=""><i class="ri-twitter-fill"></i></a>
                                     <a href=""><i class="ri-facebook-fill"></i></a>
@@ -461,7 +465,7 @@
 
                         </div>
                         <div class="text-center mt-4">
-                            {{-- <button class="btn btn-primary">Send <i class="fa fa-paper-plane-o ml-1"></i></button> --}}
+                            <button class="btn btn-primary">Send</button>
                         </div>
                     </form>
                     <!-- Form contact -->
@@ -566,5 +570,5 @@
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
                 class="bi bi-arrow-up-short"></i></a>
         {{-- <div id="preloader"></div> --}}
+        @endsection
     </x-app-layout>
-@endsection

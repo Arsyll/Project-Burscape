@@ -1,14 +1,13 @@
+<title>Burscape - About </title>
 <x-app-layout layout="horizontal" :assets="$assets ?? []">
     @extends('base.main')
-    @section('title')
-        Burscape - Link To Opportunities
-    @endsection
+    
     @section('content')
         <!-- ======= about Section ======= -->
         <section id="about" class="about">
             <div class="container px-5 py-5" id="featured-3">
                 <h1 class="pb-2 text-center bold mb-3" data-aos="fade-up"
-                    style="font-family: 'Poppins', sans-serif; color: black; font-weight: 900; font-size: 4rem;">About
+                    style="font-family: 'Poppins', sans-serif; color: black; font-weight: 900; font-size: 3rem;">About
                     Burscape
                 </h1>
                 <h3 class="mt-4 mb-3" data-aos="fade-up"
@@ -150,28 +149,34 @@ font-size: 24px;color: #B1ACAC;">
                 <div class="col-lg-5 col-md-12">
                     <!-- Form contact -->
                     <form class="p-5 grey-text">
-                        <div class="md-form form-sm"> <i class="fa fa-user prefix"></i>
+                        <div class="md-form form-sm"> 
+                            {{-- <i class="fa fa-user "></i> --}}
                             <label for="form3">Your name</label>
                             <input type="text" id="form3" class="form-control form-control-sm">
 
                         </div>
-                        <div class="md-form form-sm"> <i class="fa fa-envelope prefix"></i>
+                        <div class="md-form form-sm"> 
+                            {{-- <i class="fa fa-envelope "></i> --}}
                             <label for="form2">Your email</label>
                             <input type="text" id="form2" class="form-control form-control-sm">
 
                         </div>
-                        <div class="md-form form-sm"> <i class="fa fa-tag prefix"></i>
+                        <div class="md-form form-sm"> 
+                            {{-- <i class="fa fa-tag"></i> --}}
                             <label for="form34">Subject</label>
                             <input type="text" id="form32" class="form-control form-control-sm">
 
                         </div>
-                        <div class="md-form form-sm"> <i class="fa fa-pencil prefix"></i>
+                        <div class="md-form form-sm"> 
+                            {{-- <i class="fa fa-pencil "></i> --}}
                             <label for="form8">Your message</label>
                             <textarea type="text" id="form8" class="md-textarea form-control form-control-sm" rows="4"></textarea>
 
                         </div>
                         <div class="text-center mt-4">
-                            <button class="btn btn-primary">Send <i class="fa fa-paper-plane-o ml-1"></i></button>
+                            <button class="btn btn-primary">Send 
+                                {{-- <i class="fa fa-paper-plane-o ml-1"></i> --}}
+                            </button>
                         </div>
                     </form>
                     <!-- Form contact -->
@@ -203,5 +208,5 @@ font-size: 24px;color: #B1ACAC;">
 
         <!--Section: Contact-->
 
+        @endsection
     </x-app-layout>
-@endsection
