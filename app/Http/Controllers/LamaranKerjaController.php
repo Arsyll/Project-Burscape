@@ -11,9 +11,8 @@ use Illuminate\Support\Facades\Auth;
 
 class LamaranKerjaController extends Controller
 {
-
     public function roleCheck2(){
-        if(Auth::user()->user_role->perusahaan){
+        if(Auth::user()->user_role->perusahaan || Auth::user()->user_role->admin){
             return true;
         }else{
             return abort(404);

@@ -9,16 +9,16 @@
                     <div class="header-title">
                         <h4 class="card-title">Alumni</h4>
                     </div>
-                    <div class="">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#form-modal-import">
-                            Import Alumni
-                        </button>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#form-modal-add">
-                            Tambah Alumni
-                        </button>
-                    </div>
+                </div>
+                <div class="d-flex justify-content-end my-2 mx-4">
+                    <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal"
+                        data-bs-target="#form-modal-import">
+                        Import Alumni
+                    </button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#form-modal-add">
+                        Tambah Alumni
+                    </button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

@@ -8,7 +8,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="row flex-lg-row g-5 py-2">
+                    {{-- <div class="row flex-lg-row g-5 py-2"> --}}
                         <div class="col-2 col-sm-3 col-lg-2 ">
                             {{-- <svg class="bd-placeholder-img mb-3" width="200" height="200"
                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label=""
@@ -17,7 +17,7 @@
                                     fill="#000000" dy=".3em" dominant-baseline="hanging"
                                     style="font-size: 200%">logo</text>
                             </svg> --}}
-                            <img src="{{!empty($lowongan->perusahaan->foto_perusahaan) ? $lowongan->perusahaan->profile_image() : asset('images/icons/delesign-construction.svg')}}" alt="logo" width="200" height="200" class="img-fluid ms-4">
+                            <img src="{{!empty($lowongan->perusahaan->foto_perusahaan) ? $lowongan->perusahaan->profile_image() : asset('images/icons/delesign-construction.svg')}}" alt="logo" width="200" height="200" >
                         </div>
                         <div class="col-lg-9 ms-5 align-items-start">
                             <h3 class="mb-3 ">{{$lowongan->nama_lowongan}}</h3>
@@ -43,11 +43,11 @@
                                         <p class="mb-4 ms-2" style="font-size: 13px;"><i
                                                 class="fa-regular fa-clock me-2"></i>Tayang {{$lowongan->createdAt()}} - Diperbarui
                                             {{$lowongan->updatedAt()}}</p>
-                                        <div class="bd-example d-flex justify-content-start ">
-                                            <div class="col-lg-3 col-md-3 col-sm-4 d-flex flex-column ms-2">
+                                        <div class="bd-example d-flex justify-content-start">
+                                            <div class="col-lg-1 col-md-1 col-sm-2 d-flex flex-column ms-2">
                                                 <button type="button"
                                                     class="btn btn-outline-primary btn-lg me-3" data-bs-toggle="modal" data-bs-target="#share"><i
-                                                        class="fa-solid fa-share-nodes me-2" ></i>Bagikan</button>
+                                                        class="fa-solid fa-share-nodes me-2 py-1"></i></button>
                                                      
                                                     <div class="modal fade" id="share" tabindex="-1" aria-labelledby="exampleModalLabels"
                                                         aria-hidden="true">
@@ -100,7 +100,7 @@
                                                     </div>
                                                 
                                             </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6 d-flex flex-column">
+                                            <div class="col-lg-6 col-md-6 col-sm-6">
                                                 @if (!empty(auth()->user()))
                                                     @if(auth()->user()->role == "Alumni")
                                                         @if (!empty(auth()->user()->user_role->alumni->checkLamaran($lowongan->id)))
@@ -233,7 +233,7 @@
                         </div>
 
 
-                    </div>
+                    {{-- </div> --}}
                 </div>
             </div>
 
@@ -283,10 +283,12 @@
                                         <img src="{{!empty($lowongan->perusahaan->foto_perusahaan) ? $lowongan->perusahaan->profile_image() : asset('images/icons/delesign-construction.svg')}}" alt="logo" width="200" height="200"
                                          class="theme-color-default-img img-fluid rounded-pill avatar-100">
                                     </div>
-                                    <div class="col-lg-9 align-items-start ms-5 ">
+                                    <div class="col-lg-8 align-items-start ms-1 ">
                                         <a href="{{route('perusahaan.detail',$lowongan->perusahaan->id)}}" class="fs-4">{{$lowongan->perusahaan->nama}}</a>
                                         <br>
-                                        {!! $lowongan->perusahaan->tentang !!}
+                                        <p class="text-justify text-black">
+                                            {!! $lowongan->perusahaan->tentang !!}
+                                        </p>
                                 </div>
                             </div>
 

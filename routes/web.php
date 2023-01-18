@@ -44,7 +44,7 @@ Route::get('/',[HomeController::class, 'landingPage'])->name('landingPage');
 Route::get('/about',[HomeController::class, 'about'])->name('about');
 
 //UI Pages Routs
-// Route::get('/uisheet', [HomeController::class, 'uisheet'])->name('uisheet');
+Route::get('/uisheet', [HomeController::class, 'uisheet'])->name('uisheet');
 
 Route::group(['middleware' => 'auth'], function () {
     // Permission Module

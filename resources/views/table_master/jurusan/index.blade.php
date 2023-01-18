@@ -11,10 +11,14 @@
                 <div class="header-title">
                    <h4 class="card-title">Jurusan</h4>
                 </div>
+            </div>
+            <div class="d-flex justify-content-end my-2 me-4">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#form-modal-add">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                    </svg>
                     Tambah Jurusan
                 </button>
-
              </div>
              <div class="card-body">
                 <div class="table-responsive">
@@ -215,13 +219,13 @@
                                         '<td>'+idx+'</td>'+
                                         '<td>'+data.nama_jurusan+'</td>'+
                                         '<td>'+
-                                            '<div class="row justify-content-center">'+
-                                                '<div class="col-2">'+
+                                            '<div class="d-flex justify-content-center">'+
+                                                '<div class="col-6">'+
                                                     '<button class="btn btn-warning btn-sm" id="update-btn" href="#" data-id="'+data.id+'" data-bs-toggle="modal" data-bs-target="#form-modal-edit">'+
                                                             '<span>Edit</span>'+
                                                     '</button>'+
                                                 '</div>'+
-                                                '<div class="col-2">'+
+                                                '<div class="col-6">'+
                                                     '<button class="btn btn-danger btn-sm" id="del-btn" href="#" data-id="'+data.id+'">'+
                                                         '<span>Hapus</span>'+
                                                     '</button>'+
