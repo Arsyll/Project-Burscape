@@ -34,16 +34,38 @@ h6 {
   font-family: "Montserrat", sans-serif;
 }
 
+
+#linkto{
+    font-family: 'Poppins', sans-serif; color: black; font-weight: 900; font-size: 4rem;
+  }
+
+  @media screen and (max-width: 500px) {
+
+    #linkto {
+     font-size: 2rem;
+    }
+  }
 #peluang{
   font-family: 'Poppins', sans-serif; color: black; font-weight: 900; font-size: 60px;
 }
 
-@media screen and (max-width: 600px) {
-  
+#detpeluang {
+    font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 46px;text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+
+    #detpeluang {
+     font-size: 2rem;text-align: center;  font-family: 'Poppins', sans-serif; font-weight: 500;
+    }
+  }
+@media screen and (max-width: 500px) {
+
   #peluang {
-   font-size: 40px;
+   font-size: 2rem;
   }
 }
+
 
 /*--------------------------------------------------------------
 # Preloader
@@ -145,7 +167,7 @@ h6 {
 
 
 /**
-* Mobile Navigation 
+* Mobile Navigation
 */
 .fa{
   color: #fff;
@@ -166,7 +188,7 @@ h6 {
   }
 
   .navbar ul {
-    display: none;
+    /* display: none; */
   }
 }
 
@@ -177,7 +199,7 @@ h6 {
   right: 0;
   left: 0;
   bottom: 0;
-  background: rgba(40, 58, 90, 0.9);
+  /* background: rgba(40, 58, 90, 0.9); */
   transition: 0.3s;
   z-index: 999;
 }
@@ -307,30 +329,30 @@ h6 {
 # Navigation Menu
 --------------------------------------------------------------*/
 /**
-* Desktop Navigation 
+* Desktop Navigation
 */
 
 
 
 .navbar {
-  padding: 0;
+  /* padding: 0; */
 }
 
 .navbar ul {
-  margin: 0;
+  /* margin: 0;
   padding: 0;
   display: flex;
   list-style: none;
-  align-items: center;
+  align-items: center; */
 }
 
 .navbar li {
-  position: relative;
+  /* position: relative; */
 }
 
 .navbar a,
 .navbar a:focus {
-  display: flex;
+  /* display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 0 10px 30px;
@@ -339,18 +361,18 @@ h6 {
   font-family: "Poppins", sans-serif;
   color: rgba(255, 255, 255, 0.7);
   white-space: nowrap;
-  transition: 0.3s;
+  transition: 0.3s; */
 }
 
 .navbar a i,
 .navbar a:focus i {
-  font-size: 12px;
+  /* font-size: 12px;
   line-height: 0;
-  margin-left: 5px;
+  margin-left: 5px; */
 }
 
 .navbar>ul>li>a:before {
-  content: "";
+  /* content: "";
   position: absolute;
   width: 0;
   height: 2px;
@@ -359,7 +381,7 @@ h6 {
   background-color: #01036f;
   visibility: hidden;
   width: 0px;
-  transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s; */
 }
 
 /* .navbar a:hover:before,
@@ -367,7 +389,7 @@ h6 {
 .navbar .active:before {
   visibility: visible;
   width: 50px;
- 
+
 } */
 #loker:hover:before,
 #loker li:hover>a:before,
@@ -387,11 +409,11 @@ h6 {
 .navbar .active,
 .navbar .active:focus,
 .navbar li:hover>a {
-  color: #fff;
+  /* color: #fff; */
 }
 
 .navbar .dropdown ul {
-  display: block;
+  /* display: block;
   position: absolute;
   left: 30px;
   top: calc(100% + 30px);
@@ -403,48 +425,48 @@ h6 {
   background: #fff;
   box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
   transition: 0.3s;
-  border-radius: 4px;
+  border-radius: 4px; */
 }
 
 .navbar .dropdown ul li {
-  min-width: 200px;
+  /* min-width: 200px; */
 }
 
 .navbar .dropdown ul a {
-  padding: 10px 20px;
+  /* padding: 10px 20px;
   font-size: 14px;
   font-weight: 500;
   text-transform: none;
-  color: #01036f;
+  color: #01036f; */
 }
 
 .navbar .dropdown ul a i {
-  font-size: 12px;
+  /* font-size: 12px; */
 }
 
 .navbar .dropdown ul a:hover,
 .navbar .dropdown ul .active:hover,
 .navbar .dropdown ul li:hover>a {
-  background-color: #01036f;
+  /* background-color: #01036f; */
 }
 
 .navbar .dropdown:hover>ul {
-  opacity: 1;
+  /* opacity: 1;
   top: 100%;
-  visibility: visible;
+  visibility: visible; */
 }
 
 .navbar .dropdown .dropdown ul {
-  top: 0;
+  /* top: 0;
   left: calc(100% - 30px);
-  visibility: hidden;
+  visibility: hidden; */
 }
 
 .navbar .dropdown .dropdown:hover>ul {
-  opacity: 1;
+  /* opacity: 1;
   top: 0;
   left: 100%;
-  visibility: visible;
+  visibility: visible; */
 }
 
 
@@ -452,11 +474,11 @@ h6 {
 
 @media (max-width: 1366px) {
   .navbar .dropdown .dropdown ul {
-    left: -90%;
+    /* left: -90%; */
   }
 
   .navbar .dropdown .dropdown:hover>ul {
-    left: -100%;
+    /* left: -100%; */
   }
 }
 /* .header-transparent {
@@ -470,7 +492,7 @@ h6 {
 }
 
 @media screen and (max-width: 600px) {
-  
+
   .header-transparent a.icon {
     float: right;
     display: block;
@@ -484,32 +506,33 @@ h6 {
     right: 0;
     top: 0;
   }
-  
+
 } */
+
 /**
-* Mobile Navigation 
+* Mobile Navigation
 */
 .mobile-nav-toggle {
-  color: #fff;
+  /* color: #fff;
   font-size: 28px;
   cursor: pointer;
   display: none;
   line-height: 0;
-  transition: 0.5s;
+  transition: 0.5s; */
 }
 
 @media (max-width: 991px) {
   .mobile-nav-toggle {
-    display: block;
+    /* display: block; */
   }
 
   .navbar ul {
-    display: none;
+    /* display: none; */
   }
 }
 
 .navbar-mobile {
-  position: fixed;
+  /* position: fixed;
   overflow: hidden;
   top: 0;
   right: 0;
@@ -517,17 +540,17 @@ h6 {
   bottom: 0;
   background: rgba(1, 3, 91, 0.9);
   transition: 0.3s;
-  z-index: 999;
+  z-index: 999; */
 }
 
 .navbar-mobile .mobile-nav-toggle {
-  position: absolute;
+  /* position: absolute;
   top: 15px;
-  right: 15px;
+  right: 15px; */
 }
 
 .navbar-mobile ul {
-  display: block;
+  /* display: block;
   position: absolute;
   top: 55px;
   right: 15px;
@@ -537,29 +560,29 @@ h6 {
   border-radius: 8px;
   background-color: #fff;
   overflow-y: auto;
-  transition: 0.3s;
+  transition: 0.3s; */
 }
 
 .navbar-mobile>ul>li>a:before {
-  left: 20px;
+  /* left: 20px; */
 }
 
 .navbar-mobile a,
 .navbar-mobile a:focus {
-  padding: 10px 20px;
+  /* padding: 10px 20px;
   font-size: 15px;
-  color: #0205a1;
+  color: #0205a1; */
 }
 
 .navbar-mobile a:hover,
 .navbar-mobile .active,
 .navbar-mobile li:hover>a {
-  color: #3f43fd;
+  /* color: #3f43fd; */
 }
 
 .navbar-mobile .getstarted,
 .navbar-mobile .getstarted:focus {
-  margin: 15px;
+  /* margin: 15px; */
 }
 
 .navbar-mobile .dropdown ul,
@@ -612,11 +635,11 @@ h6 {
   background: url("../images/icons/hero-bg.jpg");
   position: relative;
   padding: 120px 0 0 0;
-  
+
 }
 
 .svg-border-rounded svg {
-  
+
   position: absolute;
     bottom: 0;
     left: 0;
@@ -753,7 +776,7 @@ h6 {
 
 #lamar:hover {
   transition: fill 0.3s ease 0s;
-  
+
     box-shadow: rgb(0 0 0 / 5%) 0px 0px 20px 0px;
 }
 
@@ -959,6 +982,28 @@ h6 {
   }
 }
 
+    #peru {
+        font-family: 'Poppins', sans-serif; color: black; font-weight: 900; font-size: 3rem;
+    }
+
+    @media (max-width: 575px) {
+        #peru {
+            font-size: 2.5rem;
+
+        }
+      }
+   #lopek {
+    font-size: 70px;
+    font-family: 'Poppins', sans-serif; color: black; font-weight: 900;
+}
+@media (max-width: 575px) {
+    #lopek {
+        font-size: 50px;
+
+    }
+  }
+
+
 /*--------------------------------------------------------------
 # Team
 --------------------------------------------------------------*/
@@ -1077,7 +1122,7 @@ h6 {
 		margin-bottom: 30px;
 	}
 	.map-area {
-		width: 50%;
+		width: 55%;
 		height: 400px;
 	}
 }

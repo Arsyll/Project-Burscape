@@ -47,7 +47,7 @@
                                 }
                                 @endif
                                 />
-                                <label class="btn btn-primary" style="border-radius: 25px; " for="option1">Paling Sesuai</label>
+                                <label class="btn btn-primary my-2" style="border-radius: 25px; " for="option1">Paling Sesuai</label>
                                 <input type="radio" class="btn-check" style="border-radius: 25px; " id="option2" autocomplete="off" name="waktu" value="Terbaru"
                                 {{request()->input('filter.waktu') == "Terbaru" ? 'checked' : ''}}
                                 />

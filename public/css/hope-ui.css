@@ -8,6 +8,14 @@
 * NOTE: This file contains the styling for Template.
 *
 */
+
+/* My CSS */
+@media (min-width: 991px){
+  .responsive-nav-item{
+    display: none;    
+  }
+}
+/* END MY CSS */
 :focus {
   outline: none;
 }

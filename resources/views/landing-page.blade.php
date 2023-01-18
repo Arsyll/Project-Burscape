@@ -1,5 +1,6 @@
 <x-app-layout layout="horizontal" :assets="$assets ?? []">
     @extends('base.main')
+    {{-- <style href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"></style> --}}
     @section('title')
         Burscape - Link To Opportunities
     @endsection
@@ -26,8 +27,8 @@
                                     </div>
                                 </form>
                                 <!-- <div class="text-center text-lg-start">
-                                  <a href="#about" class="btn-get-started scrollto">Get Started</a>
-                                </div> -->
+                                                                                                  <a href="#about" class="btn-get-started scrollto">Get Started</a>
+                                                                                                </div> -->
                             </div>
                         </div>
 
@@ -46,12 +47,11 @@
         <!-- ======= help Section ======= -->
         <section id="help" class="help">
             <div class="container px-5 py-5" id="featured-3">
-                <h1 class="pb-2 text-center bold mb-3" data-aos="fade-up"
-                    style="font-family: 'Poppins', sans-serif; color: black; font-weight: 900; font-size: 4rem;">LINK TO
+                <h1 class="pb-2 text-center bold mb-3" data-aos="fade-up" id="linkto"
+                    style="">LINK TO
                 </h1>
-                <h2 class="text-center bold" id="peluang" data-aos="fade-up">OPPORTUNITIES</h2>
-                <h2 class="mt-5 mb-5" data-aos="fade-up"
-                    style="font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 46px;text-align: center;">Cari
+                <h2 class="text-center bold" id="peluang" data-aos="fade-up" >OPPORTUNITIES</h2>
+                <h2 class="mt-5 mb-5" data-aos="fade-up" id="detpeluang">Cari
                     Peluang
                     Terbaik untuk Mencapai Karier Impianmu</h2>
                 <div class="row g-4 py-5 row-cols-1 row-cols-lg-3 text-center justify-content-center mt-5">
@@ -97,8 +97,7 @@
             <div class="container px-5 py-5">
 
                 <div class="section-title">
-                    <h1 class="pb-2 text-center bold mb-3" data-aos="fade-up"
-                        style="font-family: 'Poppins', sans-serif; color: black; font-weight: 900; font-size: 4rem;">
+                    <h1 class="pb-2 text-center bold mb-3" data-aos="fade-up" id="lopek">
                         Lowongan
                         Pekerjaan</h1>
                     <h2 class="mt-5 mb-5" data-aos="fade-up"
@@ -188,8 +187,8 @@
 
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center mt-3">
-                    <a type="button" href="{{ url('lowongan') }}"
-                        class="btn btn-outline-primary btn-lg me-3">Learn More</a>
+                    <a type="button" href="{{ url('lowongan') }}" class="btn btn-outline-primary btn-lg me-3">Learn
+                        More</a>
                 </div>
             </div>
 
@@ -210,8 +209,8 @@
             <div class="container px-5 py-5">
 
                 <div class="section-title">
-                    <h1 class="pb-2 text-center bold mb-3" data-aos="fade-up"
-                        style="font-family: 'Poppins', sans-serif; color: black; font-weight: 900; font-size: 4rem;">
+                    <h1 class="pb-2 text-center bold mb-3" data-aos="fade-up" id="peru"
+                        style="">
                         PERUSAHAAN</h1>
                     <h2 class="mt-5 mb-5" data-aos="fade-up"
                         style="font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 46px;text-align: center;">
@@ -346,7 +345,8 @@
                             <div class="member-info">
                                 <h4>Dhafin Qintara Khalish</h4>
                                 <span>CEO</span>
-                                <p>Explicabo voluptatem mollitia et repellat qui dolorum quasi</p>
+                                <p>Direktur utama, yaitu mengatur perusahaan, memotivasi anggota tim, dan membuat keputusan besar di perusahaan.
+                                </p>
                                 <div class="social">
                                     <a href=""><i class="ri-twitter-fill"></i></a>
                                     <a href=""><i class="ri-facebook-fill"></i></a>
@@ -364,7 +364,8 @@
                             <div class="member-info">
                                 <h4>Arsyl Slamet Amrulloh</h4>
                                 <span>CTO</span>
-                                <p>Aut maiores voluptates amet et quis praesentium qui senda para</p>
+                                <p>Bertanggung jawab atas kebutuhan teknologi organisasi serta penelitian dan pengembanggannya.
+                                </p>
                                 <div class="social">
                                     <a href=""><i class="ri-twitter-fill"></i></a>
                                     <a href=""><i class="ri-facebook-fill"></i></a>
@@ -382,7 +383,8 @@
                             <div class="member-info">
                                 <h4>Fajri Zhahiran Wiriadinata</h4>
                                 <span>COO</span>
-                                <p>Quisquam facilis cum velit laborum corrupti fuga rerum quia</p>
+                                <p>Bertanggung jawab pada pembuatan keputusan administrasi dan operasional perusahaan.
+                                </p>
                                 <div class="social">
                                     <a href=""><i class="ri-twitter-fill"></i></a>
                                     <a href=""><i class="ri-facebook-fill"></i></a>
@@ -400,7 +402,8 @@
                             <div class="member-info">
                                 <h4>Dio Fathir Zinedine Khalaf</h4>
                                 <span>CMO</span>
-                                <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
+                                <p>Bertugas sebagai pimpinan yang bertanggung jawab dalam urusan marketing / pemasaran dan periklanan.
+                                </p>
                                 <div class="social">
                                     <a href=""><i class="ri-twitter-fill"></i></a>
                                     <a href=""><i class="ri-facebook-fill"></i></a>
@@ -416,7 +419,7 @@
             </div>
         </section><!-- End Team Section -->
         <!--Section: Contact-->
-        <section id="contact" id="contact">
+        <section>
             <div class="text-center mt-4">
                 <!-- Heading -->
                 <h2 class="mb-1 font-weight-bold text-center mt-4"
@@ -440,29 +443,29 @@
                 <!--Grid column-->
                 <div class="col-lg-5 col-md-12">
                     <!-- Form contact -->
-                    <form class="p-5 grey-text">
-                        <div class="md-form form-sm"> <i class="fa fa-user prefix"></i>
+                    <form class="p-5">
+                        <div class=""> <i class="fa-solid fa-user"></i>
                             <label for="form3">Your name</label>
                             <input type="text" id="form3" class="form-control form-control-sm">
 
                         </div>
-                        <div class="md-form form-sm"> <i class="fa fa-envelope prefix"></i>
+                        <div class=""> <i class="fa-solid fa-envelope"></i>
                             <label for="form2">Your email</label>
                             <input type="text" id="form2" class="form-control form-control-sm">
 
                         </div>
-                        <div class="md-form form-sm"> <i class="fa fa-tag prefix"></i>
+                        <div class=""> <i class="fa-solid fa-tag"></i>
                             <label for="form34">Subject</label>
                             <input type="text" id="form32" class="form-control form-control-sm">
 
                         </div>
-                        <div class="md-form form-sm"> <i class="fa fa-pencil prefix"></i>
+                        <div class=""> <i class="fa-solid fa-pencil"></i>
                             <label for="form8">Your message</label>
                             <textarea type="text" id="form8" class="md-textarea form-control form-control-sm" rows="4"></textarea>
 
                         </div>
                         <div class="text-center mt-4">
-                            <button class="btn btn-primary">Send <i class="fa fa-paper-plane-o ml-1"></i></button>
+                            <button class="btn btn-primary">Send</button>
                         </div>
                     </form>
                     <!-- Form contact -->
@@ -497,7 +500,7 @@
         </div>
 
         <!-- ======= Footer ======= -->
-        <footer id="footer">
+        {{-- <footer id="footer">
             <div class="footer-top">
                 <div class="container">
                     <div class="row">
@@ -510,25 +513,25 @@
 
                         </div>
                         <!--
-                              <div class="col-lg-4 col-md-6">
-                                <div class="footer-info">
-                                  <h3>Bootsrap</h3>
-                                  <p class="pb-3"><em>Qui repudiandae et eum dolores alias sed ea. Qui suscipit veniam excepturi quod.</em></p>
-                                  <p>
-                                    A108 Adam Street <br>
-                                    NY 535022, USA<br><br>
-                                    <strong>Phone:</strong> +1 5589 55488 55<br>
-                                    <strong>Email:</strong> info@example.com<br>
-                                  </p>
-                                  <div class="social-links mt-3">
-                                    <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                                    <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                                    <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                                    <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                                    <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-                                  </div>
-                                </div>
-                              </div> -->
+                                  <div class="col-lg-4 col-md-6">
+                                    <div class="footer-info">
+                                      <h3>Bootsrap</h3>
+                                      <p class="pb-3"><em>Qui repudiandae et eum dolores alias sed ea. Qui suscipit veniam excepturi quod.</em></p>
+                                      <p>
+                                        A108 Adam Street <br>
+                                        NY 535022, USA<br><br>
+                                        <strong>Phone:</strong> +1 5589 55488 55<br>
+                                        <strong>Email:</strong> info@example.com<br>
+                                      </p>
+                                      <div class="social-links mt-3">
+                                        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                                        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                                        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                                        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                                        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                                      </div>
+                                    </div>
+                                  </div> -->
 
                         <div class="col-lg-2 col-md-6 footer-links">
                             <h4>Links</h4>
@@ -561,10 +564,11 @@
                                 &copy; Copyright <strong><span>Burscape</span></strong>. All Rights Reserved
                             </div>
                         </div>
-        </footer><!-- End Footer -->
+        </footer> --}}
+        <!-- End Footer -->
 
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
                 class="bi bi-arrow-up-short"></i></a>
-        <div id="preloader"></div>->
+        {{-- <div id="preloader"></div> --}}
+        @endsection
     </x-app-layout>
-@endsection

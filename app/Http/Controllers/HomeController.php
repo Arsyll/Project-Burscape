@@ -27,6 +27,10 @@ class HomeController extends Controller
         return view('landing-page',compact('perusahaan','lowongan'));
     }
 
+    public function about(){
+        return view('about');
+    }
+
 
     /*
      * Dashboard Pages Routs
@@ -58,7 +62,7 @@ class HomeController extends Controller
          else if($user->role == "Alumni") {
             return redirect(RouteServiceProvider::LOWONGAN);
          }
-        
+
     }
 
     public function lowongan(Request $request){
@@ -90,7 +94,7 @@ class HomeController extends Controller
                     }
                 }
                 $det = DetailLoker::whereIn('id_kategori',$kategoriId)->get('id_loker');
-                
+
                 foreach($det as $d){
                     if(!in_array($d->id_loker,$lokerId)){
                         array_push($lokerId,$d->id_loker);
@@ -168,7 +172,7 @@ class HomeController extends Controller
             }
         }
     }
-    
+
 
     /*
      * Menu Style Routs

@@ -7,12 +7,12 @@
     </button>
     <div class="col-md-2 navbar-brand">
       @if (empty(auth()->user))
-      <a href="{{url('/')}}" class="d-flex">
+      <a href="{{url('/')}}" class="d-flex text-decoration-none">
         <img src="{{asset('images/icons/Burscapelogo(no-caption).png')}}" class="img-fluid" style="max-height: 40px; max-width: 40px;" alt="Logo">
         <h4 class="logo-title">{{env('APP_NAME')}}</h4>
       </a>
       @else
-        <a href="{{route('dashboard')}}" class="d-flex">
+        <a href="{{route('dashboard')}}" class="d-flex  text-decoration-none">
           <img src="{{asset('images/icons/Burscapelogo(no-caption).png')}}" class="img-fluid" style="max-height: 40px; max-width: 40px;" alt="Logo">
           <h4 class="logo-title">{{env('APP_NAME')}}</h4>
         </a>
@@ -222,7 +222,7 @@
           </ul>
         </li>
         @else
-        <a href="{{route('auth.signin')}}" class="btn btn-primary pe-4">Login</a>
+        <a href="{{route('auth.signin')}}" class="btn btn-primary px-4">Login</a>
         @endif
       </ul>
     </div>

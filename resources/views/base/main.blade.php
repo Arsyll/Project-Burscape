@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -18,7 +17,7 @@
 
         <!-- Vendor CSS Files -->
         <link href="{{asset('vendor/aos/dist/aos.css')}}" rel="stylesheet">
-        <link href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+        {{-- <link href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet"> --}}
         <link href="{{asset('vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
         <link href="{{asset('vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
         <link href="{{asset('vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
@@ -46,7 +45,7 @@
          <!-- Vendor JS Files -->
         <script src="{{asset('vendor/purecounter/purecounter_vanilla.js')}}"></script>
         <script src="{{asset('vendor/aos/dist/aos.js')}}"></script>
-        <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+        {{-- <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script> --}}
         <script src="{{asset('vendor/glightbox/js/glightbox.min.js')}}"></script>
         <script src="{{asset('vendor/swiper/swiper-bundle.min.js')}}"></script>
 
