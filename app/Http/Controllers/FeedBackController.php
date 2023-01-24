@@ -44,5 +44,23 @@ class FeedBackController extends Controller
         
 
         return back()->with('success','Feedback Telah Terkirim!');
-    } 
+    }
+
+    public function show($id)
+    {
+        $this->roleCheck("Admin");
+        return response()->json([
+            'message' => 'detail jurusan!',
+            'data' => FeedBack::findOrFail($id)
+        ]);
+    }
+    
+    public function destroy($id)
+    {
+        $this->roleCheck("Admin");
+        Feedback::findOrFail($id)->delete();
+        return response()->json([
+            'message' => 'Feedback berhasil dihapus!'
+        ]);
+    }
 }
