@@ -10,6 +10,7 @@ use App\Http\Controllers\Security\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\DokumenController;
+use App\Http\Controllers\FeedBackController;
 use App\Http\Controllers\LamaranKerjaController;
 use App\Http\Controllers\LowonganKerjaController;
 use App\Http\Controllers\PerusahaanController;
@@ -96,6 +97,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('lamaran',[LamaranKerjaController::class,'index']);
     Route::get('listLamaran',[LamaranKerjaController::class,'listLamaran']);
     Route::get('lamaran/{id}',[LamaranKerjaController::class,'show']);
+
+    // Page Feedback
+    Route::resource('feedback', FeedBackController::class);
+    Route::geT('listFeedback',[FeedBackController::class,'listFeedBack']);
 });
 
 

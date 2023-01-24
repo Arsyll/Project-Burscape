@@ -148,29 +148,30 @@ font-size: 24px;color: #B1ACAC;">
                 <!--Grid column-->
                 <div class="col-lg-5 col-md-12">
                     <!-- Form contact -->
-                    <form class="p-5 grey-text">
+                    <form class="p-5 grey-text" method="post" action="{{route('feedback.store')}}">
+                        @csrf
                         <div class="md-form form-sm"> 
                             {{-- <i class="fa fa-user "></i> --}}
                             <label for="form3">Your name</label>
-                            <input type="text" id="form3" class="form-control form-control-sm">
+                            <input type="text" id="form3" class="form-control form-control-sm" name ="nama">
 
                         </div>
                         <div class="md-form form-sm"> 
                             {{-- <i class="fa fa-envelope "></i> --}}
                             <label for="form2">Your email</label>
-                            <input type="text" id="form2" class="form-control form-control-sm">
+                            <input type="text" id="form2" class="form-control form-control-sm" name ="email">
 
                         </div>
                         <div class="md-form form-sm"> 
                             {{-- <i class="fa fa-tag"></i> --}}
                             <label for="form34">Subject</label>
-                            <input type="text" id="form32" class="form-control form-control-sm">
+                            <input type="text" id="form32" class="form-control form-control-sm" name ="subjek">
 
                         </div>
                         <div class="md-form form-sm"> 
                             {{-- <i class="fa fa-pencil "></i> --}}
                             <label for="form8">Your message</label>
-                            <textarea type="text" id="form8" class="md-textarea form-control form-control-sm" rows="4"></textarea>
+                            <textarea type="text" id="form8" class="md-textarea form-control form-control-sm" rows="4" name ="pesan"></textarea>
 
                         </div>
                         <div class="text-center mt-4">
@@ -210,3 +211,31 @@ font-size: 24px;color: #B1ACAC;">
 
         @endsection
     </x-app-layout>
+    @if (session('success'))
+            <script>
+                $( document ).ready(
+                    Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: "{{session('success')}}",
+                    type: 'success',
+                    confirmButtonColor: '#28C76F',
+                    confirmButtonText: 'Kembali'
+                })                            
+                );
+            </script>
+        @elseif(session('errors'))
+        <script>
+            $( document ).ready(
+                Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: "{{session('errors')->first()}}",
+                type: 'success',
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Kembali'
+            })                            
+            );
+        </script>
+        
+        @endif

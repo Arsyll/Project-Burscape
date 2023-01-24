@@ -443,29 +443,30 @@
                 <!--Grid column-->
                 <div class="col-lg-5 col-md-12">
                     <!-- Form contact -->
-                    <form class="p-5">
-                        <div class=""> <i class="fa-solid fa-user"></i>
+                    <form class="p-5" action="{{route('feedback.store')}}" method="POST">
+                        @csrf
+                        <div class=""><i class="fa-solid fa-user"></i>
                             <label for="form3">Your name</label>
-                            <input type="text" id="form3" class="form-control form-control-sm">
+                            <input type="text" name ="nama" id="form3" class="form-control form-control-sm">
 
                         </div>
                         <div class=""> <i class="fa-solid fa-envelope"></i>
                             <label for="form2">Your email</label>
-                            <input type="text" id="form2" class="form-control form-control-sm">
+                            <input type="text" name="email" id="form2" class="form-control form-control-sm">
 
                         </div>
                         <div class=""> <i class="fa-solid fa-tag"></i>
                             <label for="form34">Subject</label>
-                            <input type="text" id="form32" class="form-control form-control-sm">
+                            <input type="text" name="subjek" id="form32" class="form-control form-control-sm">
 
                         </div>
                         <div class=""> <i class="fa-solid fa-pencil"></i>
                             <label for="form8">Your message</label>
-                            <textarea type="text" id="form8" class="md-textarea form-control form-control-sm" rows="4"></textarea>
+                            <textarea type="text" name="pesan" id="form8" class="md-textarea form-control form-control-sm" rows="4"></textarea>
 
                         </div>
                         <div class="text-center mt-4">
-                            <button class="btn btn-primary">Send</button>
+                            <button class="btn btn-primary" type="submit">Send</button>
                         </div>
                     </form>
                     <!-- Form contact -->
@@ -570,5 +571,35 @@
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
                 class="bi bi-arrow-up-short"></i></a>
         {{-- <div id="preloader"></div> --}}
+
         @endsection
     </x-app-layout>
+        @if (session('success'))
+            <script>
+                $( document ).ready(
+                    Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: "{{session('success')}}",
+                    type: 'success',
+                    confirmButtonColor: '#28C76F',
+                    confirmButtonText: 'Kembali'
+                })                            
+                );
+            </script>
+        @elseif(session('errors'))
+        <script>
+            $( document ).ready(
+                Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: "{{session('errors')->first()}}",
+                type: 'success',
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Kembali'
+            })                            
+            );
+        </script>
+        
+        @endif
+
