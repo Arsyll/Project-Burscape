@@ -103,20 +103,25 @@
                                             <div class="col-lg-6 col-md-6 col-sm-6">
                                                 @if (!empty(auth()->user()))
                                                     @if(auth()->user()->role == "Alumni")
-                                                        @if (!empty(auth()->user()->user_role->alumni->checkLamaran($lowongan->id)))
+                                                        @if(!empty(auth()->user()->user_role->alumni->checkLamaran($lowongan->id)))
                                                             @if(auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status == "Ditolak")
-                                                                <button type="button" class="btn btn-danger btn-lg">Anda {{auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status}} Di Lowongan Ini</button>
-                                                            @elseif((auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status == "Diterima"))
+                                                                <button type="button" class="btn btn-danger btn-lg">Anda {{auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status}} Di Lowongan Ini</button>    
+                                                            @endif
+                                                        @endif
+                                                        @if(!auth()->user()->user_role->alumni->checkTerimaLamaran() && !(auth()->user()->user_role->alumni->getTerimaLamaran() == $lowongan->id))
+                                                                <a href="{{route('detail.lowongan',auth()->user()->user_role->alumni->getTerimaLamaran())}}" class="btn btn-secondary btn-lg">Anda Sudah Diterima Di Lowongan Lain</a>
+                                                        @elseif (!empty(auth()->user()->user_role->alumni->checkLamaran($lowongan->id)))
+                                                            @if((auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status == "Diterima"))
                                                                 <button type="button" class="btn btn-success btn-lg">{{auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status}}</button>
                                                             @elseif (auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status == "Pending")
-                                                            <button type="button" class="btn btn-secondary btn-lg">{{auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status}}</button>
-                                                            <button class="btn btn-danger btn-lg mt-2" id="del-btn" href="#" data-id="{{auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->id}}">
-                                                                Batalkan Proses Lamaran
-                                                            </button>
+                                                                <button type="button" class="btn btn-secondary btn-lg">{{auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status}}</button>
+                                                                <button class="btn btn-danger btn-lg mt-2" id="del-btn" href="#" data-id="{{auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->id}}">
+                                                                    Batalkan Proses Lamaran
+                                                                </button>
                                                             
                                                             @endif
                                                         @else
-                                                            @if(auth()->user()->user_role->alumni->checkTerimaLamaran() && empty(auth()->user()->user_role->alumni->checkPendingLamaran()))
+                                                            @if(auth()->user()->user_role->alumni->checkTerimaLamaran())
                                                                 <button type="button" class="btn btn-primary btn-lg"
                                                                     data-bs-toggle="modal" data-bs-target="#exampleModal">Lamar Sekarang</button>
                                                                 <!-- Modal -->
