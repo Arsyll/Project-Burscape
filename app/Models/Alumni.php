@@ -39,6 +39,15 @@ class Alumni extends Model
         return true;
     }
 
+    public function getTerimaLamaran(){
+        $lamarans = $this->lamaran;
+        foreach($lamarans as $lamaran){
+            if($lamaran->status == "Diterima"){
+                return $lamaran->id;
+            }
+        }
+    }
+
     public function checkPendingLamaran(){
         $lamarans = $this->lamaran;
         foreach($lamarans as $lamaran){

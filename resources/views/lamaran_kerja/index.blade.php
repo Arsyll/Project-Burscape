@@ -22,7 +22,7 @@
                             <th class="text-center">Email</th>
                             <th class="text-center">No Telp</th>
                             <th class="text-center">Status</th>
-                            <th class="w-25 text-center">Aksi</th>
+                            <th class="text-center">Aksi</th>
                          </tr>
                       </thead>
                         <tbody id='list'>
