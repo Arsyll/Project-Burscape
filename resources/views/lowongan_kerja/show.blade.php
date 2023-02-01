@@ -21,7 +21,7 @@
                 <div class="card-body">
                     <div class="col-12">
                         <div class="table-responsive">
-                            <table class="table ml-4 mt-1 mb-2" width="50%">
+                            <table class="table ml-4 mt-1 mb-2">
                                 <tr>
                                     <td width="30%"><b>Nama Lowongan</b></td>
                                     <td>: {{$loker->nama_lowongan}}</td>

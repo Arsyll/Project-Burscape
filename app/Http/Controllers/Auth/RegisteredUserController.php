@@ -63,6 +63,8 @@ class RegisteredUserController extends Controller
         
         Auth::login($login);
 
+        Auth::user()->makeNotification('Selamat Datang Di Burscape! Ayo Lengkapi Profilmu!','Selamat datang Job Seeker!, Burscape Menyediakan Semua Peluang Terbaik Yang Anda Dapat Harapkan. Sebelum Mencari Peluangmu, Ayo Lengkapi Dulu Profilmu!',Auth::user()->id);
+
         return redirect(RouteServiceProvider::HOME);
     }
 }

@@ -1048,11 +1048,11 @@ body {
 }
 
 .accordion-header {
-  background-color: var(--bs-primary-tint-88);
+  /* background-color: var(--bs-primary-tint-88); */
 }
 
 .accordion-button {
-  background-color: var(--bs-primary-tint-88);
+  /* background-color: var(--bs-primary-tint-88); */
 }
 
 .accordion-button:not(.collapsed) {

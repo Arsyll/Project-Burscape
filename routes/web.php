@@ -13,6 +13,7 @@ use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\FeedBackController;
 use App\Http\Controllers\LamaranKerjaController;
 use App\Http\Controllers\LowonganKerjaController;
+use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\PerusahaanController;
 use Illuminate\Support\Facades\Artisan;
 // Packages
@@ -43,6 +44,7 @@ Route::get('lowongan/{id}',[LowonganKerjaController::class,'detailLowongan'])->n
 
 Route::get('/',[HomeController::class, 'landingPage'])->name('landingPage');
 Route::get('/about',[HomeController::class, 'about'])->name('about');
+Route::post('/feedback-store',[FeedBackController::class,'store'])->name('feedback.store');
 
 //UI Pages Routs
 Route::get('/uisheet', [HomeController::class, 'uisheet'])->name('uisheet');
@@ -99,8 +101,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('lamaran/{id}',[LamaranKerjaController::class,'show']);
 
     // Page Feedback
-    Route::resource('feedback', FeedBackController::class);
+    Route::resource('feedback', FeedBackController::class)->except('store');
     Route::geT('listFeedback',[FeedBackController::class,'listFeedBack']);
+
+    // Page Notifikasi
+    Route::get('/notifikasi',[NotifikasiController::class,'index'])->name('notifikasi');
+    Route::post('/read-notifikasi',[NotifikasiController::class,'notificationReaded'])->name('notification-readed');
 });
 
 
