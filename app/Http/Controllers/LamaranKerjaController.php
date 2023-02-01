@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Alumni;
 use App\Models\Edukasi;
 use App\Models\LamaranKerja;
+use App\Models\LowonganKerja;
+use App\Models\Notifikasi;
 use App\Models\PengalamanKerja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -97,15 +99,42 @@ class LamaranKerjaController extends Controller
             'status' => 'Pending',
         ];
 
+        $namaLowongan = LowonganKerja::find($request->id_lowongan)->nama_lowongan;
+
         $lamaran = new LamaranKerja();
         $lamaran->create(array_merge($dataLamaran));
+
 
         return back()->with('success','Kamu Telah Mendaftar Lowongan');
     }
 
     public function update(Request $request,$id){
         $status = $request->status;
-        LamaranKerja::findOrFail($id)->update(['status' => $status]);
+        $lamaran = LamaranKerja::findOrFail($id);
+        switch($status){
+            case 'Ditolak':
+                Auth::user()->makeNotification(
+                    'Maaf anda ditolak',
+                    'Maaf anda ditolak di lowongan ' . $lamaran->lowongan->nama_lowongan,
+                    $lamaran->alumni->role_alumni->user->id
+                );
+                break;
+            case 'Diterima':
+                Auth::user()->makeNotification(
+                    'Selamat anda diterima',
+                    'Selamat anda diterima di lowongan ' . $lamaran->lowongan->nama_lowongan,
+                    $lamaran->alumni->role_alumni->user->id
+                );
+                break;
+            case 'Pending':
+                Auth::user()->makeNotification(
+                    'Lamaran anda sedang dicek ulang',
+                    'Lamaran anda di lowongan ' . $lamaran->lowongan->nama_lowongan . ' sedang dicek ulang.',
+                    $lamaran->alumni->role_alumni->user->id
+                );
+                break;
+        } 
+        $lamaran->update(['status' => $status]);
         return back()->with('success','');
     }
 

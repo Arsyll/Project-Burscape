@@ -72,4 +72,23 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
             return asset('storage/profile_perusahaan/'.$this->user_role->perusahaan->foto_perusahaan);
         }
     }
+
+    public function notifikasi(){
+        return  $this->hasMany(Notifikasi::class,'id_user','id');
+    }
+
+    public function countUnreadedNotification(){
+        return $this->notifikasi()->where('dibaca','=',false)->count();
+    }
+
+    public function makeNotification(String $subject,String $message, Int $id_user){
+        $dataPesan = [
+            'subjek' => $subject,
+            'pesan' => $message,
+            'id_user' => $id_user,
+        ];
+
+        $notification = new Notifikasi();
+        $notification->create(array_merge($dataPesan));
+    }
 }

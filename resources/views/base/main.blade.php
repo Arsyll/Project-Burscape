@@ -23,7 +23,7 @@
         <link href="{{asset('vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
         <link href="{{asset('vendor/remixicon/remixicon.css')}}" rel="stylesheet">
         <link href="{{asset('vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> --}}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
         <script src="https://kit.fontawesome.com/f7b6c5abe9.js" crossorigin="anonymous"></script>
         <!-- Template Main CSS File -->

@@ -272,11 +272,19 @@ class HomeController extends Controller
      */
     public function signin(Request $request)
     {
-        return view('auth.login');
+        if(Auth::check()){
+            return back();
+        }else{
+            return view('auth.login');
+        }
     }
     public function signup(Request $request)
     {
-        return view('auth.register');
+        if(Auth::check()){
+            return back();
+        }else{
+            return view('auth.register');
+        }
     }
     public function signup2(Request $request)
     {

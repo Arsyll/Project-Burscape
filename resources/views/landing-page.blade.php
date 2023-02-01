@@ -1,9 +1,7 @@
+<title>Burscape - Link To Opportunities</title>
 <x-app-layout layout="horizontal" :assets="$assets ?? []">
     @extends('base.main')
     {{-- <style href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"></style> --}}
-    @section('title')
-        Burscape - Link To Opportunities
-    @endsection
     @section('content')
         <!-- ======= Hero Section ======= -->
         <section id="hero">
@@ -447,22 +445,22 @@
                         @csrf
                         <div class=""><i class="fa-solid fa-user"></i>
                             <label for="form3">Your name</label>
-                            <input type="text" name ="nama" id="form3" class="form-control form-control-sm">
+                            <input type="text" name ="nama" id="form3" class="form-control form-control-sm" value="{{old('nama')}}">
 
                         </div>
                         <div class=""> <i class="fa-solid fa-envelope"></i>
                             <label for="form2">Your email</label>
-                            <input type="text" name="email" id="form2" class="form-control form-control-sm">
+                            <input type="text" name="email" id="form2" class="form-control form-control-sm" value="{{old('email     ')}}">
 
                         </div>
                         <div class=""> <i class="fa-solid fa-tag"></i>
                             <label for="form34">Subject</label>
-                            <input type="text" name="subjek" id="form32" class="form-control form-control-sm">
+                            <input type="text" name="subjek" id="form32" class="form-control form-control-sm" value="{{old('subjek')}}">
 
                         </div>
                         <div class=""> <i class="fa-solid fa-pencil"></i>
                             <label for="form8">Your message</label>
-                            <textarea type="text" name="pesan" id="form8" class="md-textarea form-control form-control-sm" rows="4"></textarea>
+                            <textarea type="text" name="pesan" id="form8" class="md-textarea form-control form-control-sm" rows="4">{{old('pesan')}}</textarea>
 
                         </div>
                         <div class="text-center mt-4">

@@ -28,8 +28,8 @@ class FeedBackController extends Controller
         $data = $request->validate([
             'nama' => 'required',
             'email' => 'required|email|unique:feed_backs,email',
-            'subjek' => 'required',
-            'pesan' => 'required',
+            'subjek' => 'required|max:100',
+            'pesan' => 'required|max:255',
         ],
         [
             'nama.required' => "Feedback Tidak Tersimpan!",        
@@ -37,7 +37,9 @@ class FeedBackController extends Controller
             'email.email' => "Feedback Tidak Tersimpan!",        
             'email.unique' => "Feedback Tidak dapat Tersimpan!",        
             'subjek.required' => "Feedback Tidak Tersimpan!",        
+            'subjek.max' => "Feedback Tidak Tersimpan! Subjek Terlalu Panjang",        
             'pesan.required' => "Feedback Tidak Tersimpan!",        
+            'pesan.max' => "Feedback Tidak Tersimpan!, Pesan Terlalu Panjang",        
         ]);
 
         FeedBack::create($data);
