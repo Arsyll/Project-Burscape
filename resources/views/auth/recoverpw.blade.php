@@ -15,12 +15,13 @@
                   <h2 class="mb-2">Reset Password</h2>
                   <p>Enter your email address and we'll send you an email with instructions to reset your password.</p>
                   <x-auth-validation-errors class="mb-4" :errors="$errors" />
-                  <form>
+                  <form method="POST" action="{{route('password.email')}}">
+                     @csrf
                      <div class="row">
                         <div class="col-lg-12">
                            <div class="floating-label form-group">
                               <label for="email" class="form-label">Email</label>
-                              <input type="email" class="form-control" id="email" aria-describedby="email" placeholder=" ">
+                              <input type="email" class="form-control" id="email" name="email" aria-describedby="email" placeholder=" ">
                            </div>
                         </div>
                      </div>
