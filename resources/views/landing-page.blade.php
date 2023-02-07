@@ -159,7 +159,7 @@
                                         <div class="col mb-3">
                                             <button type="button" class="btn btn-primary" id="btn-created"
                                                 style="
-                                    font-size: 15px;
+                                    font-size: 12px;
                                     line-height: 18px;
                                     background-color: #ffffff;
                                     border-color: #ffffff;

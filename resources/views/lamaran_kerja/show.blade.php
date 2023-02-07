@@ -164,7 +164,7 @@
                 $(document).on('click', '#terima-btn', function () {
                     var id = $(this).data('id');
                     Swal.fire({
-                        icon: 'error',
+                        icon: 'question',
                         title: 'Anda yakin?',
                         text: "Anda akan menerima lamaran dari {{$lamaran->alumni->nama}}.",
                         type: 'error',
@@ -197,7 +197,7 @@
                 $(document).on('click', '#tolak-btn', function () {
                     var id = $(this).data('id');
                     Swal.fire({
-                        icon: 'error',
+                        icon: 'question',
                         title: 'Anda yakin?',
                         text: "Anda akan menolak lamaran dari {{$lamaran->alumni->nama}}.",
                         type: 'error',
@@ -230,7 +230,7 @@
                 $(document).on('click', '#batal-btn', function () {
                     var id = $(this).data('id');
                     Swal.fire({
-                        icon: 'error',
+                        icon: 'question',
                         title: 'Anda yakin?',
                         text: "Anda akan membatalkan lamaran dari {{$lamaran->alumni->nama}}.",
                         type: 'error',

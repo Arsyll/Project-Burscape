@@ -44,6 +44,7 @@
                            <input type="text" class="form-control" value="{{!empty(old('nama_lowongan')) ? old('nama_lowongan') : $loker->nama_lowongan}}" id="nama_lowongan" name="nama_lowongan" placeholder="">
                        </div>
                    </div>
+                   @if (auth()->user()->role == "Admin")
                    <div class="col-sm-6">
                        <div class="form-group">
                            <label for="jurusan">Perusahaan<span class="text-danger">*</span></label>
@@ -61,6 +62,9 @@
                            </select>
                        </div>
                    </div>
+                   @else
+                   <input type="hidden" name="id_perusahaan" value="{{$loker->id_perusahaan}}">
+                   @endif
                    <div class="col-sm-6">
                        <div class="form-group">
                            <div><span class="text-danger" id="bidang_error"></span></div>

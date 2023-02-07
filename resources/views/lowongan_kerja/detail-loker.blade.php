@@ -115,7 +115,7 @@
                                                                 <button type="button" class="btn btn-success btn-lg">{{auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status}}</button>
                                                             @elseif (auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status == "Pending")
                                                                 <button type="button" class="btn btn-secondary btn-lg">{{auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->status}}</button>
-                                                                <button class="btn btn-danger btn-lg mt-2" id="del-btn" href="#" data-id="{{auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->id}}">
+                                                                <button class="btn btn-danger btn-lg" id="del-btn" href="#" data-id="{{auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->id}}">
                                                                     Batalkan Proses Lamaran
                                                                 </button>
                                                             
@@ -315,7 +315,7 @@
             $(document).on('click', '#del-btn', function () {
                 var id = $(this).data('id');
                 Swal.fire({
-                    icon: 'error',
+                    icon: 'question',
                     title: 'Kamu yakin?',
                     text: "Kamu akan membatalkan lowongan {{auth()->user()->user_role->alumni->checkLamaran($lowongan->id)->lowongan->nama_lowongan ?? ''}}.",
                     type: 'error',

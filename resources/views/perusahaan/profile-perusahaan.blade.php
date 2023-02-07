@@ -37,7 +37,7 @@
         </div>
 
 
-        <div class="col-lg-9">
+        <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
                     <div class="header-title">
@@ -60,7 +60,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        {{-- <div class="col-lg-3">
             <div class="card">
                 <div class="card-header d-flex align-items-center justify-content-between">
                     <div class="header-title">
@@ -109,7 +109,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
 
