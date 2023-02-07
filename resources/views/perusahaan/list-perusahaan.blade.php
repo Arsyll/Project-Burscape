@@ -32,7 +32,7 @@
                                 <div class="card " data-aos="fade-up" data-aos-delay="400">
                                     <div class="d-flex justify-content-start">
                                         <div class="row d-flex justify-align-center">
-                                            <img src="{{ empty($p->foto_perusahaan) ? asset("images/icons/delesign-construction.svg") : $p->profile_image() }}"
+                                            <img src="{{ $p->profile_image()}}"
                                                 alt="" style="max-width:100%;max-height:100%;height:100px;width:100px;" class="ms-2 mt-2 img-rounded me-4 mb-2">
                                         </div>
                                         <div class="col d-flex mt-4 mx-0 flex-wrap">

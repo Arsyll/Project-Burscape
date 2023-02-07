@@ -31,7 +31,7 @@ class Perusahaan extends Model
     }
 
     public function profile_image(){
-        return asset('storage/profile_perusahaan/'.$this->foto_perusahaan);
+        return empty($this->foto_perusahaan) ? asset("images/icons/delesign-construction.svg") : asset('storage/profile_perusahaan/'.$this->foto_perusahaan);
     }
 
 }
