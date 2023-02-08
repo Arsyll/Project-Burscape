@@ -130,7 +130,7 @@
                                                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
-                                                                                <h3 class="modal-title" id="exampleModalLabel">Apply to {{$lowongan->perusahaan->nama}}</h3>
+                                                                                <h3 class="modal-title" id="exampleModalLabel">Apply to {{$lowongan->nama_lowongan}}</h3>
                                                                                 <button type="button" class="btn-close"
                                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                                             </div>

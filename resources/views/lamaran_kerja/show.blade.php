@@ -3,6 +3,14 @@
 </head>
 <x-app-layout :assets="$assets ?? []">
     <div class="row">
+        <div  class="pt-4">
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{url('lamaran')}}">Lamaran</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Lamaran {{$lamaran->alumni->nama}}</li>
+                </ol>
+            </nav>
+        </div>
         <div class="col-lg-8">
             <div class="card mt-5">
                 <div class="card-body ms-3">
@@ -121,43 +129,44 @@
             </div>
 
             
-
-            <div class="card">
-                <div class="card-header">
-                    <div class="header-title d-flex">
-                        <h5 class="card-title">Status : 
-                        </h5>
-                        <span class="badge rounded-pill p-2 ms-2 {{ ($lamaran->status == "Pending") ? "bg-secondary" : (($lamaran->status == "Diterima" )? "bg-success" : "bg-danger") }}">
-                            {{ $lamaran->status }}
+            @if(auth()->user()->role == "Perusahaan")
+                <div class="card">
+                    <div class="card-header">
+                        <div class="header-title d-flex">
+                            <h5 class="card-title">Status : 
+                            </h5>
+                            <span class="badge rounded-pill p-2 ms-2 {{ ($lamaran->status == "Pending") ? "bg-secondary" : (($lamaran->status == "Diterima" )? "bg-success" : "bg-danger") }}">
+                                {{ $lamaran->status }}
+                        </div>
+                    </div>
+                    <div class="card-body">      
+                        @if($lamaran->status == "Pending")
+                        <button id="terima-btn" class="btn btn-success w-100 mb-2"  data-id="{{ $lamaran->id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                            </svg>
+                            Terima
+                        </button>
+                        <button id="tolak-btn" class="btn btn-danger w-100"  data-id="{{ $lamaran->id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                            </svg>
+                            Tolak
+                        </button>
+                        @else
+                        <button id="batal-btn" class="btn btn-danger w-100 btn-sm"  data-id="{{ $lamaran->id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                            </svg>
+                            Batalkan Lamaran
+                        </button>
+                        @endif
                     </div>
                 </div>
-                <div class="card-body">      
-                    @if($lamaran->status == "Pending")
-                    <button id="terima-btn" class="btn btn-success w-100 mb-2"  data-id="{{ $lamaran->id }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
-                        </svg>
-                        Terima
-                    </button>
-                    <button id="tolak-btn" class="btn btn-danger w-100"  data-id="{{ $lamaran->id }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                        </svg>
-                        Tolak
-                    </button>
-                    @else
-                    <button id="batal-btn" class="btn btn-danger w-100 btn-sm"  data-id="{{ $lamaran->id }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                        </svg>
-                        Batalkan Lamaran
-                    </button>
-                    @endif
-                </div>
-            </div>
+            @endif
 
             <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
             <script>

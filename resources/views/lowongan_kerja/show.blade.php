@@ -5,6 +5,14 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <script src="{{asset('js/tinymce/tinymce.min.js')}}"></script>
 <x-app-layout :assets="$assets ?? []">
+    <div  class="pt-4">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('lowongan-kerja.index')}}">Lowongan Kerja</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Detail {{$loker->nama_lowongan}}</li>
+            </ol>
+        </nav>
+    </div>
     <div class="row">
        <div class="col-sm-12">
           <div class="card">

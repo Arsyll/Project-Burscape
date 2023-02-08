@@ -24,11 +24,20 @@ class LamaranKerjaController extends Controller
     public function listLamaran(Request $request){
         $id = $request->id;
         if(!empty($id)){
-            $lamaran = $lamaran = LamaranKerja::whereHas('lowongan',function($query){
-                $query->where('id_perusahaan','=',Auth::user()->user_role->perusahaan->id);
-                })->where('id_lowongan','=',$id)
-                ->with('lowongan','alumni')->get();
+            if(!empty(Auth::user()->user_role->perusahaan->id)){
+                $lamaran = $lamaran = LamaranKerja::whereHas('lowongan',function($query){
+                    $query->where('id_perusahaan','=',Auth::user()->user_role->perusahaan->id);
+                    })->where('id_lowongan','=',$id)
+                    ->with('lowongan','alumni')->get();
+            }else{
+                $id_perusahaan = LowonganKerja::findOrFail($id)->id; 
+                $lamaran = $lamaran = LamaranKerja::whereHas('lowongan',function($query) use($id_perusahaan){
+                    $query->where('id_perusahaan','=',$id_perusahaan);
+                    })->where('id_lowongan','=',$id)
+                    ->with('lowongan','alumni')->get();
+            }
         }else{
+            $this->roleCheck('Perusahaan');
             $lamaran = $lamaran = LamaranKerja::whereHas('lowongan',function($query){
                 $query->where('id_perusahaan','=',Auth::user()->user_role->perusahaan->id);
                 })->with('lowongan','alumni')->get();
@@ -104,6 +113,7 @@ class LamaranKerjaController extends Controller
         $lamaran = new LamaranKerja();
         $lamaran->create(array_merge($dataLamaran));
 
+        Auth::user()->makeNotification('Selamat! Lamaran Anda Sudah Terkirim!','Lamaran yang anda kirim sedang dicek oleh pihak perusahaan. Info lamaran lebih lanjut akan dikirim jika pihak perusahaan sudah memproses lamaran anda.', Auth::user()->id);
 
         return back()->with('success','Kamu Telah Mendaftar Lowongan');
     }

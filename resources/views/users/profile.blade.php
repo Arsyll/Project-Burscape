@@ -1,3 +1,6 @@
+<head>
+    <title>Profile</title>
+</head>
 <x-app-layout layout="horizontal" :assets="$assets ?? []">
     <div class="row">
         <div class="col-lg-8">

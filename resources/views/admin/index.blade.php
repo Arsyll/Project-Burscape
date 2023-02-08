@@ -125,7 +125,7 @@
                           </div>
                           <div class="form-group">
                               <label for="jurusan">Confirm Password<span class="text-danger">*</span></label>
-                              <input type="password" class="form-control" id="update_con_password" placeholder="">
+                              <input type="password" class="form-control" id="update_password_confirmation" placeholder="">
                               <small class="form-text text-danger"></small>
                           </div>
                     </div>
@@ -221,13 +221,13 @@
                             var email = $('#update_email').val();
                             var jabatan = $('#update_jabatan').val();
                             var pass = $('#update_password').val();
-                            var conPass = $('#update_con_password').val();
+                            var conPass = $('#update_password_confirmation').val();
                             var fd = new FormData();
                             fd.append('nama_lengkap',nama);
                             fd.append('email',email);
                             fd.append('jabatan',jabatan);
                             fd.append('password',pass);
-                            fd.append('con_password',conPass);
+                            fd.append('password_confirmation',conPass);
                             fd.append('_token', '{{ csrf_token() }}');
                             fd.append('_method', 'PUT');
                             $.ajax({
@@ -244,7 +244,7 @@
                                     if(response.code === 200){
                                         id = null;
                                         $('#update_password').val('');
-                                        $('#update_con_password').val('');
+                                        $('#password_confirmation').val('');
                                         return toastr.success(response.message, 'Success!', {
                                             closeButton: true,
                                             tapToDismiss: true

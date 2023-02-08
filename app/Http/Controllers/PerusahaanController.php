@@ -118,13 +118,12 @@ class PerusahaanController extends Controller
             'no_telp' => 'required|numeric|min:0',
             'alamat' => 'required',
             'tentang' => 'required',
-            'password' => 'required|confirmed|min:8'
+            'password' => 'nullable|confirmed|min:8'
         ],[
             'nama.required' => 'Nama Perusahaan Harus Diisi',
             'bidang.required' => 'Bidang Harus Terpilih',
             'email_perusahaan.required' => 'Email Perusahaan Harus Diisi',
             'email_perusahaan.unique' => 'Email Sudah Terpakai.',
-            'password.required' => 'Password Harus Diisi.',
             'password.confirmation' => 'Password Confirmation Tidak Sesuai.',
             'password.min' => 'Password Harus Memiliki 8 Karakter.',
             'no_telp.required' => 'No Telp Harus Diisi',
@@ -157,14 +156,15 @@ class PerusahaanController extends Controller
         $perusahaan->update(array_merge($data));
         $perusahaan->refresh();
 
+        $user = User::findOrFail($perusahaan->role_perusahaan->user->id);
+
         $dataUser = [
             'username' => $request->nama,
             'role' => 'Perusahaan',
             'email' => $request->email_perusahaan,
-            'password' => Hash::make($request->password)
+            'password' => empty($request->password) ? $user->password : Hash::make($request->password)
         ];
 
-        $user = User::findOrFail($perusahaan->role_perusahaan->user->id);
 
         $user->update(array_merge($dataUser));
         $user->refresh();

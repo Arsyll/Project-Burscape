@@ -1,5 +1,5 @@
  @if (activeRoute(route('dashboard')) != "active")
- <div class="py-5"></div>
+ <p class="py-5"></p>
 @endif
 <div class="iq-navbar-header" style="height: 215px;
                     @if (activeRoute(route('dashboard')) != "active")

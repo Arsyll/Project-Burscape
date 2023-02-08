@@ -15,6 +15,14 @@
 
 </script>
 <x-app-layout :assets="$assets ?? []">
+    <div  class="pt-4">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('perusahaan.index')}}">Perusahaan</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit {{$perusahaan->nama}}</li>
+            </ol>
+        </nav>
+    </div>
     <div class="row">
        <div class="col-sm-12">
           <div class="card">

@@ -104,8 +104,7 @@ class AdminController extends Controller
             'nama_lengkap' => 'required|unique:users,username,'. $admin->admin_role->user->id,
             'jabatan' => 'required',
             'email' => 'required|unique:users,email,' . $admin->admin_role->user->id,
-            'password' => 'min:8|required_with:con_password|same:con_password',
-            'con_password' => 'min:8'
+            'password' => 'nullable|confirmed|min:8',
         ],[
             'nama_lengkap.required' => 'Nama Harus Diisi.',
             'nama_lengkap.unique' => 'Nama Sudah Terpakai.',
@@ -124,11 +123,12 @@ class AdminController extends Controller
             'jabatan' => $request->jabatan,
         );
 
+        $user = User::findOrFail($admin->admin_role->user->id);
         $dataUser = array(
             'username' => $request->nama_lengkap,
             'role' => 'Admin',
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => empty($request->password) ? $user->password : Hash::make($request->password)
         );
 
         
@@ -136,7 +136,6 @@ class AdminController extends Controller
         
         $statusAdmin = $admin->update(array_merge($dataAdmin));
         
-        $user = User::findOrFail($admin->admin_role->user->id);
         
         $statusUser = $user->update(array_merge($dataUser));
         

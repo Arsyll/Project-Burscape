@@ -4,7 +4,6 @@
 </head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <x-app-layout :assets="$assets ?? []">
-    <div class="row">
        <div class="col-sm-12">
           <div class="card">
              <div class="card-header d-flex justify-content-between">
@@ -50,7 +49,7 @@
             $(document).on('click', '#del-btn', function () {
                 var id = $(this).data('id');
                 Swal.fire({
-                    icon: 'error',
+                    icon: 'question',
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
                     type: 'error',
