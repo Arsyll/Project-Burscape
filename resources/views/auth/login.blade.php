@@ -1,4 +1,5 @@
 <x-guest-layout>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
    <section class="login-content">
       <div class="row m-0 align-items-center bg-white vh-100">
          <div class="col-md-6">
@@ -28,12 +29,15 @@
                               <div class="col-lg-12">
                                  <div class="form-group">
                                     <label for="password" class="form-label">Password</label>
-                                    <input class="form-control" type="password" placeholder="********"  name="password" id="passwz" value="{{ env('IS_DEMO') ? 'password' : '' }}" required autocomplete="current-password">
+                                    <div class="d-flex">
+                                       <input class="form-control" autocomplete="current-password"  id="id_password" type="password" placeholder="Password"  name="password" id="passwz" value="{{ env('IS_DEMO') ? 'password' : '' }}" required autocomplete="current-password">
+                                       <i class="far fa-eye" id="togglePassword" style="margin-left: -45px; cursor: pointer; margin-top: 13px;"></i>
+                                    </div>
                                  </div>
                               </div>
                               <div class="col-lg-6">
                                  <div class="form-check mb-3">
-                                    <input type="checkbox" class="form-check-input" id="customCheck1">
+                                    {{-- <input type="checkbox" class="form-check-input" id="customCheck1"> --}}
                                     <!-- <input type="checkbox" class="custom-control-input" id="customCheck1"> -->
                                     {{-- <label class="form-check-label" for="customCheck1">Remember Me</label> --}}
                                  </div>
@@ -70,4 +74,16 @@
          </div>
       </div>
    </section>
+   <script>
+      const togglePassword = document.querySelector('#togglePassword');
+      const password = document.querySelector('#id_password');
+
+      togglePassword.addEventListener('click', function (e) {
+         // toggle the type attribute
+         const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+         password.setAttribute('type', type);
+         // toggle the eye slash icon
+         this.classList.toggle('fa-eye-slash');
+      });
+   </script>
 </x-guest-layout>
