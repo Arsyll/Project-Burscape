@@ -16,32 +16,30 @@ class KategoriPekerjaanSeeder extends Seeder
     {
         $jurusan = [
             [
-                'nama_kategori' => 'Front-End Development',
+                'nama_kategori' => 'Web Development',
             ],
             [
-                'nama_kategori' => 'Back-End Development',
-            ],
-            [
-                'nama_kategori' => 'Game Development',
-            ],
-            [
-                'nama_kategori' => 'Machine Learning',
-            ],
-            [
-                'nama_kategori' => 'Data Science',
-            ],
-            [
-                'nama_kategori' => 'Data Analysist',
-            ],
-            [
-                'nama_kategori' => 'IOT',
+                'nama_kategori' => 'Android Development',
             ],
             [
                 'nama_kategori' => 'UI/UX',
             ],
             [
-                'nama_kategori' => 'Video Editing',
+                'nama_kategori' => 'Instalisasi Listrik',
             ],
+            [
+                'nama_kategori' => 'Robotika',
+            ],
+            [
+                'nama_kategori' => 'Elektronika',
+            ],
+            [
+                'nama_kategori' => 'IOT',
+            ],
+            [
+                'nama_kategori' => 'Instalisasi Jaringan',
+            ],
+            
             
         ];
 

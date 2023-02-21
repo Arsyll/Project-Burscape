@@ -75,16 +75,16 @@
                 <p class="text-secondary text-center my-2">Tidak Ada Notifikasi</p>
                 @else
                 @foreach (auth()->user()->notifikasi()->orderBy('created_at','desc')->take(4)->get() as $message)
-                  <a href="#" class="iq-sub-card">
+                  <a href="{{$message->link}}" class="iq-sub-card">
                     <div class="d-flex align-items-center">
                       {{-- <img class="avatar-40 rounded-pill bg-soft-primary p-1" src="{{asset('images/shapes/01.png')}}" alt=""> --}}
-                      <div class="ms-3 w-100">
-                        <h6 class="mb-1 ">{{$message->subjek}}</h6>
-                        <div class="d-flex justify-content-between align-items-center">
-                          <p class="mb-0">Burscape</p>
-                          <small class="float-right font-size-12">{{$message->createdAt()}}</small>
+                        <div class="ms-3 w-100">
+                          <h6 class="mb-1 ">{{$message->subjek}}</h6>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <p class="mb-0">Burscape</p>
+                            <small class="float-right font-size-12">{{$message->createdAt()}}</small>
+                          </div>
                         </div>
-                      </div>
                     </div>
                   </a>
                   @endforeach

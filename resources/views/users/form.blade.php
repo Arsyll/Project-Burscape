@@ -174,10 +174,7 @@
                               <label class="form-label" for="fname">Nama Lengkap: <span class="text-danger">*</span></label>
                               {{ Form::text('nama', empty(old('nama')) ? $data->user_role->alumni->nama : old('nama'), ['class' => 'form-control', 'placeholder' => 'Nama Lengkap']) }}
                            </div>
-                           <div class="form-group col-md-3">
-                              <label class="form-label" for="add1">Status : <span class="text-danger">*</span></label>
-                              {{ Form::text('status',empty( old('status')) ? $data->user_role->alumni->status : old('status'), ['class' => 'form-control', 'placeholder' => 'Status']) }}
-                           </div>
+                           <div class="col-md-6"></div>
                            <div class="form-group col-md-6">
                               <label class="form-label" for="fname">No Telp : <span class="text-danger">*</span></label>
                               {{ Form::number('no_telp', empty(old('no_telp')) ? $data->user_role->alumni->no_telp : old('no_telp'), ['class' => 'form-control','min' => '0', 'placeholder' => 'No Telp']) }}
@@ -189,7 +186,18 @@
                            <div class="col-md-2"></div>
                            <div class="form-group col-md-2">
                               <label class="form-label" for="fname">Angkatan : <span class="text-danger">*</span></label>
-                              {{ Form::number('angkatan', empty(old('angkatan')) ? $data->user_role->alumni->angkatan : old('angkatan'), ['class' => 'form-control','min' => '0','max' => '2022', 'placeholder' => 'Angkatan']) }}
+                              {{-- {{ Form::number('angkatan', empty(old('angkatan')) ? $data->user_role->alumni->angkatan : old('angkatan'), ['class' => 'form-control','min' => '0','max' => '2022', 'placeholder' => 'Angkatan']) }} --}}
+                              <select name="angkatan" class="form-control">
+                                 <option value="{{now()->format('Y')}}" {{$data->user_role->alumni->angkatan == now()->format('Y') ? 'selected' : ''}}>
+                                    {{now()->format('Y')}}
+                                 </option>
+                                 <option value="{{now()->subYear(1)->format('Y')}}"  {{$data->user_role->alumni->angkatan == now()->subYear(1)->format('Y') ? 'selected' : ''}}>
+                                    {{now()->subYear(1)->format('Y')}}
+                                 </option>
+                                 <option value="{{now()->subYear(2)->format('Y')}}"  {{$data->user_role->alumni->angkatan == now()->subYear(2)->format('Y') ? 'selected' : ''}}>
+                                    {{now()->subYear(2)->format('Y')}}
+                                 </option>
+                              </select>
                            </div>
                            <div class="form-group col-md-4">
                               <label class="form-label" for="add1">Jurusan : <span class="text-danger">*</span></label>
@@ -205,7 +213,95 @@
                            <div class="form-group col-sm-8">
                               <label class="form-label" id="country">Alamat : <span class="text-danger">*</span></label>
                               {{ Form::text('alamat', empty(old('alamat')) ? $data->user_role->alumni->alamat : old('alamat'), ['class' => 'form-control']) }}
-
+                           </div>
+                           <div class="col-md-4"></div>
+                           <div class="form-group col-md-3 ">
+                              <label class="form-label" for="add1">Status : <span class="text-danger">*</span></label>
+                              <select name="status" class="form-control" onchange="changeForm(this.value)">
+                                 <option value="">- Pilih -</option>
+                                 <option value="Kuliah"
+                                 {{$data->user_role->alumni->status == "Kuliah" ? 'selected' : ''}}
+                                 >Kuliah</option>
+                                 <option value="Bekerja"
+                                 {{$data->user_role->alumni->status == "Bekerja" ? 'selected' : ''}}
+                                 >Bekerja</option>
+                                 <option value="Wirausaha"
+                                 {{$data->user_role->alumni->status == "Wirausaha" ? 'selected' : ''}}
+                                 >Wirausaha</option>
+                                 <option value="Masa Tunggu"
+                                 {{$data->user_role->alumni->status == "Masa Tunggu" ? 'selected' : ''}}
+                                 >Masa Tunggu</option>
+                              </select>
+                           </div>
+                           <div class="col-md-9">
+                           </div>
+                           <div id="detail-Kuliah"
+                           @if($data->user_role->alumni->status != "Kuliah" || $data->user_role->alumni->status == "Masa Tunggu")
+                              style="display: none;"
+                           @endif>
+                              <hr>
+                              <h5 class="mb-3">Detail Kuliah</h5>
+                              <div class="form-group col-md-3">
+                                 <label>Nama PTN : <span class="text-danger">*</span></label>
+                                 <input type="text" name="nama_uni" class="form-control" value="{{ !empty($detailStatus) &&  $data->user_role->alumni->status == "Kuliah" ? $detailStatus->nama_uni : old('nama_uni')}}">
+                              </div>
+                              <div class="form-group col-md-3">
+                                 <label>Nama Proli : <span class="text-danger">*</span></label>
+                                 <input type="text" name="nama_bidang_ptn" class="form-control" value="{{ !empty($detailStatus) &&  $data->user_role->alumni->status == "Kuliah" ? $detailStatus->nama_bidang : old('nama_bidang_ptn')}}">
+                              </div>
+                              <div class="col-6"></div>
+                              <div class="form-group col-md-8">
+                                 <label>Alamat : <span class="text-danger">*</span></label>
+                                 <input type="text" name="alamat_ptn" class="form-control" value="{{ !empty($detailStatus) &&  $data->user_role->alumni->status == "Kuliah" ? $detailStatus->alamat : old('alamat_ptn')}}">
+                              </div>
+                              <hr>
+                           </div>
+                           <div id="detail-Bekerja" 
+                           @if($data->user_role->alumni->status != "Bekerja" || $data->user_role->alumni->status == "Masa Tunggu")
+                              style="display: none;"
+                           @endif
+                           >
+                              <hr>
+                              <h5 class="mb-3">Detail Kerja</h5>
+                              <div class="form-group col-md-3">
+                                 <label>Nama Perusahaan : <span class="text-danger">*</span></label>
+                                 <input type="text" name="nama_perusahaan" class="form-control" value="{{ !empty($detailStatus) &&  $data->user_role->alumni->status == "Bekerja" ? $detailStatus->nama_perusahaan : old('nama_perusahaan')}}">
+                              </div>
+                              <div class="form-group col-md-3">
+                                 <label>Bergerak di bidang : <span class="text-danger">*</span></label>
+                                 <input type="text" name="nama_bidang_perusahaan" class="form-control" value="{{ !empty($detailStatus) &&  $data->user_role->alumni->status == "Bekerja" ? $detailStatus->nama_bidang : old('nama_bidang')}}">
+                              </div>
+                              <div class="col-6"></div>
+                              <div class="form-group col-md-8">
+                                 <label>Alamat : <span class="text-danger">*</span></label>
+                                 <input type="text" name="alamat_perusahaan" class="form-control" value="{{ !empty($detailStatus) &&  $data->user_role->alumni->status == "Bekerja" ? $detailStatus->alamat : old('alamat')}}">
+                              </div>
+                              <hr>
+                           </div>
+                           </div>
+                           <div id="detail-Wirausaha"
+                           @if($data->user_role->alumni->status != "Wirausaha" || $data->user_role->alumni->status == "Masa Tunggu")
+                              style="display: none;"
+                           @endif
+                           >
+                              <div class="form-group">
+                                 <hr>
+                                 <h5 class="mb-3">Detail Usaha</h5>
+                                 <div class="form-group col-md-3">
+                                    <label>Nama Usaha : <span class="text-danger">*</span></label>
+                                    <input type="text" name="nama_usaha" class="form-control" value="{{ !empty($detailStatus) &&  $data->user_role->alumni->status == "Wirausaha" ? $detailStatus->nama_usaha : old('nama_usaha')}}">
+                                 </div>
+                                 <div class="form-group col-md-3">
+                                    <label>Bergerak di bidang : <span class="text-danger">*</span></label>
+                                    <input type="text" name="nama_bidang_usaha" class="form-control" value="{{ !empty($detailStatus) &&  $data->user_role->alumni->status == "Wirausaha" ? $detailStatus->nama_bidang : old('nama_bidang')}}">
+                                 </div>
+                                 <div class="col-6"></div>
+                                 <div class="form-group col-md-8">
+                                    <label>Alamat : <span class="text-danger">*</span></label>
+                                    <input type="text" name="alamat_usaha" class="form-control" value="{{ !empty($detailStatus) &&  $data->user_role->alumni->status == "Wirausaha" ? $detailStatus->alamat : old('alamat')}}">
+                                 </div>
+                                 <hr>
+                              </div>
                            </div>
                            <div class="form-group col-md-8">
                               <label class="form-label" for="mobno">Tentang :  <span class="text-danger">*</span></label>
@@ -525,6 +621,40 @@
               var id =  $(this).attr('id').replace(/delete_item_edukasi_/, '');
               $("#edukasi_" + id).remove(); 
           });
+      </script>
+      <script>
+         function changeForm(val){
+            switch (val){
+               case "Bekerja":
+                  $(document).ready(function(){
+                     $("#detail-Kuliah").hide();
+                     $("#detail-Wirausaha").hide();
+                     $("#detail-"+val).show();
+                  })
+                  break;
+               case "Wirausaha":
+                  $(document).ready(function(){
+                     $("#detail-Kuliah").hide();
+                     $("#detail-Bekerja").hide();
+                     $("#detail-"+val).show();
+                  })
+                  break;
+               case "Kuliah":
+                  $(document).ready(function(){
+                     $("#detail-Bekerja").hide();
+                     $("#detail-Wirausaha").hide();
+                     $("#detail-"+val).show();
+                  })
+                  break;
+               default:
+               $(document).ready(function(){
+                     $("#detail-Kuliah").hide();
+                     $("#detail-Wirausaha").hide();
+                     $("#detail-Bekerja").hide();
+                  })
+            }
+
+         }
       </script>
 @endif
 </x-app-layout>

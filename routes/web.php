@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Page Alumni
     Route::resource('alumni', AlumniController::class);
+    Route::get('dataalumni/{id}',[AlumniController::class,'dataAlumni']);
     Route::get('listAlumni', [AlumniController::class, 'listAlumni']);
     Route::get('template-alumni',[AlumniController::class , 'downloadTemplate'])->name('download.template.alumni');
     Route::post('import-alumni', [AlumniController::class, 'import'])->name('importAlumni');
@@ -81,7 +82,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('isikategoripekerjaan', [App\Http\Controllers\KategoriPekerjaanController::class, 'isi']);
 
     // Users Module
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class)->except('index');
     Route::post('download/resume/{id}', [UserController::class , 'download'])->name('download.resume');
 
     // Page Lowongan Kerja

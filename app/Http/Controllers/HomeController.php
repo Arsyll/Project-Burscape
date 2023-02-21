@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Alumni;
 use App\Models\DetailLoker;
+use App\Models\FeedBack;
 use App\Models\KategoriPekerjaan;
 use App\Models\LamaranKerja;
 use App\Models\LowonganKerja;
@@ -55,9 +56,10 @@ class HomeController extends Controller
          else if($user->role == "Admin") {
             $totPerusahaan = Perusahaan::count();
             $totLowongan = LowonganKerja::count();
-            $totAlumni = Alumni::count();
+            $alumni = Alumni::all();
+            $feedbacks = FeedBack::orderByDesc('created_at')->take(5)->get();
             $loker = LowonganKerja::with('perusahaan')->latest()->take(5)->get();
-            return view('dashboards.admin-dashboard', compact('totPerusahaan','totLowongan','totAlumni','assets','loker'));
+            return view('dashboards.admin-dashboard', compact('totPerusahaan','totLowongan','alumni','assets','loker','feedbacks'));
          }
          else if($user->role == "Alumni") {
             return redirect(RouteServiceProvider::LOWONGAN);

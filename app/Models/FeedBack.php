@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,4 +18,8 @@ class FeedBack extends Model
         'subjek',
         'pesan',
     ];
+
+    public function getCreatedAt(){
+        return Carbon::parse($this->created_at)->format('d-M-h, g:ia');
+    }
 }

@@ -81,11 +81,12 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         return $this->notifikasi()->where('dibaca','=',false)->count();
     }
 
-    public function makeNotification(String $subject,String $message, Int $id_user){
+    public function makeNotification(String $subject,String $message, Int $id_user, String $link){
         $dataPesan = [
             'subjek' => $subject,
             'pesan' => $message,
             'id_user' => $id_user,
+            'link' => $link
         ];
 
         $notification = new Notifikasi();

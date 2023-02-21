@@ -28,14 +28,14 @@
                               <div class="col-lg-12">
                                  <div class="form-group">
                                     <label for="password" class="form-label">Password</label>
-                                    <input class="form-control" type="password" placeholder="********"  name="password" value="{{ env('IS_DEMO') ? 'password' : '' }}" required autocomplete="current-password">
+                                    <input class="form-control" type="password" placeholder="********"  name="password" id="passwz" value="{{ env('IS_DEMO') ? 'password' : '' }}" required autocomplete="current-password">
                                  </div>
                               </div>
                               <div class="col-lg-6">
                                  <div class="form-check mb-3">
                                     <input type="checkbox" class="form-check-input" id="customCheck1">
                                     <!-- <input type="checkbox" class="custom-control-input" id="customCheck1"> -->
-                                    <label class="form-check-label" for="customCheck1">Remember Me</label>
+                                    {{-- <label class="form-check-label" for="customCheck1">Remember Me</label> --}}
                                  </div>
                               </div>
                               <div class="col-lg-6">

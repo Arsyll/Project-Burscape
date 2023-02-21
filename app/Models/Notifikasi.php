@@ -15,7 +15,8 @@ class Notifikasi extends Model
         'subjek',
         'pesan',
         'id_user',
-        'dibaca'
+        'dibaca',
+        'link'
     ];
 
     public function user(){

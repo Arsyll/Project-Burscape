@@ -333,7 +333,11 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{activeRoute(route('alumni.index'))}}" href="{{route('alumni.index')}}">
+                <a class="nav-link 
+                @if(str_contains(url()->current(), '/alumni'))
+                active
+                @endif
+                " href="{{route('alumni.index')}}">
                     <i class="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                             <g>

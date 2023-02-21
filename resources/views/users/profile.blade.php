@@ -28,18 +28,46 @@
                                 @endif
                                 </form>
                         </div>
+                        
                     </div>
-
+                    
                     {{-- <span class="text-capitalize text-black "
-                        style="font-size: 18px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"> Web
-                        Developer
-                        {{ str_replace('_',' ',auth()->user()->user_type) ?? 'Marketing Administrator' }}</span> --}}
-
-                    <div class="mt-4 mb-5">
+                    style="font-size: 18px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"> Web
+                    Developer
+                    {{ str_replace('_',' ',auth()->user()->user_type) ?? 'Marketing Administrator' }}</span> --}}
+                    
+                    <div class="mt-4 mb-2">
                         <div class="col-md-7 ">
                             {!! !empty($data->user_role->alumni->tentang) ? $data->user_role->alumni->tentang : '<a href="/users/'.$data->id.'/edit">Masukan Biodata Dirimu!</a>' !!}
                         </div>
                         <span class="text-capitalize fs-6 text-secondary ">{{$data->user_role->alumni->alamat}}</span>
+                        <hr>
+                        @if (!empty($detailStatus))
+                        <h6 class="mt-4">Status</h6>
+                        <div class="col-md-7">
+                            @if($detailStatus->nama_uni != "")
+                            <div class="mt-2">
+                                <span class="text-secondary">{{ $data->user_role->alumni->status . ' di ' .$detailStatus->nama_uni . $detailStatus->nama_usaha . $detailStatus->nama_perusahaan}}</span> <br>
+                            </div>
+                            <span class="text-secondary">Bidang {{ $detailStatus->nama_bidang}}</span>
+                            <div class="mt-2">
+                            </div>
+                            <div class="mt-2">
+                                <span class="text-secondary">{{$detailStatus->alamat}}</span>
+                            </div>
+                            @endif
+                        </div>
+                        @endif
+                        <hr>
+                        <h6 class="mt-4">Contact</h6>
+                        <div class="col-md-7">
+                            <div class="mt-2">
+                                <span class="text-secondary">No Telp : {{$data->user_role->alumni->no_telp}}</span> <br>
+                            </div>
+                            <div class="mt-2">
+                                <span class="text-secondary">{{$data->email}}</span>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -115,7 +143,7 @@
 
 
         <div class="col-lg-3 ">
-            <div class="sticky-md-top pt-1">
+            <div class="pt-1">
             <div class="mb-3 mt-5 ">
                {{-- <select class="form-select" aria-label="Default select example">
             <option selected>Status</option>
@@ -126,7 +154,7 @@
             </div>
 
 
-           @if ($data->user_role->alumni->tentang == "" || $data->user_role->alumni->alamat == "" || $data->user_role->alumni->foto_profile == "" || $data->user_role->alumni->resume == "" || $pengalaman->count() == 0 || $edukasi->count() == 0)
+           @if ($data->user_role->alumni->tentang == "" || $data->user_role->alumni->alamat == "" || $data->user_role->alumni->foto_profile == "" || $data->user_role->alumni->resume == "" || $pengalaman->count() == 0 || $edukasi->count() == 0 || empty($detailStatus))
             <div class="card">
                     <div class="card-header">
                         <div class="header-title d-flex">
@@ -158,6 +186,11 @@
                             @if ($edukasi->count() == 0)
                             <li class="d-flex mb-2">
                                 <p class="news-detail mb-0"><a href="#">+ Riwayat Edukasi</a></p>
+                            </li>
+                            @endif
+                            @if (empty($detailStatus))
+                            <li class="d-flex mb-2">
+                                <p class="news-detail mb-0"><a href="#">+ Detail lainnya</a></p>
                             </li>
                             @endif
                         </ul>

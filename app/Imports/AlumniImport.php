@@ -39,6 +39,8 @@ class AlumniImport implements ToCollection
                     'password'      => Hash::make($row[10]),
                 ]);
 
+                $user->makeNotification('Ayo Lengkapi Profilmu!','Lengkapi Profilmu agar kamu bisa mulai melamar ke lowongan yang kamu pilih', $user->id, route('users.edit' , $user->id));
+
 
                 Role::create([
                     'id_user'   => $user->id ,

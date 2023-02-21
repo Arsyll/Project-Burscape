@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
 
 class UserTableSeeder extends Seeder
 {
@@ -284,7 +285,11 @@ class UserTableSeeder extends Seeder
             ],
         ];
         foreach ($users as $value) {
-            User::create($value);;
+            $user = User::create($value);
+            if($user->role == "Alumni"){
+                Log::info(route('users.edit' , $user->id));
+                $user->makeNotification('Ayo Lengkapi Profilmu!','Lengkapi Profilmu agar kamu bisa mulai melamar ke lowongan yang kamu pilih', $user->id,'http://127.0.0.1:8000/users/'.$user->id.'/edit');
+            }
         }
     }
 }

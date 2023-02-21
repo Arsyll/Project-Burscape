@@ -22,6 +22,8 @@ class PerusahaanTableSeeder extends Seeder
                 'alamat' => 'Kliningan, Bandung',
                 'email_perusahaan' => 'perusahaan@email.com',
                 'foto_perusahaan' => '',
+                'nama_pic' => 'Someone',
+                'kontak_pic' => '0123456789',
             ],
         ];
 

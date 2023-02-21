@@ -80,7 +80,7 @@ class UserRequest extends FormRequest
                         'alamat' => 'required',
                         'tentang' => 'required',
                         'foto_profile' => 'file|mimes:png,jpg|nullable|max:2048',
-                        'resume' => 'file|mimes:docx,doc,pdf|nullable|max:4096',
+                        'resume' => 'file|mimes:docx,doc,pdf,jpg,png|nullable|max:4096',
                         // Pengalaman
                         'pengalaman_id.*' => 'nullable',
                         'judul.*' => 'required',
@@ -92,6 +92,16 @@ class UserRequest extends FormRequest
                         'nama_lembaga.*' => 'required',
                         'bidang.*' => 'required',
                         'tahun.*' => 'required',
+                        // Detajl Status
+                        'nama_uni' => 'required_if:status,==,Kuliah',
+                        'nama_usaha' => 'required_if:status,==,Wirausaha',
+                        'nama_perusahaan' => 'required_if:status,==,Bekerja',
+                        'alamat_ptn' => 'required_if:status,==,Kuliah',
+                        'alamat_perusahaan' => 'required_if:status,==,Bekerja',
+                        'alamat_usaha' => 'required_if:status,==,Wirausaha',
+                        'nama_bidang_ptn' => 'required_if:status,==,Kuliah',
+                        'nama_bidang_perusahaan' => 'required_if:status,==,Bekerja',
+                        'nama_bidang_usaha' => 'required_if:status,==,Wirausaha',
                     ];
                 }
                 break;
@@ -121,13 +131,23 @@ class UserRequest extends FormRequest
             'id_jurusan.required'  =>'Jurusan Harus Terpilih',
             'alamat.required'  =>'Alamat Harus Diisi',
             'tentang.required'  =>'Tentang Harus Diisi',
-            'judul.required'  =>'Judul Harus Diisi',
-            'perusahaan.required'  =>'Perusahaan Harus Diisi',
-            'ke_tahun.required'  =>'Ke Tahun Harus Diisi',
-            'dari_tahun.required'  =>'Dari Tahun Harus Diisi',
-            'nama_lembaga.required'  =>'Nama Lembaga Harus Diisi',
-            'bidang.required'  =>'Bidang Harus Diisi',
-            'tahun.required'  =>'Tahun Lulus Harus Diisi',
+            'judul.*.required'  =>'Judul Harus Diisi',
+            'perusahaan.*.required'  =>'Perusahaan Harus Diisi',
+            'ke_tahun.*.required'  =>'Ke Tahun Harus Diisi',
+            'dari_tahun.*.required'  =>'Dari Tahun Harus Diisi',
+            'nama_lembaga.*.required'  =>'Nama Lembaga Harus Diisi',
+            'bidang.*.required'  =>'Bidang Harus Diisi',
+            'tahun.*.required'  =>'Tahun Lulus Harus Diisi',
+            'nama_uni.required_if' => "Nama PTN Harus Diisi",
+            'nama_usaha.required_if' => "Nama Usaha Harus Diisi",
+            'nama_perusahaan.required_if' => "Nama Perusahaan Harus Diisi",
+            'alamat_ptn.required_if' => "Alamat Harus Diisi",
+            'alamat_perusahaan.required_if' => "Alamat Harus Diisi",
+            'alamat_usaha.required_if' => "Alamat Harus Diisi",
+            'nama_bidang_ptn' => 'Proli Kuliah Harus Diisi',
+            'nama_bidang_perusahaan' => 'Bidang Pekerjaan Harus Diisi',
+            'nama_bidang_usaha' => 'Bidang Usaha Harus Diisi',
+
         ];
     }
 

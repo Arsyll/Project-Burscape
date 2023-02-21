@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Role;
 use App\Http\Requests\UserRequest;
 use App\Models\Admin;
 use App\Models\Alumni;
+use App\Models\DetailAlumni;
 use App\Models\Edukasi;
 use App\Models\Jurusan;
 use App\Models\PengalamanKerja;
@@ -89,7 +90,8 @@ class UserController extends Controller
             }else if($data->role == "Alumni"){
                 $pengalaman = PengalamanKerja::with('alumni')->where('id_alumni','=',$data->user_role->alumni->id)->get();
                 $edukasi = Edukasi::with('alumni')->where('id_alumni','=',$data->user_role->alumni->id)->get();
-                return view('users.profile', compact('data','pengalaman','edukasi'));
+                $detailStatus = DetailAlumni::with('alumni')->where('id_alumni','=',$data->user_role->alumni->id)->first();
+                return view('users.profile', compact('data','pengalaman','edukasi','detailStatus'));
             }
         }else{
             return abort(404);
@@ -114,7 +116,8 @@ class UserController extends Controller
                 $jurusan = Jurusan::all();
                 $pengalaman = PengalamanKerja::with('alumni')->where('id_alumni','=',$data->user_role->alumni->id)->get();
                 $edukasi = Edukasi::with('alumni')->where('id_alumni','=',$data->user_role->alumni->id)->get();
-                return view('users.form', compact('data','id','layout','jurusan','pengalaman','edukasi'));
+                $detailStatus = DetailAlumni::with('alumni')->where('id_alumni','=',$data->user_role->alumni->id)->first();
+                return view('users.form', compact('data','id','layout','jurusan','pengalaman','edukasi','detailStatus'));
             }else{
                 $layout = '';
                 return view('users.form', compact('data','id','layout'));
@@ -134,7 +137,7 @@ class UserController extends Controller
     public function update(UserRequest $request, $id)
     {
         $user = User::with('user_role.admin')->findOrFail($id);
-
+        
         if($user->role == "Admin")
        { $admin = Admin::find($user->user_role->admin->id);
 
@@ -255,6 +258,94 @@ class UserController extends Controller
 
             $alumni->update(array_merge($dataAlumni));
             $alumni->refresh();
+
+            // Detail Status
+            $detailStatus = DetailAlumni::with('alumni')->where('id_alumni','=',$alumni->id)->first();
+            if(empty($detailStatus)){
+                $newDetailStatus = new DetailAlumni();
+                if($request->status == "Bekerja"){
+                    $dataStatus = [
+                        'id_alumni' => $alumni->id,
+                        'nama_uni' => NULL,
+                        'nama_usaha' => NULL,
+                        'nama_perusahaan' => $request->nama_perusahaan,
+                        'alamat' => $request->alamat_perusahaan,
+                        'nama_bidang' => $request->nama_bidang_perusahaan,
+                    ];
+                    $newDetailStatus->create(array_merge($dataStatus));
+                }else if($request->status == "Kuliah"){
+                    $dataStatus = [
+                        'id_alumni' => $alumni->id,
+                        'nama_uni' => $request->nama_uni,
+                        'nama_usaha' => NULL,
+                        'nama_perusahaan' => null,
+                        'alamat' => $request->alamat_ptn,
+                        'nama_bidang' => $request->nama_bidang_ptn,
+                    ];
+                    $newDetailStatus->create(array_merge($dataStatus));
+                }else if($request->status == "Wirausaha"){
+                    $dataStatus = [
+                        'id_alumni' => $alumni->id,
+                        'nama_uni' => null,
+                        'nama_usaha' => $request->nama_usaha,
+                        'nama_perusahaan' => null,
+                        'alamat' => $request->alamat_usaha,
+                        'nama_bidang' => $request->nama_bidang_usaha,
+                    ];
+                    $newDetailStatus->create(array_merge($dataStatus));
+                }else{
+                    $dataStatus = [
+                        'id_alumni' => $alumni->id,
+                        'nama_uni' => null,
+                        'nama_usaha' => null,
+                        'nama_perusahaan' => null,
+                        'alamat' => null,
+                        'nama_bidang' => null,
+                    ];
+                    $newDetailStatus->create(array_merge($dataStatus));
+                }
+            }else{
+                if($request->status == "Bekerja"){
+                    $dataStatus = [
+                        'id_alumni' => $alumni->id,
+                        'nama_uni' => NULL,
+                        'nama_usaha' => NULL,
+                        'nama_perusahaan' => $request->nama_perusahaan,
+                        'alamat' => $request->alamat_perusahaan,
+                        'nama_bidang' => $request->nama_bidang_perusahaan,
+                    ];
+                    $detailStatus->update(array_merge($dataStatus));
+                }else if($request->status == "Kuliah"){
+                    $dataStatus = [
+                        'id_alumni' => $alumni->id,
+                        'nama_uni' => $request->nama_uni,
+                        'nama_usaha' => NULL,
+                        'nama_perusahaan' => null,
+                        'alamat' => $request->alamat_ptn,
+                        'nama_bidang' => $request->nama_bidang_ptn,
+                    ];
+                    $detailStatus->update(array_merge($dataStatus));
+                }else if($request->status == "Wirausaha"){
+                    $dataStatus = [
+                        'id_alumni' => $alumni->id,
+                        'nama_uni' => null,
+                        'nama_usaha' => $request->nama_usaha,
+                        'nama_perusahaan' => null,
+                        'alamat' => $request->alamat_usaha,
+                        'nama_bidang' => $request->nama_bidang_usaha,
+                    ];
+                    $detailStatus->update(array_merge($dataStatus));
+                }else{
+                    $dataStatus = [
+                        'id_alumni' => $alumni->id,
+                        'nama_uni' => null,
+                        'nama_usaha' => null,
+                        'nama_perusahaan' => null,
+                        'alamat' => null,
+                        'nama_bidang' => null,
+                    ];
+                    $detailStatus->update(array_merge($dataStatus));
+            }
 
             // Pengalaman Update
             $pengalamanUser = PengalamanKerja::where('id_alumni','=',$alumni->id);
@@ -426,6 +517,7 @@ class UserController extends Controller
         
 
     }
+}
 
     public function download($id){
         $alumni = Alumni::findOrFail($id);

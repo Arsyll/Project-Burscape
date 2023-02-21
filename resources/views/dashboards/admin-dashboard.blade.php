@@ -1,7 +1,32 @@
 <head>
    <title>Dashboard</title>
+   
 </head>
 <x-app-layout :assets="$assets ?? []">
+   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Alumni', 'per Status'],
+          ['Wirausaha',     {{$alumni->where('status','=',"Wirausaha")->count()}}],
+          ['Kuliah',      {{$alumni->where('status','=',"Kuliah")->count()}}],
+          ['Bekerja',  {{$alumni->where('status','=',"Bekerja")->count()}}],
+          ['Massa Tunggu', {{$alumni->where('status','=',"Masa Tunggu")->count()}}],
+        ]);
+
+        var options = {
+          title: 'Status Alumni',
+          fontName: "sans-serif",
+          fontSize: 16,
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script>
    <div class="row">
       <div class="col-md-12 col-lg-12">
          <div class="row row-cols-1">
@@ -57,7 +82,7 @@
                             </svg>
                            <div class="progress-detail">
                               <p  class="mb-2">Total Alumni</p>
-                              <h4 class="counter">{{$totAlumni}}</h4>
+                              <h4 class="counter">{{$alumni->count()}}</h4>
                            </div>
                         </div>
                      </div>
@@ -69,6 +94,31 @@
          </div>
       </div>
       <div class="col-md-12 col-lg-12">
+         <div class="row d-flex">
+            <div id="donutchart" class="col-md-6 col-sm-12 mb-4 " style="height:525px;"></div>
+            <div class="col-md-6 col-lg-6 ms-0">
+               <div class="card" data-aos="fade-up" data-aos-delay="400">
+                  <div class="card-header d-flex justify-content-between flex-wrap">
+                     <div class="header-title">
+                        <h4 class="card-title mb-2">Feed Back</h4>
+                     </div>
+                  </div>
+                  <div class="card-body">
+                     @foreach ($feedbacks as $feed)
+                        <div class=" d-flex profile-media align-items-top mb-2">
+                           <div class="profile-dots-pills border-primary mt-1"></div>
+                           <div class="ms-4">
+                              <h6 class=" mb-1">{{$feed->subjek}}</h6>
+                              <span class="mb-0">{{$feed->getCreatedAt()}}</span>
+                           </div>
+                        </div>
+                     @endforeach
+                   
+               </div>
+            </div>
+            </div>
+         </div>
+         </div>
          <div class="row">
             <div class="col-md-12 col-lg-12">
                <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="400">
@@ -175,60 +225,7 @@
                </div>
             </div>
          </div> --}}
-         {{-- <div class="col-md-6 col-lg-6 ms-4">
-            <div class="card" data-aos="fade-up" data-aos-delay="400">
-               <div class="card-header d-flex justify-content-between flex-wrap">
-                  <div class="header-title">
-                     <h4 class="card-title mb-2">Feed Back</h4>
-                     <p class="mb-0">
-                        <svg class ="me-2" width="24" height="24" viewBox="0 0 24 24">
-                           <path fill="#17904b" d="M13,20H11V8L5.5,13.5L4.08,12.08L12,4.16L19.92,12.08L18.5,13.5L13,8V20Z" />
-                        </svg>
-                        16% this month
-                     </p>
-                  </div>
-               </div>
-               <div class="card-body">
-                  <div class=" d-flex profile-media align-items-top mb-2">
-                     <div class="profile-dots-pills border-primary mt-1"></div>
-                     <div class="ms-4">
-                        <h6 class=" mb-1">$2400, Purchase</h6>
-                        <span class="mb-0">11 JUL 8:10 PM</span>
-                     </div>
-                  </div>
-                  <div class=" d-flex profile-media align-items-top mb-2">
-                     <div class="profile-dots-pills border-primary mt-1"></div>
-                     <div class="ms-4">
-                        <h6 class=" mb-1">New order #8744152</h6>
-                        <span class="mb-0">11 JUL 11 PM</span>
-                     </div>
-                  </div>
-                  <div class=" d-flex profile-media align-items-top mb-2">
-                     <div class="profile-dots-pills border-primary mt-1"></div>
-                     <div class="ms-4">
-                        <h6 class=" mb-1">Affiliate Payout</h6>
-                        <span class="mb-0">11 JUL 7:64 PM</span>
-                     </div>
-                  </div>
-                  <div class=" d-flex profile-media align-items-top mb-2">
-                     <div class="profile-dots-pills border-primary mt-1"></div>
-                     <div class="ms-4">
-                        <h6 class=" mb-1">New user added</h6>
-                        <span class="mb-0">11 JUL 1:21 AM</span>
-                     </div>
-                  </div>
-                  <div class=" d-flex profile-media align-items-top mb-1">
-                     <div class="profile-dots-pills border-primary mt-1"></div>
-                     <div class="ms-4">
-                        <h6 class=" mb-1">Product added</h6>
-                        <span class="mb-0">11 JUL 4:50 AM</span>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div> --}}
-         </div>
-      </div>
+         
       {{-- <div class="col-md-12 col-lg-4">
          <div class="row">
             <div class="col-md-6 col-lg-12">

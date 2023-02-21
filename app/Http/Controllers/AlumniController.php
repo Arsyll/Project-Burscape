@@ -7,6 +7,9 @@ use App\Models\Jurusan;
 use App\Models\Role;
 use App\Models\User;
 use App\Imports\AlumniImport;
+use App\Models\DetailAlumni;
+use App\Models\Edukasi;
+use App\Models\PengalamanKerja;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\File;
@@ -93,6 +96,9 @@ class AlumniController extends Controller
 
         $createdUser = $user->create(array_merge($dataUser));
 
+        $createdUser->makeNotification('Ayo Lengkapi Profilmu!','Lengkapi Profilmu agar kamu bisa mulai melamar ke lowongan yang kamu pilih', $createdUser->id, 'http://127.0.0.1:8000/users/'.$createdUser->id.'/edit');
+        
+
         $role = new Role();
 
         $dataRole = [
@@ -117,6 +123,15 @@ class AlumniController extends Controller
      */
     public function show($id)
     {
+        $this->roleCheck("Admin");
+        $alumni = Alumni::findOrFail($id);
+        $detailStatus = DetailAlumni::with('alumni')->where('id_alumni','=',$id)->first();
+        $pengalaman = PengalamanKerja::with('alumni')->where('id_alumni','=',$alumni->id)->get();
+        $edukasi = Edukasi::with('alumni')->where('id_alumni','=',$alumni->id)->get();
+        return view('alumni.show',compact('alumni','detailStatus','pengalaman','edukasi'));
+    }
+
+    public function dataalumni($id){
         $this->roleCheck("Admin");
         return response()->json([
             'message' => 'detail jurusan!',
@@ -221,13 +236,14 @@ class AlumniController extends Controller
     public function destroy($id)
     {
         $this->roleCheck("Admin");
-        $alumni = Alumni::findOrFail($id);
+        $alumni = Alumni::with('role_alumni')->where('id','=',$id)->first();
         $path = storage_path('app/profile_alumni/'.$alumni->foto_profile);
         if (File::exists($path))
         {
             File::delete($path);
         }
-        User::findOrFail($alumni->role_alumni->user->id)->delete();
+        // dd($alumni->role_alumni);
+        User::findOrFail($alumni->role_alumni->user->id);
         $alumni->delete();
         return response()->json([
             'message' => 'Alumni berhasil dihapus!'
