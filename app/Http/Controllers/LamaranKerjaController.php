@@ -113,7 +113,7 @@ class LamaranKerjaController extends Controller
         $lamaran = new LamaranKerja();
         $lamaran->create(array_merge($dataLamaran));
 
-        Auth::user()->makeNotification('Selamat! Lamaran Anda Sudah Terkirim!','Lamaran yang anda kirim sedang dicek oleh pihak perusahaan. Info lamaran lebih lanjut akan dikirim jika pihak perusahaan sudah memproses lamaran anda.', Auth::user()->id);
+        Auth::user()->makeNotification('Selamat! Lamaran Anda Sudah Terkirim!','Lamaran yang anda kirim sedang dicek oleh pihak perusahaan. Info lamaran lebih lanjut akan dikirim jika pihak perusahaan sudah memproses lamaran anda.', Auth::user()->id,route('detail.lowongan',$request->id_lowongan));
 
         return back()->with('success','Kamu Telah Mendaftar Lowongan');
     }
@@ -126,21 +126,24 @@ class LamaranKerjaController extends Controller
                 Auth::user()->makeNotification(
                     'Maaf anda ditolak',
                     'Maaf anda ditolak di lowongan ' . $lamaran->lowongan->nama_lowongan,
-                    $lamaran->alumni->role_alumni->user->id
+                    $lamaran->alumni->role_alumni->user->id,
+                    route('detail.lowongan',$lamaran->id_lowongan)
                 );
                 break;
             case 'Diterima':
                 Auth::user()->makeNotification(
                     'Selamat anda diterima',
                     'Selamat anda diterima di lowongan ' . $lamaran->lowongan->nama_lowongan,
-                    $lamaran->alumni->role_alumni->user->id
+                    $lamaran->alumni->role_alumni->user->id,
+                    route('detail.lowongan',$lamaran->id_lowongan)
                 );
                 break;
             case 'Pending':
                 Auth::user()->makeNotification(
                     'Lamaran anda sedang dicek ulang',
                     'Lamaran anda di lowongan ' . $lamaran->lowongan->nama_lowongan . ' sedang dicek ulang.',
-                    $lamaran->alumni->role_alumni->user->id
+                    $lamaran->alumni->role_alumni->user->id,
+                    route('detail.lowongan',$lamaran->id_lowongan)
                 );
                 break;
         } 

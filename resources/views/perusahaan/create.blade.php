@@ -76,6 +76,18 @@
                            <input type="text" class="form-control" id="alamat" name="alamat" value="{{old('alamat')}}" placeholder="">
                        </div>
                    </div>
+                   <div class="col-sm-6">
+                       <div class="form-group">
+                           <label for="jurusan">Nama PIC Perusahaan<span class="text-danger">*</span></label>
+                           <input type="text" class="form-control" id="nama_pic" name="nama_pic" value="{{old('nama_pic')}}" placeholder="">
+                       </div>
+                   </div>
+                   <div class="col-sm-6">
+                       <div class="form-group">
+                           <label for="jurusan">Kontak PIC<span class="text-danger">*</span></label>
+                           <input type="number" class="form-control" id="kontak_pic" name="kontak_pic" value="{{old('kontak_pic')}}" placeholder="">
+                       </div>
+                   </div>
                    <div class="col-sm-4">
                         <div class="form-group">
                             <label for="alamat">Alamat Website</label>

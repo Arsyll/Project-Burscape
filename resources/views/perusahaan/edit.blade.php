@@ -82,7 +82,19 @@
                             <label for="alamat">Alamat Website</label>
                             <input type="text" class="form-control" value="{{empty(old('url')) ? $perusahaan->url : old('url')}}" id="url" name="url" placeholder="">
                         </div>
-                    </div>  
+                    </div> 
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="jurusan">Nama PIC Perusahaan<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="nama_pic" name="nama_pic" value="{{empty(old('nama_pic')) ? $perusahaan->nama_pic : old('nama_pic')}}" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="jurusan">Kontak PIC<span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="kontak_pic" name="kontak_pic" value="{{empty(old('kontak_pic')) ? $perusahaan->kontak_pic : old('kontak_pic')}}" placeholder="">
+                        </div>
+                    </div> 
                    <div class="col-sm-12">
                        <div class="form-group">
                            <div><span class="text-danger" id="deksripsi_error"></span></div>

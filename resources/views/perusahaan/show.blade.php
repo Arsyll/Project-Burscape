@@ -26,6 +26,8 @@
                           <p><strong>Telp</strong> : {{$perusahaan->no_telp}}</p>
                           <p><strong>Alamat</strong> : {{$perusahaan->alamat}}</p>
                           <p><strong>Alamat Website</strong> : {{$perusahaan->url ? $perusahaan->url : '-'}}</p>
+                          <p><strong>Nama PIC</strong> : {{$perusahaan->nama_pic}}</p>
+                          <p><strong>Kontak PIC</strong> : {{$perusahaan->kontak_pic}}</p>
                         </div>
                       </div>
                 </div>

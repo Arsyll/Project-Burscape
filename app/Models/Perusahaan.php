@@ -17,6 +17,8 @@ class Perusahaan extends Model
         'bidang',
         'alamat',
         'tentang',
+        'nama_pic',
+        'kontak_pic',
         'email_perusahaan',
         'foto_perusahaan',
         'url'

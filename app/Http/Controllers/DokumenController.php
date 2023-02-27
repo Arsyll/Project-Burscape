@@ -55,13 +55,11 @@ class DokumenController extends Controller
             'name_doc.required' => 'Nama Dokumen Harus Diisi.',
             'no_doc.required' => 'No Dokumen Harus Diisi.',
             'type_doc.required' => 'Tipe Dokumen Harus Diisi.',
-            'file_doc.required' => 'File Dokumen Harus Diisi.',
-            'file_doc.required' => 'File Dokumen Harus Diisi.',
             'file_doc.file' => 'File Dokumen Harus Diisi.',
         ]);
 
-        $loker_id = ['id_loker' => $request->id_loker ? $request->id_loker : ''];
-        $perusahaan_id = ['id_perusahaan' => $request->id_perusahaan ? $request->id_perusahaan : ''];
+        $loker_id = ['id_loker' => $request->id_loker ? $request->id_loker : null];
+        $perusahaan_id = ['id_perusahaan' => $request->id_perusahaan ? $request->id_perusahaan : null];
         if($request->hasFile('file_doc')){
             $newname = $request->name_doc.' '.date("ymdhis").'.'.$request->file('file_doc')->getClientOriginalExtension();
             $request->file('file_doc')->storeAs('doc_folder', $newname);
@@ -112,16 +110,16 @@ class DokumenController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->roleCheck("Admin");
+        // $this->roleCheck("Admin");
         $input = $request->validate([
             'name_doc' => 'required',
             'no_doc' => 'required',
             'type_doc' => 'required',
         ]);
-        
+        // dd($id);
         $dokumen = Dokumen::findOrFail($id);
-        $loker_id = ['id_loker' => $request->id_loker ? $request->id_loker : ''];
-        $perusahaan_id = ['id_perusahaan' => $request->id_perusahaan ? $request->id_perusahaan : ''];
+        $loker_id = ['id_loker' => $request->id_loker ? $request->id_loker : null];
+        $perusahaan_id = ['id_perusahaan' => $request->id_perusahaan ? $request->id_perusahaan : null];
         $oldFile = $dokumen->file_doc;
         $path = storage_path('app/doc_folder/'.$oldFile);
         if($request->hasFile('file_doc')){

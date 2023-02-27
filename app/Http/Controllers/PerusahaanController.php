@@ -38,12 +38,17 @@ class PerusahaanController extends Controller
             'email_perusahaan' => 'required|email|unique:users,email',
             'no_telp' => 'required|numeric|min:0',
             'alamat' => 'required',
+            'kontak_pic' => 'required',
+            'nama_pic' => 'required',
+            'alamat' => 'required',
             'tentang' => 'required',
             'password' => 'required|confirmed|min:8'
         ],[
             'nama.required' => 'Nama Perusahaan Harus Diisi',
             'bidang.required' => 'Bidang Harus Terpilih',
             'email_perusahaan.required' => 'Email Perusahaan Harus Diisi',
+            'nama_pic.required' => 'Nama PIC Perusahaan Harus Diisi',
+            'kontak_pic.required' => 'Kontak PIC Perusahaan Harus Diisi',
             'email_perusahaan.unique' => 'Email Sudah Terpakai.',
             'password.required' => 'Password Harus Diisi.',
             'password.confirmation' => 'Password Confirmation Tidak Sesuai.',
@@ -64,6 +69,8 @@ class PerusahaanController extends Controller
             'email_perusahaan' => $request->email_perusahaan,
             'no_telp' => $request->no_telp,
             'alamat' => $request->alamat,
+            'kontak_pic' => $request->kontak_pic,
+            'nama_pic' => $request->nama_pic,
             'tentang' => $request->tentang,
             'foto_perusahaan' => $newname ?? '',
             'url' => $request->url ?? ''
@@ -117,6 +124,8 @@ class PerusahaanController extends Controller
             'email_perusahaan' => 'required|email|unique:users,email,'.$perusahaan->role_perusahaan->user->id,
             'no_telp' => 'required|numeric|min:0',
             'alamat' => 'required',
+            'kontak_pic' => 'required',
+            'nama_pic' => 'required',
             'tentang' => 'required',
             'password' => 'nullable|confirmed|min:8'
         ],[
@@ -124,6 +133,8 @@ class PerusahaanController extends Controller
             'bidang.required' => 'Bidang Harus Terpilih',
             'email_perusahaan.required' => 'Email Perusahaan Harus Diisi',
             'email_perusahaan.unique' => 'Email Sudah Terpakai.',
+            'nama_pic.required' => 'Nama PIC Perusahaan Harus Diisi',
+            'kontak_pic.required' => 'Kontak PIC Perusahaan Harus Diisi',
             'password.confirmation' => 'Password Confirmation Tidak Sesuai.',
             'password.min' => 'Password Harus Memiliki 8 Karakter.',
             'no_telp.required' => 'No Telp Harus Diisi',
@@ -148,6 +159,8 @@ class PerusahaanController extends Controller
             'email_perusahaan' => $request->email_perusahaan,
             'no_telp' => $request->no_telp,
             'alamat' => $request->alamat,
+            'kontak_pic' => $request->kontak_pic,
+            'nama_pic' => $request->nama_pic,
             'tentang' => $request->tentang,
             'foto_perusahaan' => $newname ?? $perusahaan->foto_perusahaan,
             'url' => $request->url ?? ''
