@@ -33,7 +33,7 @@
                                     <div class="d-flex justify-content-start">
                                         <div class="row d-flex justify-align-center">
                                             <img src="{{ $p->profile_image()}}"
-                                                alt="" style="max-width:100%;max-height:100%;height:100px;width:100px;" class="ms-2 mt-2 img-rounded me-4 mb-2">
+                                                alt="" style="max-width:100%;max-height:100%;height:130px;width:130px; object-fit:cover;" class="ms-2 mt-2 img-rounded me-4 mb-2">
                                         </div>
                                         <div class="col d-flex mt-4 mx-0 flex-wrap">
                                             <div class="header-title">

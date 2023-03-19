@@ -126,6 +126,7 @@ class UserRequest extends FormRequest
             'password.min'  =>'Password Minimal Harus Memiliki 8 Karakter',
             'jabatan.required'  =>'Jabatan Harus Diisi',
             'status.required'  =>'Status Harus Diisi',
+            'resume.max'  =>'Ukuran File Resume Tidak Boleh Lebih Dari 4 Mb',
             'tanggal_lahir.required'  =>'Tanggal Lahir Harus Diisi',
             'angkatan.required'  =>'Angkatan Harus Diisi',
             'id_jurusan.required'  =>'Jurusan Harus Terpilih',

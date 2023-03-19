@@ -48,7 +48,7 @@ Route::get('/about',[HomeController::class, 'about'])->name('about');
 Route::post('/feedback-store',[FeedBackController::class,'store'])->name('feedback.store');
 
 //UI Pages Routs
-Route::get('/uisheet', [HomeController::class, 'uisheet'])->name('uisheet');
+// Route::get('/uisheet', [HomeController::class, 'uisheet'])->name('uisheet');
 
 Route::group(['middleware' => 'auth'], function () {
     // Permission Module

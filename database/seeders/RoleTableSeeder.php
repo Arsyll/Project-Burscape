@@ -247,6 +247,72 @@ class RoleTableSeeder extends Seeder
                 'id_perusahaan' => null,
                 'id_alumni' => 36
             ],
+            [
+                'id_user' => 39,
+                'id_admin' => null,
+                'id_perusahaan' => 2,
+                'id_alumni' => null
+            ],
+            [
+                'id_user' => 40,
+                'id_admin' => null,
+                'id_perusahaan' => 3,
+                'id_alumni' => null
+            ],
+            [
+                'id_user' => 41,
+                'id_admin' => null,
+                'id_perusahaan' => 4,
+                'id_alumni' => null
+            ],
+            [
+                'id_user' => 42,
+                'id_admin' => null,
+                'id_perusahaan' => 5,
+                'id_alumni' => null
+            ],
+            [
+                'id_user' => 43,
+                'id_admin' => null,
+                'id_perusahaan' => 6,
+                'id_alumni' => null
+            ],
+            [
+                'id_user' => 44,
+                'id_admin' => null,
+                'id_perusahaan' => 7,
+                'id_alumni' => null
+            ],
+            [
+                'id_user' => 45,
+                'id_admin' => null,
+                'id_perusahaan' => 8,
+                'id_alumni' => null
+            ],
+            [
+                'id_user' => 46,
+                'id_admin' => null,
+                'id_perusahaan' => 9,
+                'id_alumni' => null
+            ],
+            [
+                'id_user' => 47,
+                'id_admin' => null,
+                'id_perusahaan' => 10,
+                'id_alumni' => null
+            ],
+            [
+                'id_user' => 48,
+                'id_admin' => null,
+                'id_perusahaan' => 11,
+                'id_alumni' => null
+            ],
+            [
+                'id_user' => 49,
+                'id_admin' => null,
+                'id_perusahaan' => 12,
+                'id_alumni' => null
+            ],
         ];
 
         foreach ($roles as $value) {

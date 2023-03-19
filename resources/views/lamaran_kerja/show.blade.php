@@ -18,7 +18,7 @@
                     <div class="d-flex flex-wrap align-items-center">
                         <div class="profile-img position-relative me-3 mb-5 mb-lg-3">
                             <img src="{{ $lamaran->alumni->profile_image() }}" alt="User-Profile"
-                                class="theme-color-default-img img-fluid rounded-pill avatar-100">
+                                class="theme-color-default-img img-fluid rounded-pill avatar-100" style="object-fit:cover;">
                         </div>
                     </div>
                     <div class="d-flex justify-content-between">

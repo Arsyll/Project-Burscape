@@ -178,7 +178,7 @@
             @if (auth()->user()->foto_profile() == asset('storage/profile_alumni/') || auth()->user()->foto_profile() == asset('storage/profile_perusahaan/') || auth()->user()->foto_profile() == asset('storage/profile_admin/'))
               <img src="{{asset('images/avatars/01.png')}}" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
             @else
-              <img src="{{ auth()->user()->foto_profile() }}" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
+              <img src="{{ auth()->user()->foto_profile() }}" alt="User-Profile" class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded" style="object-fit:cover;">
             @endif
             <div class="caption ms-3 ">
                 <h6 class="mb-0 caption-title">{{ auth()->user()->full_name() ?? 'Austin Robertson'  }}</h6>

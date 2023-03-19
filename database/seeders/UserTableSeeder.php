@@ -32,9 +32,9 @@ class UserTableSeeder extends Seeder
                 'role' => 'Alumni',
             ],
             [
-                'username' => 'perusahaan',
-                'email' => 'perusahaan@email.com',
-                'password' => bcrypt('perusahaan'),
+                'username' => 'PT. Neuronworks',
+                'email' => 'neuronworks@email.com',
+                'password' => bcrypt('neuronworks'),
                 'email_verified_at' => now(),
                 'role' => 'Perusahaan',
             ],
@@ -283,13 +283,90 @@ class UserTableSeeder extends Seeder
                 'email_verified_at' => now(),
                 'role' => 'Alumni',
             ],
+            [
+                'username' => 'Birutekno Inc',
+                'email' => 'birutekno@email.com',
+                'password' => bcrypt('birutekno'),
+                'email_verified_at' => now(),
+                'role' => 'Perusahaan',
+            ],
+            [
+                'username' => 'WebHade Creative',
+                'email' => 'webhadecreative@email.com',
+                'password' => bcrypt('webhade'),
+                'email_verified_at' => now(),
+                'role' => 'Perusahaan',
+            ],
+            [
+                'username' => 'Jagad Creative',
+                'email' => 'jagadcreative@gmail.com',
+                'password' => bcrypt('jagadcreative'),
+                'email_verified_at' => now(),
+                'role' => 'Perusahaan',
+            ],
+            [
+                'username' => 'CV. Triwikrama',
+                'email' => 'triwikrama@email.com',
+                'password' => bcrypt('triwikrama'),
+                'email_verified_at' => now(),
+                'role' => 'Perusahaan',
+            ],
+            [
+                'username' => 'PT. Someah Creative',
+                'email' => 'someahcreative@email.com',
+                'password' => bcrypt('someah'),
+                'email_verified_at' => now(),
+                'role' => 'Perusahaan',
+            ],
+            [
+                'username' => 'PT. Fujicon Priangan Perdana',
+                'email' => 'fujicon@email.com',
+                'password' => bcrypt('fujicon'),
+                'email_verified_at' => now(),
+                'role' => 'Perusahaan',
+            ],
+            [
+                'username' => 'PT. Citra Niaga Abadi',
+                'email' => 'citraniaga@email.com',
+                'password' => bcrypt('citraniaga'),
+                'email_verified_at' => now(),
+                'role' => 'Perusahaan',
+            ],
+            [
+                'username' => 'CyberLabs',
+                'email' => 'cyberlabs@email.com',
+                'password' => bcrypt('cyberlabs'),
+                'email_verified_at' => now(),
+                'role' => 'Perusahaan',
+            ],
+            [
+                'username' => 'PT. Samudra Aplikasi Indonesia',
+                'email' => 'samudraaplikasi@email.com',
+                'password' => bcrypt('samudraaplikasi'),
+                'email_verified_at' => now(),
+                'role' => 'Perusahaan',
+            ],
+            [
+                'username' => 'Sagara Teknologi',
+                'email' => 'sagara@email.com',
+                'password' => bcrypt('sagara'),
+                'email_verified_at' => now(),
+                'role' => 'Perusahaan',
+            ],
+            [
+                'username' => 'PT. Sinar Baru Rajawali',
+                'email' => 'sinarbaru@email.com',
+                'password' => bcrypt('sinarbaru'),
+                'email_verified_at' => now(),
+                'role' => 'Perusahaan',
+            ],
         ];
         foreach ($users as $value) {
             $user = User::create($value);
             if($user->role == "Alumni"){
                 Log::info(route('users.edit' , $user->id));
                 $user->makeNotification('Ayo Lengkapi Profilmu!','Lengkapi Profilmu agar kamu bisa mulai melamar ke lowongan yang kamu pilih', $user->id,'http://127.0.0.1:8000/users/'.$user->id.'/edit');
-            }
+                }
         }
     }
 }

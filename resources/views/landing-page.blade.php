@@ -111,7 +111,7 @@
                                     <div class="d-flex justify-content-start">
                                         <div class="row d-flex justify-align-center">
                                             <img src="{{ $l->perusahaan->profile_image() }}" alt=""
-                                                style="max-width:100%;max-height:100%;height:120px;width:120px;"
+                                                style=" height:100px;width:130px;"
                                                 class="ms-2 mt-2 img-rounded me-4 mb-2">
                                         </div>
                                         <div class="col d-flex mt-4 mx-0 flex-wrap">
@@ -127,15 +127,22 @@
                                     </div>
                                     <div class="col">
                                         <div class="mt-2" style="margin-left: 30px">
-                                            <div class="ms-0">
-                                                <h6 class="mb-3 ">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
-                                                        class="me-3 ms-1" width="25px">
-                                                        <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                                                        <path
-                                                            d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z" />
-                                                    </svg>{{ $l->alamat }}
-                                                </h6>
+                                            <div class="ms-0 mb-2">
+                                                <div class="row d-flex">
+                                                    <div class="col-1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
+                                                            class="me-3 ms-1" width="25px">
+                                                            <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                            <path
+                                                                d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z" />
+                                                        </svg>    
+                                                    </div>
+                                                    <div class="col-10">
+                                                        <h6 class="mt-1 ms-2 ">
+                                                            {{ $l->alamat }}
+                                                        </h6>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="ms-0">
                                                 <h6 class="mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="me-2 "
@@ -222,7 +229,7 @@
                                 <div class="d-flex justify-content-start">
                                     <div class="row d-flex justify-align-center">
                                         <img src="{{ $p->profile_image() }}" alt=""
-                                            style="max-width:100%;max-height:100%;height:120px;width:120px;"
+                                            style="height:100px;width:130px;"
                                             class="ms-2 mt-2 img-rounded me-4 mb-2">
                                     </div>
                                     <div class="col d-flex mt-4 mx-0 flex-wrap">
@@ -239,12 +246,20 @@
                                 <div class="col">
                                     <div class="mt-2" style="margin-left: 30px">
                                         <div class="ms-0">
-                                            <h6 class="mb-3 "><svg xmlns="http://www.w3.org/2000/svg" class="ms-1"
-                                                    viewBox="0 0 384 512" width="23px">
-                                                    <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                                                    <path
-                                                        d="M384 0H0V512H144V384h96V512H384V0zM64 224h64v64H64V224zm160 0v64H160V224h64zm32 0h64v64H256V224zM128 96v64H64V96h64zm32 0h64v64H160V96zm160 0v64H256V96h64z" />
-                                                </svg> <span style="visibility: hidden;">..</span>{{ $p->alamat }}</h6>
+                                            <div class="row d-flex">
+                                                <div class="col-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="ms-1"
+                                                        viewBox="0 0 384 512" width="23px">
+                                                        <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                        <path
+                                                            d="M384 0H0V512H144V384h96V512H384V0zM64 224h64v64H64V224zm160 0v64H160V224h64zm32 0h64v64H256V224zM128 96v64H64V96h64zm32 0h64v64H160V96zm160 0v64H256V96h64z" />
+                                                    </svg> 
+                                                </div>
+                                                <div class="col-10">
+                                                    <h6 class="mb-3 ms-1">
+                                                        <span style="">{{ $p->alamat }}</span></h6>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="ms-0">
                                             <h6 class="mb-4"><svg xmlns="http://www.w3.org/2000/svg"

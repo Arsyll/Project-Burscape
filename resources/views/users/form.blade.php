@@ -314,7 +314,7 @@
                               {{ Form::file('foto_profile', ['class' => 'form-control']) }}
                            </div>
                            <div class="form-group col-md-6">
-                              <label class="form-label" for="add2">CV / Resume : </label><br>
+                              <label class="form-label" for="add2">CV / Resume (Max 4 MB): </label><br>
                               {{ Form::file('resume', ['class' => 'form-control']) }}
                            </div>
                         </div>

@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-body">
                     {{-- <div class="row flex-lg-row g-5 py-2"> --}}
-                        <div class="col-2 col-sm-3 col-lg-2 ">
+                        <div class="col-2 col-sm-3 col-lg-2 mb-3 ms-4">
                             {{-- <svg class="bd-placeholder-img mb-3" width="200" height="200"
                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label=""
                                 preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -193,7 +193,7 @@
 
                                                                                     @if (empty(auth()->user()->user_role->alumni->tentang) || empty(auth()->user()->user_role->alumni->foto_profile) || empty(auth()->user()->user_role->alumni->id_jurusan) || auth()->user()->user_role->alumni->edukasi->count() == 0 || auth()->user()->user_role->alumni->pengalaman->count() == 0)
                                                                                     <hr>
-                                                                                    <p class="me-2">Lengkapi Profil Terlebih Dahulu | <a href="{{route('users.edit',auth()->user()->id)}}">Ubah Resume</a></p>
+                                                                                    <p class="me-2">Lengkapi Profil Terlebih Dahulu | <a href="{{route('users.edit',auth()->user()->id)}}">Lengkapi Profile</a></p>
                                                                                     <div class="modal-footer mt-5">
                                                                                         <button type="button" class="btn btn-secondary"
                                                                                         data-bs-dismiss="modal">Close</button>
@@ -310,6 +310,7 @@
 
         </div>
         <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
+        @if(!empty(auth()->user()))
         @if((auth()->user()->role == "Alumni"));
         <script>
             $(document).on('click', '#del-btn', function () {
@@ -344,6 +345,7 @@
                 });
             });
             </script>
+        @endif
         @endif
             <script>
             function myFunction() {
